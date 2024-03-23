@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Projects</key>
+	<array>
+		<dict>
+			<key>Name</key>
+			<string>NootedRed</string>
+			<key>Output</key>
+			<string>build/Release</string>
+			<key>Build Command</key>
+			<string>xcodebuild clean build -configuration Release</string>
+			<key>Path from Directory</key>
+			<string>NootedRed</string>
+			<key>Dependencies</key>
+			<array>
+				<dict>
+					<key>Name</key>
+					<string>Lilu (Debug)</string>
+					<key>Required At</key>
+					<string>Lilu.kext</string>
+					<key>Required Output</key>
+					<string>Lilu.kext</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Lilu</string>
+			<key>Build Command</key>
+			<string>xcodebuild -configuration Release</string>
+			<key>Path from Directory</key>
+			<string>Lilu</string>
+			<key>Output</key>
+			<string>build/Release</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Lilu (Debug)</string>
+			<key>Build Command</key>
+			<string>xcodebuild -configuration Debug</string>
+			<key>Path from Directory</key>
+			<string>Lilu</string>
+			<key>Output</key>
+			<string>build/Debug</string>
+		</dict>
+	</array>
+</dict>
+</plist>
