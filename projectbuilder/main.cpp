@@ -1,5 +1,5 @@
 /*
- * ProjectBuilder, an automated build system using the property list format.
+ * ProjectBuilder, an automated build system wrapper using the property list format.
  *
  * Copyright (c) 2024 Zormeister.
  *
