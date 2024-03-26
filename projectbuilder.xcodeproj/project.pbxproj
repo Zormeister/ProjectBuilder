@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		F04245FB2B8066CC00418707 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F04245FA2B8066CC00418707 /* main.cpp */; };
+		F0884D5C2BB3582B00716DF5 /* libplist++-2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F0884D5B2BB3582B00716DF5 /* libplist++-2.0.dylib */; };
+		F0884D5F2BB359A800716DF5 /* libplist++-2.0.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F0884D5B2BB3582B00716DF5 /* libplist++-2.0.dylib */; };
+		F0884D612BB359BA00716DF5 /* libplist-2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F0884D602BB359BA00716DF5 /* libplist-2.0.dylib */; };
+		F0884D622BB359BA00716DF5 /* libplist-2.0.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F0884D602BB359BA00716DF5 /* libplist-2.0.dylib */; };
 		F0D2C44F2B8AD2E400E71E8A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */; };
 		F0D2C4502B8AD2E400E71E8A /* CoreFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -28,6 +32,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F0884D622BB359BA00716DF5 /* libplist-2.0.dylib in Embed Frameworks */,
+				F0884D5F2BB359A800716DF5 /* libplist++-2.0.dylib in Embed Frameworks */,
 				F0D2C4502B8AD2E400E71E8A /* CoreFoundation.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -38,6 +44,10 @@
 /* Begin PBXFileReference section */
 		F04245F72B8066CC00418707 /* projectbuilder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = projectbuilder; sourceTree = BUILT_PRODUCTS_DIR; };
 		F04245FA2B8066CC00418707 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F0884D5B2BB3582B00716DF5 /* libplist++-2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libplist++-2.0.dylib"; path = "external/libplist++-2.0.dylib"; sourceTree = "<group>"; };
+		F0884D5D2BB358F900716DF5 /* projectbuilderDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = projectbuilderDebug.entitlements; sourceTree = "<group>"; };
+		F0884D5E2BB3595800716DF5 /* projectbuilder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = projectbuilder.entitlements; sourceTree = "<group>"; };
+		F0884D602BB359BA00716DF5 /* libplist-2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libplist-2.0.dylib"; path = "external/libplist-2.0.dylib"; sourceTree = "<group>"; };
 		F0AC237D2BAF757600737EE0 /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F0FE16582B81AEEA006B4548 /* ExamplePlist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExamplePlist.plist; sourceTree = "<group>"; };
@@ -48,6 +58,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0884D612BB359BA00716DF5 /* libplist-2.0.dylib in Frameworks */,
+				F0884D5C2BB3582B00716DF5 /* libplist++-2.0.dylib in Frameworks */,
 				F0D2C44F2B8AD2E400E71E8A /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,6 +89,8 @@
 		F04245F92B8066CC00418707 /* projectbuilder */ = {
 			isa = PBXGroup;
 			children = (
+				F0884D5E2BB3595800716DF5 /* projectbuilder.entitlements */,
+				F0884D5D2BB358F900716DF5 /* projectbuilderDebug.entitlements */,
 				F04245FA2B8066CC00418707 /* main.cpp */,
 			);
 			path = projectbuilder;
@@ -85,6 +99,8 @@
 		F0D2C44C2B8AD2DE00E71E8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F0884D602BB359BA00716DF5 /* libplist-2.0.dylib */,
+				F0884D5B2BB3582B00716DF5 /* libplist++-2.0.dylib */,
 				F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */,
 			);
 			name = Frameworks;
@@ -98,6 +114,7 @@
 			buildConfigurationList = F04245FE2B8066CC00418707 /* Build configuration list for PBXNativeTarget "projectbuilder" */;
 			buildPhases = (
 				F04245F32B8066CC00418707 /* Sources */,
+				F0884D5A2BB356FF00716DF5 /* ShellScript */,
 				F04245F42B8066CC00418707 /* Frameworks */,
 				F04245F52B8066CC00418707 /* CopyFiles */,
 				F0D2C4512B8AD2E400E71E8A /* Embed Frameworks */,
@@ -142,6 +159,27 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F0884D5A2BB356FF00716DF5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${PROJECT_DIR}/external/libplist++-2.0.4.dylib",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "${PROJECT_DIR}/external/buildlibs.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F04245F32B8066CC00418707 /* Sources */ = {
@@ -290,19 +328,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CODE_SIGN_ENTITLEMENTS = projectbuilder/projectbuilderDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/usr/local/**",
+					"$(PROJECT_DIR)/external",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_LDFLAGS = (
-					"-L/usr/local/lib",
 					"-lplist++",
 					"-lplist",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 			};
 			name = Debug;
 		};
@@ -310,19 +351,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CODE_SIGN_ENTITLEMENTS = projectbuilder/projectbuilder.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/usr/local/**",
+					"$(PROJECT_DIR)/external",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_LDFLAGS = (
-					"-L/usr/local/lib",
 					"-lplist++",
 					"-lplist",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 			};
 			name = Release;
 		};

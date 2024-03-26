@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cd $PWD/libplist
+cd $PWD/external/libplist
 ./autogen.sh
 make
 make DESTDIR=$PWD/DESTDIR install
-cp DESTDIR/usr/local/lib/*.dylib ./
+cp DESTDIR/usr/local/lib/*.dylib $PWD/../
