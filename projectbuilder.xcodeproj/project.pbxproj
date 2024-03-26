@@ -45,8 +45,6 @@
 		F04245F72B8066CC00418707 /* projectbuilder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = projectbuilder; sourceTree = BUILT_PRODUCTS_DIR; };
 		F04245FA2B8066CC00418707 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F0884D5B2BB3582B00716DF5 /* libplist++-2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libplist++-2.0.dylib"; path = "external/libplist++-2.0.dylib"; sourceTree = "<group>"; };
-		F0884D5D2BB358F900716DF5 /* projectbuilderDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = projectbuilderDebug.entitlements; sourceTree = "<group>"; };
-		F0884D5E2BB3595800716DF5 /* projectbuilder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = projectbuilder.entitlements; sourceTree = "<group>"; };
 		F0884D602BB359BA00716DF5 /* libplist-2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libplist-2.0.dylib"; path = "external/libplist-2.0.dylib"; sourceTree = "<group>"; };
 		F0AC237D2BAF757600737EE0 /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -89,8 +87,6 @@
 		F04245F92B8066CC00418707 /* projectbuilder */ = {
 			isa = PBXGroup;
 			children = (
-				F0884D5E2BB3595800716DF5 /* projectbuilder.entitlements */,
-				F0884D5D2BB358F900716DF5 /* projectbuilderDebug.entitlements */,
 				F04245FA2B8066CC00418707 /* main.cpp */,
 			);
 			path = projectbuilder;
@@ -253,11 +249,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-L/usr/local/lib",
-					"-lplist++",
-					"-lplist",
-				);
+				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -315,11 +307,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = (
-					"-L/usr/local/lib",
-					"-lplist++",
-					"-lplist",
-				);
+				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -327,21 +315,15 @@
 		F04245FF2B8066CC00418707 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CODE_SIGN_ENTITLEMENTS = projectbuilder/projectbuilderDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = c11;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/usr/local/**",
-					"$(PROJECT_DIR)/external",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/external";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				OTHER_LDFLAGS = (
-					"-lplist++",
-					"-lplist",
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 			};
@@ -350,6 +332,7 @@
 		F04246002B8066CC00418707 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CODE_SIGN_ENTITLEMENTS = projectbuilder/projectbuilder.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -357,14 +340,10 @@
 				GCC_C_LANGUAGE_STANDARD = c11;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/usr/local/**",
 					"$(PROJECT_DIR)/external",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				OTHER_LDFLAGS = (
-					"-lplist++",
-					"-lplist",
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 			};

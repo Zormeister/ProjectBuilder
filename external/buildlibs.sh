@@ -5,3 +5,5 @@ cd $PWD/external/libplist
 make
 make DESTDIR=$PWD/DESTDIR install
 cp DESTDIR/usr/local/lib/*.dylib $PWD/../
+ln -sf $PWD/../libplist++-2.0.dylib  $PWD/../libplist++.dylib
+ln -sf $PWD/../libplist-2.0.dylib  $PWD/../libplist.dylib
