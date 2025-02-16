@@ -2,48 +2,112 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Config</key>
+	<dict>
+		<key>AbortOnError</key>
+		<false/>
+	</dict>
 	<key>Projects</key>
 	<array>
 		<dict>
 			<key>Name</key>
-			<string>NootedRed</string>
-			<key>Output</key>
-			<string>build/Release</string>
-			<key>Build Command</key>
-			<string>xcodebuild clean build -configuration Release</string>
-			<key>Path from Directory</key>
-			<string>NootedRed</string>
-			<key>Dependencies</key>
+			<string>darwin_host_toolchain</string>
+			<key>Destination</key>
+			<string>/Library/Developer/Toolchains/Darwin19.xctoolchain</string>
+			<key>SubProjects</key>
 			<array>
 				<dict>
 					<key>Name</key>
-					<string>Lilu (Debug)</string>
-					<key>Required At</key>
-					<string>Lilu.kext</string>
-					<key>Required Output</key>
-					<string>Lilu.kext</string>
+					<string>bootstrap_cmds_host</string>
+					<key>Path</key>
+					<string>Darwin/19.6/Upstream/bootstrap_cmds</string>
+					<key>BuildSystem</key>
+					<string>Xcode</string>
+				</dict>
+				<dict>
+					<key>BuildSystem</key>
+					<string>CMake</string>
+					<key>Name</key>
+					<string>TAPI</string>
+					<key>Path</key>
+					<string>Darwin/DevTools/11.3.1/tapi</string>
+					<key>EmbedIntoProject</key>
+					<string>LLVM</string>
+					<key>Patches</key>
+					<array>
+						<string>tapi-1100.0.11-APIVerifier-backport.patch</string>
+						<string>tapi-1100.0.11-DriverKit.patch</string>
+					</array>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>LLVM</string>
+					<key>Path</key>
+					<string>Darwin/DevTools/11.3.1/llvm</string>
+					<key>Patches</key>
+					<array>
+						<string>llvm-20190104-DriverKit.patch</string>
+					</array>
+					<key>BuildSystem</key>
+					<string>CMake</string>
+					<key>CMakeVariables</key>
+					<array/>
 				</dict>
 			</array>
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>Lilu</string>
-			<key>Build Command</key>
-			<string>xcodebuild -configuration Release</string>
-			<key>Path from Directory</key>
-			<string>Lilu</string>
-			<key>Output</key>
-			<string>build/Release</string>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>Lilu (Debug)</string>
-			<key>Build Command</key>
-			<string>xcodebuild -configuration Debug</string>
-			<key>Path from Directory</key>
-			<string>Lilu</string>
-			<key>Output</key>
-			<string>build/Debug</string>
+			<string>darwin_sdk</string>
+			<key>Destination</key>
+			<string>/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.internal.sdk</string>
+			<key>SubProjects</key>
+			<array>
+				<dict>
+					<key>Name</key>
+					<string>sdk_init</string>
+					<key>Path</key>
+					<string>Darwin/19.6/Zormeister/SDKInit</string>
+					<key>BuildSystem</key>
+					<string>Script</string>
+					<key>ScriptPath</key>
+					<string>setup_sdk.sh</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>architecture_headers</string>
+					<key>Path</key>
+					<string>Darwin/19.6/Upstream/architecture</string>
+					<key>BuildSystem</key>
+					<string>Makefile</string>
+					<key>MakefileTarget</key>
+					<string>installhdrs</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>Libc_headers</string>
+					<key>Path</key>
+					<string>Darwin/19.6/Upstream/Libc</string>
+					<key>BuildSystem</key>
+					<string>Xcode</string>
+					<key>Action</key>
+					<string>installhdrs</string>
+					<key>Target</key>
+					<string>libc static</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>Libmacho_headers</string>
+					<key>ExternalRepository</key>
+					<dict>
+						<key>Type</key>
+						<string>Git</string>
+						<key>URL</key>
+						<string>https://github.com/apple-oss-distributions/cctools</string>
+						<key>Tag</key>
+						<string>cctools-</string>
+					</dict>
+				</dict>
+			</array>
 		</dict>
 	</array>
 </dict>

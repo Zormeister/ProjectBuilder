@@ -1,0 +1,20 @@
+// Copyright (C) 2024-2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
+
+#pragma once
+#include <CoreFoundation/CoreFoundation.h>
+
+typedef struct _PBProject *PBProjectRef;
+
+/* NEW: Sub-Projects. Added in the overhaul */
+CF_EXPORT CFArrayRef PBProjectGetSubProjects(PBProjectRef project);
+
+/* NEW: Patch applier. Added in the overhaul */
+CF_EXPORT CFArrayRef PBProjectGetPatches(PBProjectRef project);
+
+CF_EXPORT CFStringRef PBProjectGetName(PBProjectRef project);
+
+CF_EXPORT bool PBProjectIsExternalRepo(PBProjectRef project);
+
+CF_EXPORT enum PBBuilderError PBProjectBuildProject(PBProjectRef project);
+
+CF_EXPORT CFArrayRef PBProjectGetDependencies(PBProjectRef project);
