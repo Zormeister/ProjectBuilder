@@ -13,8 +13,10 @@ CF_EXPORT CFArrayRef PBProjectGetPatches(PBProjectRef project);
 
 CF_EXPORT CFStringRef PBProjectGetName(PBProjectRef project);
 
-CF_EXPORT bool PBProjectIsExternalRepo(PBProjectRef project);
+CF_EXPORT CFBooleanRef PBProjectIsExternalRepo(PBProjectRef project);
 
-CF_EXPORT enum PBBuilderError PBProjectBuildProject(PBProjectRef project);
+CF_EXPORT CFBooleanRef PBProjectBuildProject(PBProjectRef project);
+
+CF_EXPORT CFBooleanRef PBProjectIsBuilt(PBProjectRef project);
 
 CF_EXPORT CFArrayRef PBProjectGetDependencies(PBProjectRef project);

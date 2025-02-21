@@ -14,4 +14,4 @@ struct _PBProject {
 };
 
 
-bool PBProjectIsExternalRepo(PBProjectRef project) { return project->_externalRepo != NULL; }
+CFBooleanRef PBProjectIsExternalRepo(PBProjectRef project) { return project->_externalRepo == NULL ? kCFBooleanFalse : kCFBooleanTrue; }

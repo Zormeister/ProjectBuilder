@@ -76,7 +76,8 @@ int main(int argc, const char * argv[]) {
     
     CFPropertyListRef bcd = SCPreferencesGetValue(pref, CFSTR("BuildCacheDirectory"));
     if (bcd && CFGetTypeID(bcd) == CFStringGetTypeID()) {
-        
+        CFStringRef str = (CFStringRef)bcd;
+        CFStringGetCStringPtr(str, kCFStringEncodingASCII);
     }
     
     

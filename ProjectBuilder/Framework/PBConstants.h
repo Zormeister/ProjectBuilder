@@ -65,7 +65,7 @@ CF_EXPORT const CFStringRef kPBManifestEmbedIntoProjectKey;
  * BuildSystem: Tells ProjectBuilder what to expect.
  * Valid values as of ProjectBuilder-138:
  * - Makefile
- * - XcodeProject
+ * - Xcode
  * - Script
  * - CMake
  *
@@ -79,5 +79,18 @@ CF_EXPORT const CFStringRef kPBManifestBuildSystemMakefile;
 CF_EXPORT const CFStringRef kPBManifestBuildSystemXcodeProject;
 CF_EXPORT const CFStringRef kPBManifestBuildSystemScript;
 CF_EXPORT const CFStringRef kPBManifestBuildSystemCMake;
+
+/*
+ * SetXBSVariables: tells ProjectBuilder to set relevant XBS/DarwinBuild variables
+ * such as but not limited to:
+ *  - RC_ARCHS
+ *  - RC_JASPER
+ *  - RC_ProjectVersion
+ *  - RC_ProjectSourceVersion
+ *  - RC_ProjectName
+ *  - RC_CFLAGS
+ */
+
+CF_EXPORT const CFStringRef kPBManifestSetXBSVariablesKey;
 
 #endif /* PROJECTBUILDER_PBCONSTANTS_H */

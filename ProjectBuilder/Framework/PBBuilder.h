@@ -25,6 +25,6 @@ enum PBBuilderState {
     MovingToNextProject,
 };
 
-PBBuilderRef PBBuilderCreateBuildQueue(PBBuildQueueRef buildQueue);
+CF_EXPORT PBBuilderRef PBBuilderCreateBuildQueue(PBBuildQueueRef buildQueue);
 
 #endif

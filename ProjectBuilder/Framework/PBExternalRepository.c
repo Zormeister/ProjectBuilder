@@ -8,4 +8,5 @@ struct _PBExternalRepository {
     
     CFURLRef _repoURL;
     CFStringRef _repoName;
+    CFStringRef _repoTag;
 };

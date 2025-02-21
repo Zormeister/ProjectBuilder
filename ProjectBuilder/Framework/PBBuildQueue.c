@@ -1,7 +1,5 @@
 // Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
-#include <AssertMacros.h>
-
 #include <ProjectBuilder/PBBuildQueue.h>
 #include <ProjectBuilder/PBRuntime.h>
 
@@ -15,8 +13,17 @@ struct _PBBuildQueue {
 };
 
 PBProjectRef __PBBQFindProjectInMap(PBBuildQueueRef bq, CFStringRef name) {
-    __Require_String(bq->_projectMap != NULL, fail_gracefully, "");
-    
-fail_gracefully:
+    if (bq->_projectMap == NULL) {
+        return NULL;
+    } else {
+        // It 100% should be a PBProj object.
+        // how do i properly integrate with CF ffs
+        PBProjectRef proj = (PBProjectRef)CFDictionaryGetValue(bq->_projectMap, name);
+        return proj;
+    }
     return NULL;
+}
+
+bool __PBBQBuild(PBBuildQueueRef bq, PBProjectRef proj) {
+    return true;
 }

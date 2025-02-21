@@ -5,7 +5,7 @@
 
 #include <CoreFoundation/CoreFoundation.h>
 
-#include <PBProject.h>
+#include <ProjectBuilder/PBProject.h>
 
 typedef struct _PBManifest *PBManifestRef;
 
