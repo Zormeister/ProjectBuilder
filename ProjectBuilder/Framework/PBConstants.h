@@ -80,6 +80,14 @@ CF_EXPORT const CFStringRef kPBManifestBuildSystemXcodeProject;
 CF_EXPORT const CFStringRef kPBManifestBuildSystemScript;
 CF_EXPORT const CFStringRef kPBManifestBuildSystemCMake;
 
+typedef CF_ENUM(CFIndex, PBBuildSystem) {
+    Unknown,
+    Xcode,
+    Makefile,
+    Script,
+    CMake,
+};
+
 /*
  * SetXBSVariables: tells ProjectBuilder to set relevant XBS/DarwinBuild variables
  * such as but not limited to:

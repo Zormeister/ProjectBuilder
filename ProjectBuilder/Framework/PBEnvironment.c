@@ -44,6 +44,10 @@ PBEnvironmentRef PBEnvironmentCreateWithArgs(PBEnvironmentArgs *args) {
         env->rt.Magic = PBRT_MAGIC;
         env->rt.TypeID = 2;
         env->rt.Finalize = EnvironmentFinalise;
+        
+        env->_buildRootUUID = CFUUIDCreate(kCFAllocatorDefault);
+        
+        return env;
     }
     return NULL;
 }

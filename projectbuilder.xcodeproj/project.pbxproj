@@ -31,6 +31,8 @@
 		F0C65D612D220A0600349FD5 /* PBBuilder.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C65D602D220A0400349FD5 /* PBBuilder.c */; };
 		F0C65D622D220A2200349FD5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */; };
 		F0EA3D5A2D2CA07C003B1D31 /* PBConstants.c in Sources */ = {isa = PBXBuildFile; fileRef = F0EA3D592D2CA07C003B1D31 /* PBConstants.c */; };
+		F0F09B8E2D69315200142042 /* PBConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = F0F09B8C2D69315200142042 /* PBConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F0F09B8F2D69315200142042 /* PBConfig.c in Sources */ = {isa = PBXBuildFile; fileRef = F0F09B8D2D69315200142042 /* PBConfig.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -106,6 +108,8 @@
 		F0EA3D572D2C7FAF003B1D31 /* com.Zormeister.ProjectBuilder.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = com.Zormeister.ProjectBuilder.plist; sourceTree = "<group>"; };
 		F0EA3D582D2C9F26003B1D31 /* PBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBConstants.h; sourceTree = "<group>"; };
 		F0EA3D592D2CA07C003B1D31 /* PBConstants.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBConstants.c; sourceTree = "<group>"; };
+		F0F09B8C2D69315200142042 /* PBConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBConfig.h; sourceTree = "<group>"; };
+		F0F09B8D2D69315200142042 /* PBConfig.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBConfig.c; sourceTree = "<group>"; };
 		F0FE16582B81AEEA006B4548 /* ExamplePlist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExamplePlist.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -220,6 +224,8 @@
 				F0C65D5E2D2209FB00349FD5 /* PBBuilder.h */,
 				F03D83892D5FD6BA004297A4 /* PBBuildQueue.c */,
 				F00E0A062D35B3AD0099A0DA /* PBBuildQueue.h */,
+				F0F09B8D2D69315200142042 /* PBConfig.c */,
+				F0F09B8C2D69315200142042 /* PBConfig.h */,
 				F0EA3D592D2CA07C003B1D31 /* PBConstants.c */,
 				F0EA3D582D2C9F26003B1D31 /* PBConstants.h */,
 				F0BFEB142D67DD3E00349FD5 /* PBEnvironment.c */,
@@ -252,6 +258,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0F09B8E2D69315200142042 /* PBConfig.h in Headers */,
 				F0BFEB162D67DD3E00349FD5 /* PBEnvironment.h in Headers */,
 				F0C65D552D21EBD000349FD5 /* ProjectBuilder.h in Headers */,
 				F01BC79A2D6133990029D868 /* PBExternalRepository.h in Headers */,
@@ -434,6 +441,7 @@
 				F0C65D592D21ED3900349FD5 /* PBManifest.c in Sources */,
 				F0BFEB152D67DD3E00349FD5 /* PBEnvironment.c in Sources */,
 				F03D838A2D5FD6BA004297A4 /* PBBuildQueue.c in Sources */,
+				F0F09B8F2D69315200142042 /* PBConfig.c in Sources */,
 				F0C65D5D2D22091100349FD5 /* PBProject.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

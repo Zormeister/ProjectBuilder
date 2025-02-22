@@ -5,6 +5,8 @@
 
 #include <CoreFoundation/CoreFoundation.h>
 
+#include <ProjectBuilder/PBProject.h>
+
 /*
  * Environment
  *
@@ -19,6 +21,10 @@ CF_EXPORT CFDictionaryRef PBEnvironmentGetShellEnvironment(PBEnvironmentRef env)
 
 CF_EXPORT CFDictionaryRef PBEnvironmentAppendShellEnvironment(PBEnvironmentRef env, CFStringRef name, CFStringRef stringValue);
 
+CF_EXPORT CFBooleanRef PBEnvironmentApplyEnvironmentVariables(PBEnvironmentRef env);
+
+CF_EXPORT CFBooleanRef PBEnvironmentUpdateVariables(PBEnvironmentRef env, PBProjectRef project);
+
 CF_EXPORT CFUUIDRef PBEnvironmentGetBuildUUID(PBEnvironmentRef env);
 
 CF_EXPORT CFStringRef PBEnvironmentGetSDK(PBEnvironmentRef env);
@@ -28,6 +34,7 @@ struct {
     CFStringRef buildRootDirectory; // /Library/BuildRoots/<UUID>
     CFStringRef sdkRoot; /* SDK, canonical name, so `macosx.internal` or macosx.internal.host */
     CFBooleanRef setsXBSVariables; /* see PBConstants.h for details */
+    CFBooleanRef selfReliant;
 } typedef PBEnvironmentArgs;
 
 CF_EXPORT PBEnvironmentRef PBEnvironmentCreateWithArgs(PBEnvironmentArgs *args);
