@@ -1,5 +1,8 @@
 // Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
+#include <sys/stat.h>
+#include <copyfile.h>
+
 #include "PBEnvironment.h"
 
 #include "Private/PBRuntime.h"
@@ -14,6 +17,7 @@ struct _PBEnvironment {
     CFUUIDRef _buildRootUUID;
     CFBooleanRef _setsXBSVariables;
     CFBooleanRef _selfReliant;
+    PBProjectRef _currentProject;
 };
 
 CFBooleanRef PBEnvironmentSetupWorkingDirectories(PBEnvironmentRef env) {
@@ -21,7 +25,11 @@ CFBooleanRef PBEnvironmentSetupWorkingDirectories(PBEnvironmentRef env) {
         return kCFBooleanFalse;
     }
     
-    CFStringRef current;
+    if (open(CFStringGetCStringPtr(env->_buildRootDirectory, kCFStringEncodingASCII), O_RDONLY) == -1) {
+        mkpath_np(CFStringGetCStringPtr(env->_buildRootDirectory, kCFStringEncodingASCII), 755);
+        
+    }
+    
     return kCFBooleanTrue;
 }
 
@@ -46,6 +54,9 @@ PBEnvironmentRef PBEnvironmentCreateWithArgs(PBEnvironmentArgs *args) {
         env->rt.Finalize = EnvironmentFinalise;
         
         env->_buildRootUUID = CFUUIDCreate(kCFAllocatorDefault);
+        
+        CFStringRef str = CFUUIDCreateString(kCFAllocatorDefault, env->_buildRootUUID);
+        CFMutableStringRef mutable = CFStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(str) + CFStringGetLength(args->buildRootDirectory));
         
         return env;
     }

@@ -7,6 +7,8 @@
 
 typedef struct _PBProject *PBProjectRef;
 
+typedef struct _PBProjectInfo *PBProjectInfoRef;
+
 /* NEW: Sub-Projects. Added in the overhaul */
 CF_EXPORT CFArrayRef PBProjectGetSubProjects(PBProjectRef project);
 

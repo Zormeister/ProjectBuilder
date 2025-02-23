@@ -4,6 +4,17 @@
 <dict>
 	<key>Config</key>
 	<dict>
+		<key>DiskImage</key>
+		<dict>
+			<key>Size</key>
+			<integer>65536</integer>
+			<key>VolumeName</key>
+			<string>darwinOS</string>
+			<key>Format</key>
+			<string>UDRW</string>
+			<key>FileSystem</key>
+			<string>Journaled HFS+</string>
+		</dict>
 		<key>SelfReliant</key>
 		<true/>
 		<key>Archs</key>
@@ -19,14 +30,91 @@
 	<key>Projects</key>
 	<array>
 		<dict>
+			<key>SubProjects</key>
+			<array>
+				<dict>
+					<key>BaseProject</key>
+					<string>xnu</string>
+					<key>Name</key>
+					<string>libkdd</string>
+					<key>BuildSystem</key>
+					<string>Makefile</string>
+					<key>Target</key>
+					<string>install</string>
+				</dict>
+				<dict>
+					<key>BaseProject</key>
+					<string>xnu</string>
+					<key>Name</key>
+					<string>libkxld</string>
+					<key>BuildSystem</key>
+					<string>Makefile</string>
+					<key>Target</key>
+					<string>install</string>
+				</dict>
+				<dict>
+					<key>BaseProject</key>
+					<string>xnu</string>
+					<key>Name</key>
+					<string>Libsyscall_dynamic</string>
+					<key>BuildSystem</key>
+					<string>Makefile</string>
+					<key>Target</key>
+					<string>install</string>
+				</dict>
+				<dict>
+					<key>BaseProject</key>
+					<string>xnu</string>
+					<key>Name</key>
+					<string>Libsyscall_static</string>
+					<key>BuildSystem</key>
+					<string>Makefile</string>
+					<key>Target</key>
+					<string>install</string>
+				</dict>
+				<dict>
+					<key>BaseProject</key>
+					<string>xnu</string>
+					<key>Name</key>
+					<string>libkmod</string>
+					<key>BuildSystem</key>
+					<string>Makefile</string>
+					<key>Target</key>
+					<string>install</string>
+				</dict>
+				<dict>
+					<key>BaseProject</key>
+					<string>xnu</string>
+					<key>Name</key>
+					<string>xnu_development</string>
+					<key>BuildSystem</key>
+					<string>Makefile</string>
+					<key>Target</key>
+					<string>installhdrs</string>
+				</dict>
+				<dict>
+					<key>BaseProject</key>
+					<string>xnu</string>
+					<key>Name</key>
+					<string>xnu_headers</string>
+					<key>BuildSystem</key>
+					<string>Makefile</string>
+					<key>Target</key>
+					<string>installhdrs</string>
+				</dict>
+			</array>
+			<key>DependsOn</key>
+			<array>
+				<string>sdk_init</string>
+				<string>xnu_headers</string>
+				<string>libfirehose_kernel</string>
+			</array>
+			<key>Comment</key>
+			<string>what the freak do i do for ARM machine config???</string>
 			<key>Environment</key>
 			<dict>
 				<key>ARCH_CONFIGS</key>
-				<string>$(PB_CURRENT_ARCH)</string>
-				<key>MACHINE_CONFIGS</key>
-				<string></string>
-				<key>KERNEL_CONFIGS</key>
-				<string>RELEASE</string>
+				<string>PB_CURRENT_ARCH</string>
 			</dict>
 			<key>IsArchSpecific</key>
 			<true/>
@@ -36,8 +124,10 @@
 			<string>xnu</string>
 			<key>BuildSystem</key>
 			<string>Makefile</string>
-			<key>MakefileTarget</key>
-			<string>installconfig</string>
+			<key>Targets</key>
+			<array>
+				<string>clean</string>
+			</array>
 			<key>ExternalRepository</key>
 			<dict>
 				<key>Type</key>
@@ -64,12 +154,23 @@
 			</dict>
 		</dict>
 		<dict>
-			<key>BaseProject</key>
-			<string>xnu</string>
+			<key>Version</key>
+			<string>1353.100.2</string>
 			<key>Name</key>
-			<string>xnu_headers</string>
-			<key>MakefileTarget</key>
-			<string>installhdrs</string>
+			<string>Libc</string>
+			<key>BuildSystem</key>
+			<string>Xcode</string>
+			<key>Target</key>
+			<string>libsystem_c</string>
+			<key>ExternalRepository</key>
+			<dict>
+				<key>Type</key>
+				<string>Git</string>
+				<key>URL</key>
+				<string>https://github.com/apple-oss-distributions/Libc</string>
+				<key>Tag</key>
+				<string>Libc-1353.100.2</string>
+			</dict>
 		</dict>
 	</array>
 </dict>

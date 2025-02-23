@@ -21,7 +21,11 @@
 		F0BFEB182D67E08400349FD5 /* Darwin19.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0BFEB172D67E08400349FD5 /* Darwin19.plist */; };
 		F0BFEB202D67E43900349FD5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0BFEB1F2D67E43900349FD5 /* main.cpp */; };
 		F0BFEB4D2D690D2600349FD5 /* PBBuildCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = F0BFEB4C2D690D2600349FD5 /* PBBuildCommand.c */; };
-		F0BFEB4E2D690D2600349FD5 /* PBBuildCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = F0BFEB4B2D690D2600349FD5 /* PBBuildCommand.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F0BFEB4E2D690D2600349FD5 /* PBBuildCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = F0BFEB4B2D690D2600349FD5 /* PBBuildCommand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F0C286552D6A677500349FD5 /* PBProjectInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C286542D6A677500349FD5 /* PBProjectInfo.c */; };
+		F0C286562D6A677500349FD5 /* PBProjectInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C286532D6A677500349FD5 /* PBProjectInfo.h */; };
+		F0C286592D6A9B9000349FD5 /* PBDiskImage.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C286582D6A9B9000349FD5 /* PBDiskImage.c */; };
+		F0C2865A2D6A9B9000349FD5 /* PBDiskImage.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C286572D6A9B9000349FD5 /* PBDiskImage.h */; };
 		F0C65D552D21EBD000349FD5 /* ProjectBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0C65D572D21EC9800349FD5 /* PBManifest.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C65D562D21EBFB00349FD5 /* PBManifest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0C65D592D21ED3900349FD5 /* PBManifest.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C65D582D21ED3400349FD5 /* PBManifest.c */; };
@@ -96,6 +100,10 @@
 		F0BFEB1F2D67E43900349FD5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F0BFEB4B2D690D2600349FD5 /* PBBuildCommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBBuildCommand.h; sourceTree = "<group>"; };
 		F0BFEB4C2D690D2600349FD5 /* PBBuildCommand.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBBuildCommand.c; sourceTree = "<group>"; };
+		F0C286532D6A677500349FD5 /* PBProjectInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBProjectInfo.h; sourceTree = "<group>"; };
+		F0C286542D6A677500349FD5 /* PBProjectInfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBProjectInfo.c; sourceTree = "<group>"; };
+		F0C286572D6A9B9000349FD5 /* PBDiskImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBDiskImage.h; sourceTree = "<group>"; };
+		F0C286582D6A9B9000349FD5 /* PBDiskImage.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBDiskImage.c; sourceTree = "<group>"; };
 		F0C65D392D21EB0200349FD5 /* ProjectBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ProjectBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectBuilder.h; sourceTree = "<group>"; };
 		F0C65D562D21EBFB00349FD5 /* PBManifest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBManifest.h; sourceTree = "<group>"; };
@@ -193,8 +201,6 @@
 			children = (
 				F06306282D2BE53300351A77 /* PBRuntime.h */,
 				F01BC79C2D6166920029D868 /* __PBBuildQueue.h */,
-				F0BFEB4C2D690D2600349FD5 /* PBBuildCommand.c */,
-				F0BFEB4B2D690D2600349FD5 /* PBBuildCommand.h */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -222,18 +228,24 @@
 				F06306272D2BE4FD00351A77 /* Private */,
 				F0C65D602D220A0400349FD5 /* PBBuilder.c */,
 				F0C65D5E2D2209FB00349FD5 /* PBBuilder.h */,
+				F0BFEB4C2D690D2600349FD5 /* PBBuildCommand.c */,
+				F0BFEB4B2D690D2600349FD5 /* PBBuildCommand.h */,
 				F03D83892D5FD6BA004297A4 /* PBBuildQueue.c */,
 				F00E0A062D35B3AD0099A0DA /* PBBuildQueue.h */,
 				F0F09B8D2D69315200142042 /* PBConfig.c */,
 				F0F09B8C2D69315200142042 /* PBConfig.h */,
 				F0EA3D592D2CA07C003B1D31 /* PBConstants.c */,
 				F0EA3D582D2C9F26003B1D31 /* PBConstants.h */,
+				F0C286582D6A9B9000349FD5 /* PBDiskImage.c */,
+				F0C286572D6A9B9000349FD5 /* PBDiskImage.h */,
 				F0BFEB142D67DD3E00349FD5 /* PBEnvironment.c */,
 				F0BFEB132D67DD3E00349FD5 /* PBEnvironment.h */,
 				F01BC7992D6133990029D868 /* PBExternalRepository.c */,
 				F01BC7982D6133990029D868 /* PBExternalRepository.h */,
 				F0C65D582D21ED3400349FD5 /* PBManifest.c */,
 				F0C65D562D21EBFB00349FD5 /* PBManifest.h */,
+				F0C286542D6A677500349FD5 /* PBProjectInfo.c */,
+				F0C286532D6A677500349FD5 /* PBProjectInfo.h */,
 				F0C65D5C2D22090F00349FD5 /* PBProject.c */,
 				F0C65D5A2D2207DF00349FD5 /* PBProject.h */,
 				F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */,
@@ -266,8 +278,10 @@
 				F06306292D2BF0B700351A77 /* PBRuntime.h in Headers */,
 				F0C65D572D21EC9800349FD5 /* PBManifest.h in Headers */,
 				F0C65D5F2D2209FE00349FD5 /* PBBuilder.h in Headers */,
+				F0C2865A2D6A9B9000349FD5 /* PBDiskImage.h in Headers */,
 				F00E0A082D35B41B0099A0DA /* PBConstants.h in Headers */,
 				F0C65D5B2D2207E200349FD5 /* PBProject.h in Headers */,
+				F0C286562D6A677500349FD5 /* PBProjectInfo.h in Headers */,
 				F00E0A072D35B4150099A0DA /* PBBuildQueue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,6 +455,8 @@
 				F0C65D592D21ED3900349FD5 /* PBManifest.c in Sources */,
 				F0BFEB152D67DD3E00349FD5 /* PBEnvironment.c in Sources */,
 				F03D838A2D5FD6BA004297A4 /* PBBuildQueue.c in Sources */,
+				F0C286592D6A9B9000349FD5 /* PBDiskImage.c in Sources */,
+				F0C286552D6A677500349FD5 /* PBProjectInfo.c in Sources */,
 				F0F09B8F2D69315200142042 /* PBConfig.c in Sources */,
 				F0C65D5D2D22091100349FD5 /* PBProject.c in Sources */,
 			);
