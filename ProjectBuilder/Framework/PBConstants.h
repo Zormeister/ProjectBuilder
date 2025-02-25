@@ -31,12 +31,13 @@ CF_EXPORT const CFStringRef kPBManifestPatchDirectoryKey;
  * Tag is a string value of the tag to switch to.
  * URL points to the URL that the external repository is located at.
  */
-CF_EXPORT const CFStringRef kPBManifestExternalRepositoryKey;
-CF_EXPORT const CFStringRef kPBManifestExternalRepositoryTypeKey;
-CF_EXPORT const CFStringRef kPBManifestExternalRepositoryTagKey;
-CF_EXPORT const CFStringRef kPBManifestExternalRepositoryCommitSHAKey;
+CF_EXPORT const CFStringRef kPBExternalRepositoryKey;
+CF_EXPORT const CFStringRef kPBExternalRepositoryTypeKey;
+CF_EXPORT const CFStringRef kPBExternalRepositoryTagKey;
+CF_EXPORT const CFStringRef kPBExternalRepositoryBranchKey;
+CF_EXPORT const CFStringRef kPBExternalRepositoryCommitSHAKey;
 
-CF_EXPORT const CFStringRef kPBManifestEnvironmentVariablesKey;
+CF_EXPORT const CFStringRef kPBEnvironmentVariablesKey;
 
 /*
  * Archs: Specifies what architecture to build the project for, or, multiple architectures to build the project for.
@@ -45,7 +46,7 @@ CF_EXPORT const CFStringRef kPBManifestEnvironmentVariablesKey;
  *
  * Valid Values:
  *  - x86_64
- *  - x86_64h
+ *  - x86_64h - NOTE: Certain projects CANNOT use x86_64h - DO NOT use x86_64h for base system libraries. AT ALL.
  *  - arm64
  *  - arm
  *  - arm64_32
@@ -97,9 +98,29 @@ typedef CF_ENUM(CFIndex, PBBuildSystem) {
  *  - RC_ProjectSourceVersion
  *  - RC_ProjectName
  *  - RC_CFLAGS
+ *  - RC_XBS
+ *  - RC_Install_Prefix << Found in `iodbc`, I believe this should be set to `<PathToBuildRootRoot>/usr`
  */
 
-CF_EXPORT const CFStringRef kPBManifestSetXBSVariablesKey;
+/*
+ * There are many other potential variables, I'm referencing the DarwinBuild plists so I can document them here.
+ * Other Variables:
+ *  - RC_NONARCH_CFLAGS: Non-architecture based C Flags I assume.
+ *  - RC_OS: OS target?
+ *  - RC_PRIVATE: private directory path? where else would they put the private directory?
+ *  - RC_RELEASE: macOS named release. what does this really do? where is it used?
+ *  - UNAME_RELEASE: uname release vers ig.
+ *  - RC_TARGET_CONFIG: pretty much the same as XNU's PLATFORM variable in the makefile.
+ */
+
+/*
+ * How the actual hell does DarwinBuild handle the cycle of dependencies?
+ * Actually- I see how.
+ * Certain projects are populated with dependencies.
+ * Seems unreliable but OK.
+ */
+
+CF_EXPORT const CFStringRef kPBSetXBSVariablesKey;
 
 
 #pragma mark Disk Image Settings Keys

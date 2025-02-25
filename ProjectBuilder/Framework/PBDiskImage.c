@@ -113,6 +113,9 @@ CFBooleanRef _PBDiskImageFetchData(PBDiskImageRef img, CFDictionaryRef imgInfo) 
         }
     }
     
+    img->_didCreateImage = kCFBooleanFalse;
+    img->_isMounted = kCFBooleanFalse;
+    
     TRACE_END
     return kCFBooleanTrue;
 }
@@ -144,14 +147,21 @@ PBDiskImageRef PBDiskImageCreate(CFStringRef buildRootsPath, CFUUIDRef buildRoot
 /* Holy SHIT I wish I had bindings for DiskImages.framework... */
 CFBooleanRef PBDiskImageCreateImage(PBDiskImageRef img) {
     TRACE_BEGIN
+    
+    if (img->_didCreateImage == kCFBooleanTrue) {
+        fprintf(stdout, "[PBDiskImage]: That's weird. Someone called %s twice.\n", __FUNCTION__);
+        return kCFBooleanTrue;
+    }
+    
     CFMutableStringRef cf = CFStringCreateMutableCopy(kCFAllocatorMalloc, CFStringGetLength(img->_buildRootsPath) + strlen("/DiskImages"), img->_buildRootsPath);
     CFStringAppend(cf, CFSTR("/DiskImages"));
-    
+
     if (DirectoryExistsCF(cf) == false) {
         CreateDirectory(CFStringGetCStringPtr(cf, kCFStringEncodingASCII));
     }
-    
+
     /* Start by getting the combined length of our strings. */
+    /* Probably allocates more than I need, doesn't really fuss me because it's temporary and gets discarded. */
     size_t size = CFStringGetLength(img->_imageType)
                 + CFStringGetLength(img->_imageLayout)
                 + CFStringGetLength(img->_imageLayout)
@@ -166,7 +176,7 @@ CFBooleanRef PBDiskImageCreateImage(PBDiskImageRef img) {
                 + strlen(" -size %s")
                 + strlen(" -type %s")
                 + strlen(" -fs %s");
-    
+
     char *tmp = malloc(size);
     int ntmp;
     CFNumberGetValue(img->_imageSize, kCFNumberIntType, &ntmp);
@@ -177,8 +187,8 @@ CFBooleanRef PBDiskImageCreateImage(PBDiskImageRef img) {
              CFStringGetCStringPtr(img->_volumeFSName, kCFStringEncodingASCII),
              CFStringGetCStringPtr(img->_volumeName, kCFStringEncodingASCII),
              CFStringGetCStringPtr(cf, kCFStringEncodingASCII),
-             CFStringGetCStringPtr(img->_buildRootUUIDString, kCFStringEncodingASCII)
-             );
+             CFStringGetCStringPtr(img->_buildRootUUIDString, kCFStringEncodingASCII));
+
     fprintf(stdout, "[PBDiskImage]: Executing... (%s)", tmp);
     int res;
     if ((res = system(tmp))) {
@@ -188,8 +198,94 @@ CFBooleanRef PBDiskImageCreateImage(PBDiskImageRef img) {
         TRACE_END
         return kCFBooleanFalse;
     }
-    
+
+    img->_didCreateImage = kCFBooleanTrue;
     CFRelease(cf);
+    free(tmp);
+    TRACE_END
+    return kCFBooleanTrue;
+}
+
+CFBooleanRef PBDiskImageAttachImage(PBDiskImageRef img) {
+    TRACE_BEGIN
+
+    if (img->_isMounted == kCFBooleanTrue) {
+        fprintf(stdout, "[PBDiskImage]: That's weird. Someone called %s twice.\n", __FUNCTION__);
+        return kCFBooleanTrue;
+    }
+
+    CFMutableStringRef cf = CFStringCreateMutableCopy(kCFAllocatorMalloc, CFStringGetLength(img->_buildRootsPath) + strlen("/DiskImages/") + CFStringGetLength(img->_buildRootUUIDString), img->_buildRootsPath);
+    CFStringAppend(cf, CFSTR("/DiskImages/"));
+
+    /* Start by getting the combined length of our strings. */
+    /* Probably allocates more than I need, doesn't really fuss me because it's temporary and gets discarded. */
+    /* Our build controller should have already created our BuildRoot path */
+    size_t size = CFStringGetLength(cf)
+                + CFStringGetLength(img->_buildRootUUIDString) // once for the DMG name
+                + CFStringGetLength(img->_buildRootUUIDString) // twice for the mount path
+                + CFStringGetLength(img->_buildRootsPath) // twice for the mount path
+                + strlen("%s.dmg") // add space for our DMG
+                + strlen("hdiutil attach %s")
+                + strlen(" -mountpoint %s");
+
+    char *tmp = malloc(size);
+
+    snprintf(tmp, size, "hdiutil attach %s%s.dmg %s%s",
+             CFStringGetCStringPtr(cf, kCFStringEncodingASCII),
+             CFStringGetCStringPtr(img->_buildRootUUIDString, kCFStringEncodingASCII),
+             CFStringGetCStringPtr(img->_buildRootsPath, kCFStringEncodingASCII),
+             CFStringGetCStringPtr(img->_buildRootUUIDString, kCFStringEncodingASCII));
+
+    fprintf(stdout, "[PBDiskImage]: Executing... (%s)", tmp);
+    int res;
+    if ((res = system(tmp))) {
+        fprintf(stderr, "[PBDiskImage]: FAIL. (%d)", res);
+        CFRelease(cf);
+        free(tmp);
+        TRACE_END
+        return kCFBooleanFalse;
+    }
+
+    img->_isMounted = kCFBooleanTrue;
+    CFRelease(cf);
+    free(tmp);
+    TRACE_END
+    return kCFBooleanTrue;
+}
+
+/* Since Tiger hdiutil accepts the mount path for a DMG as a way to detach it. */
+CFBooleanRef PBDiskImageDetachImage(PBDiskImageRef img) {
+    TRACE_BEGIN
+
+    if (img->_isMounted == kCFBooleanFalse) {
+        fprintf(stdout, "[PBDiskImage]: That's weird. Someone called %s twice.\n", __FUNCTION__);
+        return kCFBooleanTrue;
+    }
+
+    /* Start by getting the combined length of our strings. */
+    /* Probably allocates more than I need, doesn't really fuss me because it's temporary and gets discarded. */
+    /* Our build controller should have already created our BuildRoot path */
+    size_t size = CFStringGetLength(img->_buildRootUUIDString) // twice for the mount path
+                + CFStringGetLength(img->_buildRootsPath) // we need this
+                + strlen("hdiutil detach %s%s");
+
+    char *tmp = malloc(size);
+
+    snprintf(tmp, size, "hdiutil detach %s%s",
+             CFStringGetCStringPtr(img->_buildRootsPath, kCFStringEncodingASCII),
+             CFStringGetCStringPtr(img->_buildRootUUIDString, kCFStringEncodingASCII));
+
+    fprintf(stdout, "[PBDiskImage]: Executing... (%s)", tmp);
+    int res;
+    if ((res = system(tmp))) {
+        fprintf(stderr, "[PBDiskImage]: FAIL. (%d)", res);
+        free(tmp);
+        TRACE_END
+        return kCFBooleanFalse;
+    }
+
+    img->_isMounted = kCFBooleanFalse;
+
     free(tmp);
     TRACE_END
     return kCFBooleanTrue;

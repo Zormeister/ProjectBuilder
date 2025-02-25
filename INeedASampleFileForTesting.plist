@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Config</key>
+	<dict>
+		<key>DiskImage</key>
+		<dict>
+			<key>Comment</key>
+			<string>debating on keeping the DMG size in megabytes but oh well</string>
+			<key>Size</key>
+			<integer>1024</integer>
+			<key>VolumeName</key>
+			<string>pbdmg</string>
+			<key>Type</key>
+			<string>UDIF</string>
+			<key>FileSystem</key>
+			<string>Journaled HFS+</string>
+			<key>Layout</key>
+			<string>GPTSPUD</string>
+		</dict>
+		<key>Archs</key>
+		<array>
+			<string>x86_64</string>
+			<string>arm64</string>
+		</array>
+		<key>SetXBSVariables</key>
+		<true/>
+	</dict>
+	<key>Projects</key>
+	<array>
+		<dict>
+			<key>SubProjects</key>
+			<array>
+				<dict>
+					<key>Name</key>
+					<string>ProjectBuilder_standalone</string>
+					<key>BaseProject</key>
+					<string>ProjectBuilder</string>
+					<key>Target</key>
+					<string>projectbuilder</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>ProjectBuilder_ctl</string>
+					<key>BaseProject</key>
+					<string>ProjectBuilder</string>
+					<key>Target</key>
+					<string>pbctl</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>ProjectBuilder_daemon</string>
+					<key>BaseProject</key>
+					<string>ProjectBuilder</string>
+					<key>Target</key>
+					<string>projectbuilderd</string>
+				</dict>
+			</array>
+			<key>Name</key>
+			<string>ProjectBuilder</string>
+			<key>BuildSystem</key>
+			<string>Xcode</string>
+			<key>Target</key>
+			<string>ProjectBuilder</string>
+			<key>Version</key>
+			<string>1</string>
+		</dict>
+	</array>
+</dict>
+</plist>

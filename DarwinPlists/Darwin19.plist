@@ -238,6 +238,8 @@
 			<key>SubProjects</key>
 			<array>
 				<dict>
+					<key>BaseProject</key>
+					<string>libpthread</string>
 					<key>Name</key>
 					<string>libpthread_headers</string>
 				</dict>
