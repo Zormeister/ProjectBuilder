@@ -230,7 +230,7 @@ CFBooleanRef PBDiskImageAttachImage(PBDiskImageRef img) {
 
     char *tmp = malloc(size);
 
-    snprintf(tmp, size, "hdiutil attach %s%s.dmg %s%s",
+    snprintf(tmp, size, "hdiutil attach %s%s.dmg -mountpoint %s%s",
              CFStringGetCStringPtr(cf, kCFStringEncodingASCII),
              CFStringGetCStringPtr(img->_buildRootUUIDString, kCFStringEncodingASCII),
              CFStringGetCStringPtr(img->_buildRootsPath, kCFStringEncodingASCII),
