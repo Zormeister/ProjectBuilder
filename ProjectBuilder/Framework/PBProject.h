@@ -1,5 +1,7 @@
 // Copyright (C) 2024-2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
+/* the sole survivor of the late 2024 concepts */
+
 #ifndef PROJECTBUILDER_PBPROJECT_H
 #define PROJECTBUILDER_PBPROJECT_H
 
@@ -7,7 +9,11 @@
 
 typedef struct _PBProject *PBProjectRef;
 
-typedef struct _PBProjectInfo *PBProjectInfoRef;
+typedef CF_ENUM(CFIndex, PBProjectState) {
+    Initialized,
+    CopyingSources,
+    CloningExternalRepo,
+};
 
 /* NEW: Sub-Projects. Added in the overhaul */
 CF_EXPORT CFArrayRef PBProjectGetSubProjects(PBProjectRef project);

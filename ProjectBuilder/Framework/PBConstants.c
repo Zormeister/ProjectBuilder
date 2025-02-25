@@ -19,3 +19,9 @@ const CFStringRef kPBManifestBuildSystemMakefile = CFSTR("Makefile");
 const CFStringRef kPBManifestBuildSystemXcodeProject = CFSTR("Xcode");
 const CFStringRef kPBManifestBuildSystemScript = CFSTR("Script");
 const CFStringRef kPBManifestBuildSystemCMake = CFSTR("CMake");
+
+const CFStringRef kPBDiskImageVolumeNameKey = CFSTR("VolumeName");
+const CFStringRef kPBDiskImageDiskSizeKey = CFSTR("Size");
+const CFStringRef kPBDiskImageDiskTypeKey = CFSTR("Type");
+const CFStringRef kPBDiskImageDiskLayoutKey = CFSTR("Layout");
+const CFStringRef kPBDiskImageFileSystemKey = CFSTR("FileSystem");

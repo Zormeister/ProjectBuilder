@@ -7,15 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F00E0A072D35B4150099A0DA /* PBBuildQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F00E0A062D35B3AD0099A0DA /* PBBuildQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F00E0A082D35B41B0099A0DA /* PBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F0EA3D582D2C9F26003B1D31 /* PBConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F01BC79A2D6133990029D868 /* PBExternalRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = F01BC7982D6133990029D868 /* PBExternalRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F01BC79B2D6133990029D868 /* PBExternalRepository.c in Sources */ = {isa = PBXBuildFile; fileRef = F01BC7992D6133990029D868 /* PBExternalRepository.c */; };
-		F03D838A2D5FD6BA004297A4 /* PBBuildQueue.c in Sources */ = {isa = PBXBuildFile; fileRef = F03D83892D5FD6BA004297A4 /* PBBuildQueue.c */; };
 		F03D83922D5FD733004297A4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F03D83912D5FD733004297A4 /* main.cpp */; };
 		F03D83982D5FD7C1004297A4 /* xpc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F03D83972D5FD7C1004297A4 /* xpc.cpp */; };
 		F06306292D2BF0B700351A77 /* PBRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = F06306282D2BE53300351A77 /* PBRuntime.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F06306312D2C70DA00351A77 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F06306302D2C70DA00351A77 /* main.cpp */; };
+		F09687052D6D869300349FD5 /* DevTools11.plist in Resources */ = {isa = PBXBuildFile; fileRef = F09687042D6D869300349FD5 /* DevTools11.plist */; };
+		F09687062D6D8B2300349FD5 /* PBBuildController.c in Sources */ = {isa = PBXBuildFile; fileRef = F0B425F12D6C3FFA00349FD5 /* PBBuildController.c */; };
+		F09687072D6D8B2800349FD5 /* PBBuildCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = F0BFEB4C2D690D2600349FD5 /* PBBuildCommand.c */; };
+		F09687082D6D8B2E00349FD5 /* PBConfig.c in Sources */ = {isa = PBXBuildFile; fileRef = F0F09B8D2D69315200142042 /* PBConfig.c */; };
+		F09687092D6D8B3300349FD5 /* PBConstants.c in Sources */ = {isa = PBXBuildFile; fileRef = F0EA3D592D2CA07C003B1D31 /* PBConstants.c */; };
+		F096870A2D6D8B3900349FD5 /* PBDiskImage.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C286582D6A9B9000349FD5 /* PBDiskImage.c */; };
+		F0B425F22D6C3FFB00349FD5 /* PBBuildController.h in Headers */ = {isa = PBXBuildFile; fileRef = F0B425F02D6C3FFA00349FD5 /* PBBuildController.h */; };
+		F0B425F32D6C3FFB00349FD5 /* PBBuildController.c in Sources */ = {isa = PBXBuildFile; fileRef = F0B425F12D6C3FFA00349FD5 /* PBBuildController.c */; };
 		F0BFEB152D67DD3E00349FD5 /* PBEnvironment.c in Sources */ = {isa = PBXBuildFile; fileRef = F0BFEB142D67DD3E00349FD5 /* PBEnvironment.c */; };
 		F0BFEB162D67DD3E00349FD5 /* PBEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = F0BFEB132D67DD3E00349FD5 /* PBEnvironment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0BFEB182D67E08400349FD5 /* Darwin19.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0BFEB172D67E08400349FD5 /* Darwin19.plist */; };
@@ -27,12 +33,8 @@
 		F0C286592D6A9B9000349FD5 /* PBDiskImage.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C286582D6A9B9000349FD5 /* PBDiskImage.c */; };
 		F0C2865A2D6A9B9000349FD5 /* PBDiskImage.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C286572D6A9B9000349FD5 /* PBDiskImage.h */; };
 		F0C65D552D21EBD000349FD5 /* ProjectBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F0C65D572D21EC9800349FD5 /* PBManifest.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C65D562D21EBFB00349FD5 /* PBManifest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F0C65D592D21ED3900349FD5 /* PBManifest.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C65D582D21ED3400349FD5 /* PBManifest.c */; };
 		F0C65D5B2D2207E200349FD5 /* PBProject.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C65D5A2D2207DF00349FD5 /* PBProject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0C65D5D2D22091100349FD5 /* PBProject.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C65D5C2D22090F00349FD5 /* PBProject.c */; };
-		F0C65D5F2D2209FE00349FD5 /* PBBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C65D5E2D2209FB00349FD5 /* PBBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F0C65D612D220A0600349FD5 /* PBBuilder.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C65D602D220A0400349FD5 /* PBBuilder.c */; };
 		F0C65D622D220A2200349FD5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */; };
 		F0EA3D5A2D2CA07C003B1D31 /* PBConstants.c in Sources */ = {isa = PBXBuildFile; fileRef = F0EA3D592D2CA07C003B1D31 /* PBConstants.c */; };
 		F0F09B8E2D69315200142042 /* PBConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = F0F09B8C2D69315200142042 /* PBConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -80,11 +82,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F00E0A062D35B3AD0099A0DA /* PBBuildQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBBuildQueue.h; sourceTree = "<group>"; };
 		F01BC7982D6133990029D868 /* PBExternalRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBExternalRepository.h; sourceTree = "<group>"; };
 		F01BC7992D6133990029D868 /* PBExternalRepository.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBExternalRepository.c; sourceTree = "<group>"; };
-		F01BC79C2D6166920029D868 /* __PBBuildQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = __PBBuildQueue.h; sourceTree = "<group>"; };
-		F03D83892D5FD6BA004297A4 /* PBBuildQueue.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBBuildQueue.c; sourceTree = "<group>"; };
 		F03D838F2D5FD733004297A4 /* pbctl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pbctl; sourceTree = BUILT_PRODUCTS_DIR; };
 		F03D83912D5FD733004297A4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F03D83972D5FD7C1004297A4 /* xpc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xpc.cpp; sourceTree = "<group>"; };
@@ -93,6 +92,9 @@
 		F06306302D2C70DA00351A77 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F0884D5B2BB3582B00716DF5 /* libplist++-2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libplist++-2.0.dylib"; path = "external/libplist++-2.0.dylib"; sourceTree = "<group>"; };
 		F0884D602BB359BA00716DF5 /* libplist-2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libplist-2.0.dylib"; path = "external/libplist-2.0.dylib"; sourceTree = "<group>"; };
+		F09687042D6D869300349FD5 /* DevTools11.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DevTools11.plist; sourceTree = "<group>"; };
+		F0B425F02D6C3FFA00349FD5 /* PBBuildController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBBuildController.h; sourceTree = "<group>"; };
+		F0B425F12D6C3FFA00349FD5 /* PBBuildController.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBBuildController.c; sourceTree = "<group>"; };
 		F0BFEB132D67DD3E00349FD5 /* PBEnvironment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBEnvironment.h; sourceTree = "<group>"; };
 		F0BFEB142D67DD3E00349FD5 /* PBEnvironment.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBEnvironment.c; sourceTree = "<group>"; };
 		F0BFEB172D67E08400349FD5 /* Darwin19.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Darwin19.plist; sourceTree = "<group>"; };
@@ -106,12 +108,8 @@
 		F0C286582D6A9B9000349FD5 /* PBDiskImage.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBDiskImage.c; sourceTree = "<group>"; };
 		F0C65D392D21EB0200349FD5 /* ProjectBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ProjectBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectBuilder.h; sourceTree = "<group>"; };
-		F0C65D562D21EBFB00349FD5 /* PBManifest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBManifest.h; sourceTree = "<group>"; };
-		F0C65D582D21ED3400349FD5 /* PBManifest.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBManifest.c; sourceTree = "<group>"; };
 		F0C65D5A2D2207DF00349FD5 /* PBProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBProject.h; sourceTree = "<group>"; };
 		F0C65D5C2D22090F00349FD5 /* PBProject.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBProject.c; sourceTree = "<group>"; };
-		F0C65D5E2D2209FB00349FD5 /* PBBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBBuilder.h; sourceTree = "<group>"; };
-		F0C65D602D220A0400349FD5 /* PBBuilder.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBBuilder.c; sourceTree = "<group>"; };
 		F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F0EA3D572D2C7FAF003B1D31 /* com.Zormeister.ProjectBuilder.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = com.Zormeister.ProjectBuilder.plist; sourceTree = "<group>"; };
 		F0EA3D582D2C9F26003B1D31 /* PBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBConstants.h; sourceTree = "<group>"; };
@@ -166,7 +164,7 @@
 		F04245EE2B8066CC00418707 = {
 			isa = PBXGroup;
 			children = (
-				F0BFEB172D67E08400349FD5 /* Darwin19.plist */,
+				F09687032D6D866600349FD5 /* DarwinPlists */,
 				F0FE16582B81AEEA006B4548 /* ExamplePlist.plist */,
 				F04245F92B8066CC00418707 /* ProjectBuilder */,
 				F04245F82B8066CC00418707 /* Products */,
@@ -200,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				F06306282D2BE53300351A77 /* PBRuntime.h */,
-				F01BC79C2D6166920029D868 /* __PBBuildQueue.h */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -212,6 +209,15 @@
 				F0EA3D572D2C7FAF003B1D31 /* com.Zormeister.ProjectBuilder.plist */,
 			);
 			path = Daemon;
+			sourceTree = "<group>";
+		};
+		F09687032D6D866600349FD5 /* DarwinPlists */ = {
+			isa = PBXGroup;
+			children = (
+				F09687042D6D869300349FD5 /* DevTools11.plist */,
+				F0BFEB172D67E08400349FD5 /* Darwin19.plist */,
+			);
+			path = DarwinPlists;
 			sourceTree = "<group>";
 		};
 		F0BFEB472D67E44900349FD5 /* Standalone */ = {
@@ -226,12 +232,10 @@
 			isa = PBXGroup;
 			children = (
 				F06306272D2BE4FD00351A77 /* Private */,
-				F0C65D602D220A0400349FD5 /* PBBuilder.c */,
-				F0C65D5E2D2209FB00349FD5 /* PBBuilder.h */,
+				F0B425F12D6C3FFA00349FD5 /* PBBuildController.c */,
+				F0B425F02D6C3FFA00349FD5 /* PBBuildController.h */,
 				F0BFEB4C2D690D2600349FD5 /* PBBuildCommand.c */,
 				F0BFEB4B2D690D2600349FD5 /* PBBuildCommand.h */,
-				F03D83892D5FD6BA004297A4 /* PBBuildQueue.c */,
-				F00E0A062D35B3AD0099A0DA /* PBBuildQueue.h */,
 				F0F09B8D2D69315200142042 /* PBConfig.c */,
 				F0F09B8C2D69315200142042 /* PBConfig.h */,
 				F0EA3D592D2CA07C003B1D31 /* PBConstants.c */,
@@ -242,8 +246,6 @@
 				F0BFEB132D67DD3E00349FD5 /* PBEnvironment.h */,
 				F01BC7992D6133990029D868 /* PBExternalRepository.c */,
 				F01BC7982D6133990029D868 /* PBExternalRepository.h */,
-				F0C65D582D21ED3400349FD5 /* PBManifest.c */,
-				F0C65D562D21EBFB00349FD5 /* PBManifest.h */,
 				F0C286542D6A677500349FD5 /* PBProjectInfo.c */,
 				F0C286532D6A677500349FD5 /* PBProjectInfo.h */,
 				F0C65D5C2D22090F00349FD5 /* PBProject.c */,
@@ -276,13 +278,11 @@
 				F01BC79A2D6133990029D868 /* PBExternalRepository.h in Headers */,
 				F0BFEB4E2D690D2600349FD5 /* PBBuildCommand.h in Headers */,
 				F06306292D2BF0B700351A77 /* PBRuntime.h in Headers */,
-				F0C65D572D21EC9800349FD5 /* PBManifest.h in Headers */,
-				F0C65D5F2D2209FE00349FD5 /* PBBuilder.h in Headers */,
 				F0C2865A2D6A9B9000349FD5 /* PBDiskImage.h in Headers */,
 				F00E0A082D35B41B0099A0DA /* PBConstants.h in Headers */,
 				F0C65D5B2D2207E200349FD5 /* PBProject.h in Headers */,
 				F0C286562D6A677500349FD5 /* PBProjectInfo.h in Headers */,
-				F00E0A072D35B4150099A0DA /* PBBuildQueue.h in Headers */,
+				F0B425F22D6C3FFB00349FD5 /* PBBuildController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +412,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F09687052D6D869300349FD5 /* DevTools11.plist in Resources */,
 				F0BFEB182D67E08400349FD5 /* Darwin19.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -440,7 +441,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F09687072D6D8B2800349FD5 /* PBBuildCommand.c in Sources */,
+				F09687062D6D8B2300349FD5 /* PBBuildController.c in Sources */,
+				F09687092D6D8B3300349FD5 /* PBConstants.c in Sources */,
 				F0BFEB202D67E43900349FD5 /* main.cpp in Sources */,
+				F096870A2D6D8B3900349FD5 /* PBDiskImage.c in Sources */,
+				F09687082D6D8B2E00349FD5 /* PBConfig.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,13 +454,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0C65D612D220A0600349FD5 /* PBBuilder.c in Sources */,
 				F0EA3D5A2D2CA07C003B1D31 /* PBConstants.c in Sources */,
 				F0BFEB4D2D690D2600349FD5 /* PBBuildCommand.c in Sources */,
+				F0B425F32D6C3FFB00349FD5 /* PBBuildController.c in Sources */,
 				F01BC79B2D6133990029D868 /* PBExternalRepository.c in Sources */,
-				F0C65D592D21ED3900349FD5 /* PBManifest.c in Sources */,
 				F0BFEB152D67DD3E00349FD5 /* PBEnvironment.c in Sources */,
-				F03D838A2D5FD6BA004297A4 /* PBBuildQueue.c in Sources */,
 				F0C286592D6A9B9000349FD5 /* PBDiskImage.c in Sources */,
 				F0C286552D6A677500349FD5 /* PBProjectInfo.c in Sources */,
 				F0F09B8F2D69315200142042 /* PBConfig.c in Sources */,

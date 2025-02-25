@@ -11,6 +11,7 @@ typedef struct _PBConfiguration *PBConfigurationRef;
  * Self-Reliant:
  *  - We use exclusively OUR headers as an SDK, use the Headers directory in the BuildRoot as our SDK.
  *  - There's a reason I put the SDKInit repository first in order in Darwin19.plist
+ *  - There's also configurability for said self-reliant SDK. I'm beginning to regret my choice of rewriting PB.
  */
 CF_EXPORT CFBooleanRef PBConfigurationIsSelfReliant(PBConfigurationRef cfg);
 

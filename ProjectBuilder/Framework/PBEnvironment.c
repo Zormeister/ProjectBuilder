@@ -20,6 +20,7 @@ struct _PBEnvironment {
     PBProjectRef _currentProject;
 };
 
+/* This assumes our associated Disk Image is attached and mounted @ the buildroot directory. Whoops. */
 CFBooleanRef PBEnvironmentSetupWorkingDirectories(PBEnvironmentRef env) {
     if (env->_buildRootUUID == NULL) {
         return kCFBooleanFalse;

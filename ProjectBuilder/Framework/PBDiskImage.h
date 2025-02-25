@@ -7,6 +7,11 @@
 
 typedef struct _PBDiskImage *PBDiskImageRef;
 
+CF_EXPORT PBDiskImageRef PBDiskImageCreate(CFStringRef buildRootsPath, CFUUIDRef buildRootUUID, CFDictionaryRef diskImageInfo);
 
+CF_EXPORT CFBooleanRef PBDiskImageCreateImage(PBDiskImageRef img);
+
+CF_EXPORT CFBooleanRef PBDiskImageAttachImage(PBDiskImageRef img);
+CF_EXPORT CFBooleanRef PBDiskImageDetachImage(PBDiskImageRef img);
 
 #endif /* PROJECTBUILDER_PBDISKIMAGE_H */

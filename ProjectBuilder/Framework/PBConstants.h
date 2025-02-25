@@ -63,7 +63,7 @@ CF_EXPORT const CFStringRef kPBManifestEmbedIntoProjectKey;
 
 /*
  * BuildSystem: Tells ProjectBuilder what to expect.
- * Valid values as of ProjectBuilder-138:
+ * Valid values as of ProjectBuilder V2:
  * - Makefile
  * - Xcode
  * - Script
@@ -100,5 +100,15 @@ typedef CF_ENUM(CFIndex, PBBuildSystem) {
  */
 
 CF_EXPORT const CFStringRef kPBManifestSetXBSVariablesKey;
+
+
+#pragma mark Disk Image Settings Keys
+
+CF_EXPORT const CFStringRef kPBDiskImageVolumeNameKey;
+CF_EXPORT const CFStringRef kPBDiskImageDiskSizeKey;
+CF_EXPORT const CFStringRef kPBDiskImageDiskTypeKey;
+CF_EXPORT const CFStringRef kPBDiskImageDiskLayoutKey;
+CF_EXPORT const CFStringRef kPBDiskImageFileSystemKey;
+
 
 #endif /* PROJECTBUILDER_PBCONSTANTS_H */

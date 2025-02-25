@@ -9,6 +9,9 @@ typedef struct _PBProjectInfo *PBProjectInfoRef;
 
 CF_EXPORT CFStringRef PBProjectInfoGetName(PBProjectInfoRef projInfo);
 
+/* This is because variants. I hate this. */
+CF_EXPORT CFStringRef PBProjectInfoGetInternalName(PBProjectInfoRef projInfo);
+
 CF_EXPORT CFStringRef PBProjectInfoGetVersion(PBProjectInfoRef projInfo);
 
 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Config</key>
+	<dict>
+		<key>DiskImage</key>
+		<dict>
+			<key>Comment</key>
+			<string>debating on keeping the DMG size in megabytes but oh well</string>
+			<key>Size</key>
+			<integer>16384</integer>
+			<key>VolumeName</key>
+			<string>DevTools</string>
+			<key>Type</key>
+			<string>UDIF</string>
+			<key>FileSystem</key>
+			<string>Journaled HFS+</string>
+			<key>Layout</key>
+			<string>GPTSPUD</string>
+		</dict>
+		<key>Archs</key>
+		<array>
+			<string>x86_64</string>
+			<string>arm64</string>
+		</array>
+		<key>SetXBSVariables</key>
+		<true/>
+	</dict>
+	<key>Projects</key>
+	<array>
+		<dict>
+			<key>Name</key>
+			<string>llvm</string>
+			<key>BuildSystem</key>
+			<string>CMake</string>
+			<key>ExternalRepository</key>
+			<dict>
+				<key>Type</key>
+				<string>Git</string>
+				<key>URL</key>
+				<string>https://github.com/swiftlang/llvm-project</string>
+				<key>Branch</key>
+				<string>apple/stable/20191106</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
