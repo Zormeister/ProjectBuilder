@@ -1,9 +1,4 @@
-//
-//  PBBuildController.c
-//  ProjectBuilder
-//
-//  Created by Zormeister on 24/2/2025.
-//
+// Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
 #include "PBBuildController.h"
 #include "Private/PBRuntime.h"
@@ -12,8 +7,17 @@ struct _PBBuildController {
     struct __PBRuntime rt;
     
     /* our data */
-    CFURLRef _buildRootURL; /* /Library/BuildRoots/ or ~/Library/BuildRoots if running in the Standalone build. */
+    CFStringRef _buildRootPath; /* /Library/BuildRoots/ or ~/Library/BuildRoots if running in the Standalone build. */
     CFArrayRef _projectArray;
+    
+    /* The identifier for the build. */
+    CFUUIDRef _buildRootUUID;
+    CFStringRef _buildRootUUIDString;
+    
+    CFStringRef _sdkRootPath; /* Many potential values - How do I interface with XCRun? */
+    CFStringRef _toolchainName; /* com.zormeister.dt.toolchains.darwin19 when smh */
+    
+    PBBCNotification _notificationHandler; /* *should* get notifications from PBProject sending in status updates */
 };
 
 /*

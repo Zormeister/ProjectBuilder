@@ -46,6 +46,7 @@ void DiskImageFinalize(void *i) {
         CFRelease(img->_volumeName);
         CFRelease(img->_volumeFSName);
         CFRelease(img->_buildRootUUIDString);
+        CFRelease(img->_buildRootsPath);
         img->_didCreateImage = NULL;
         img->_isMounted = NULL;
     }
@@ -70,7 +71,10 @@ CFBooleanRef _PBDiskImageFetchData(PBDiskImageRef img, CFDictionaryRef imgInfo) 
     } else {
         CFNumberRef val = (CFNumberRef)CFDictionaryGetValue(imgInfo, kPBDiskImageDiskSizeKey);
         if (CFGetTypeID(val) == CFNumberGetTypeID()) {
-            img->_imageSize = val;
+            /* This COULD be broken - I haven't tested it. */
+            int ntmp;
+            CFNumberGetValue(val, kCFNumberIntType, &ntmp);
+            img->_imageSize = CFNumberCreate(kCFAllocatorMalloc, kCFNumberIntType, &ntmp);
         }
     }
     
@@ -80,7 +84,7 @@ CFBooleanRef _PBDiskImageFetchData(PBDiskImageRef img, CFDictionaryRef imgInfo) 
     } else {
         CFStringRef val = (CFStringRef)CFDictionaryGetValue(imgInfo, kPBDiskImageDiskLayoutKey);
         if (CFGetTypeID(val) == CFStringGetTypeID()) {
-            img->_imageLayout = val;
+            img->_imageLayout = CFStringCreateCopy(kCFAllocatorMalloc, val);;
         }
     }
     
@@ -90,7 +94,7 @@ CFBooleanRef _PBDiskImageFetchData(PBDiskImageRef img, CFDictionaryRef imgInfo) 
     } else {
         CFStringRef val = (CFStringRef)CFDictionaryGetValue(imgInfo, kPBDiskImageFileSystemKey);
         if (CFGetTypeID(val) == CFStringGetTypeID()) {
-            img->_volumeFSName = val;
+            img->_volumeFSName = CFStringCreateCopy(kCFAllocatorMalloc, val);;
         }
     }
     
@@ -100,7 +104,8 @@ CFBooleanRef _PBDiskImageFetchData(PBDiskImageRef img, CFDictionaryRef imgInfo) 
     } else {
         CFStringRef val = (CFStringRef)CFDictionaryGetValue(imgInfo, kPBDiskImageDiskTypeKey);
         if (CFGetTypeID(val) == CFStringGetTypeID()) {
-            img->_imageType = val;
+            /* This is so we don't violate the Get Rule with CF objects. */
+            img->_imageType = CFStringCreateCopy(kCFAllocatorMalloc, val);
         }
     }
 
@@ -109,7 +114,7 @@ CFBooleanRef _PBDiskImageFetchData(PBDiskImageRef img, CFDictionaryRef imgInfo) 
     } else {
         CFStringRef val = (CFStringRef)CFDictionaryGetValue(imgInfo, kPBDiskImageVolumeNameKey);
         if (CFGetTypeID(val) == CFStringGetTypeID()) {
-            img->_volumeName = val;
+            img->_volumeName = CFStringCreateCopy(kCFAllocatorMalloc, val);
         }
     }
     

@@ -26,7 +26,7 @@ CFBooleanRef PBEnvironmentSetupWorkingDirectories(PBEnvironmentRef env) {
         return kCFBooleanFalse;
     }
     
-    if (open(CFStringGetCStringPtr(env->_buildRootDirectory, kCFStringEncodingASCII), O_RDONLY) == -1) {
+    if (DirectoryExistsCF(env->_buildRootDirectory) == false) {
         mkpath_np(CFStringGetCStringPtr(env->_buildRootDirectory, kCFStringEncodingASCII), 755);
         
     }

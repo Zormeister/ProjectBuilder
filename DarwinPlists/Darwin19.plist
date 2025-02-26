@@ -48,11 +48,12 @@
 				<dict>
 					<key>EnvironmentVariable</key>
 					<string>MACHINE_CONFIGS</string>
+					<key>Comment</key>
+					<string>ignore t7000 and t8010, i will toy around with BCM2712 outside of PB for now</string>
 					<key>Arch</key>
 					<string>arm64</string>
 					<key>VariantTypes</key>
 					<array>
-						<string>BCM2712</string>
 						<string>BCM2837</string>
 					</array>
 				</dict>
@@ -242,6 +243,8 @@
 					<string>libpthread</string>
 					<key>Name</key>
 					<string>libpthread_headers</string>
+					<key>Action</key>
+					<string>installhdrs</string>
 				</dict>
 			</array>
 			<key>Name</key>

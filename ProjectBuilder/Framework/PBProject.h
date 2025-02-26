@@ -13,12 +13,16 @@ typedef CF_ENUM(CFIndex, PBProjectState) {
     Initialized,
     CopyingSources,
     CloningExternalRepo,
+    BuildingProject,
+    FinishedBuildingProject,
+    DeployingBinaries, // Though- if we always run Xcode's install target will we ever have this set?
 };
 
-/* NEW: Sub-Projects. Added in the overhaul */
+typedef void (*PBProjectStateUpdateNotification)(void *tgt, PBProjectState state);
+
+/* TBD: Eliminate 'Sub Projects' entirely- the BC should see them as normal projects. */
 CF_EXPORT CFArrayRef PBProjectGetSubProjects(PBProjectRef project);
 
-/* NEW: Patch applier. Added in the overhaul */
 CF_EXPORT CFArrayRef PBProjectGetPatches(PBProjectRef project);
 
 CF_EXPORT CFStringRef PBProjectGetName(PBProjectRef project);
