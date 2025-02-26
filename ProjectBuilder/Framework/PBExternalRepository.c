@@ -8,5 +8,8 @@ struct _PBExternalRepository {
     
     CFURLRef _repoURL;
     CFStringRef _repoName;
-    CFStringRef _repoTag;
+    CFStringRef _repoTag; // if applicable
+    CFStringRef _repoBranch; // if applicable
 };
+
+/* TODO: Import libgit2 from either upstream or apple-oss-distributions */

@@ -14,5 +14,9 @@ CF_EXPORT CFStringRef PBProjectInfoGetInternalName(PBProjectInfoRef projInfo);
 
 CF_EXPORT CFStringRef PBProjectInfoGetVersion(PBProjectInfoRef projInfo);
 
+/* SRCROOT, DSTROOT, OBJROOT */
+CF_EXPORT CFStringRef PBProjectInfoGetSourceRoot(PBProjectInfoRef projInfo);
+CF_EXPORT CFStringRef PBProjectInfoGetDestinationRoot(PBProjectInfoRef projInfo);
+CF_EXPORT CFStringRef PBProjectInfoGetObjectRoot(PBProjectInfoRef projInfo);
 
 #endif /* PROJECTBUILDER_PBPROJECTINFO_H */

@@ -9,10 +9,7 @@ CF_EXPORT double ProjectBuilderVersionNumber;
 //! Project version string for ProjectBuilder.
 CF_EXPORT const unsigned char ProjectBuilderVersionString[];
 
-#include <ProjectBuilder/PBManifest.h>
 #include <ProjectBuilder/PBProject.h>
-#include <ProjectBuilder/PBBuilder.h>
-#include <ProjectBuilder/PBBuildQueue.h>
 
 CF_EXPORT void PBRelease(void *);
 CF_EXPORT void PBRetain(void *);
