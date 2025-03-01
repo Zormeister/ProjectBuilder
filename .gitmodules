@@ -1,3 +1,6 @@
-[submodule "external/libplist"]
-	path = external/libplist
-	url = https://github.com/libimobiledevice/libplist.git
+[submodule "External/OpenCFLite"]
+	path = External/OpenCFLite
+	url = https://github.com/gerickson/opencflite.git
+[submodule "External/libkqueue"]
+	path = External/libkqueue
+	url = https://github.com/mheily/libkqueue.git

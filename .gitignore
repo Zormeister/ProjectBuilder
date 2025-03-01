@@ -3,3 +3,5 @@ projectbuilder.xcodeproj/project.xcworkspace
 projectbuilder.xcodeproj/xcuserdata
 .DS_Store
 *.dylib
+External/tzcode
+External/tzcode.tar.gz

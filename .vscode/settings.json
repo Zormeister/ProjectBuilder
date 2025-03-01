@@ -1,0 +1,8 @@
+{
+    "clangd.fallbackFlags": [
+        "-DUNDER_CLANGD=1",
+        "-isystem /usr/include",
+        "-I/usr/include/libxml2",
+        "-fblocks"
+    ]
+}
