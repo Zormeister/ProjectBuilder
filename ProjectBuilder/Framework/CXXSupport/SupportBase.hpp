@@ -12,12 +12,4 @@
 #define SUPPORT_BEGIN_NS namespace PBSupport {
 #define SUPPORT_END_NS };
 
-/* CF API == C code. I'll have to update the Xcode project at some point so the C++ API and C API are segregated */
-/* This also might have the effect of creating logic inconsistencies. */
-#if __APPLE__
-#define BRIDGE_CF_API 1
-#else
-#define BRIDGE_CF_API 0
-#endif
-
 #endif

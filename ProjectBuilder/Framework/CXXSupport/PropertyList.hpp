@@ -6,10 +6,9 @@
 #include "SupportBase.hpp"
 
 #include <string>
+#include <memory>
 
-#if TAREGT_LINUX || 1
 #include <libxml/dict.h>
-#endif
 
 SUPPORT_BEGIN_NS
 
@@ -42,7 +41,18 @@ class PropertyListString : public PropertyListNode {
 
     private:
     std::string m_string;
+};
 
+class PropertyListFile {
+    public:
+
+    PropertyListFile(std::vector<uint8_t> file);
+
+    std::shared_ptr<PropertyListNode> GetRootNode();
+
+    private:
+    std::unique_ptr<std::vector<uint8_t>> m_rawFile;
+    std::shared_ptr<PropertyListNode> m_rootNode;
 };
 
 SUPPORT_END_NS

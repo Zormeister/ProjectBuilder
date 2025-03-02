@@ -3,7 +3,11 @@
 #ifndef PROJECTBUILDER_BUILDCONTROLLER_HPP
 #define PROJECTBUILDER_BUILDCONTROLLER_HPP
 
+#if __APPLE__
+#include <ProjectBuilder/Base.hpp>
+#else
 #include "Base.hpp"
+#endif
 
 #include <filesystem>
 

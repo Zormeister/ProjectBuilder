@@ -1,9 +1,4 @@
-//
-//  main.cpp
-//  projectbuilder
-//
-//  Created by Zormeister on 21/2/2025.
-//
+// Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
 #include <CoreFoundation/CoreFoundation.h>
 #include <ProjectBuilder/PBProject.h>
@@ -11,6 +6,11 @@
 #include <sys/stat.h>
 #include <sysdir.h>
 #include <pwd.h>
+
+#include <string>
+#include <filesystem>
+
+/* So much C++ code here, If I can find out how 2 do this in C++ I'll explore it. For now though... */
 
 static bool DirectoryExists(const char *dirPath) {
     struct stat s;
@@ -33,6 +33,32 @@ static bool DirectoryExistsCF(CFStringRef cf) {
 static void CreateDirectory(const char *path) {
     mkpath_np(path, 0755); // hopefully it expects the octal format???
 }
+
+#define ENSURE_ARGS() \
+    if (argc < i + 1) { printf("Bad Arguments - insufficient args."); abort(); }
+
+const char *plistPath;
+
+enum InternalAction {
+    Usage,
+    Build,
+};
+
+InternalAction gCurrentAction = InternalAction::Usage;
+
+void parse_args(int argc, const char *argv[]) {
+    for (int i = 0; i <= argc; i++) {
+        std::string s = argv[i];
+        if (s == "build") {
+            gCurrentAction = InternalAction::Build;
+        } else if (s == "-p") {
+            ENSURE_ARGS();
+            plistPath = argv[i + 1];
+            // If we have no destination root, just leave the binaries in /Library/Caches/com.Zormeister.ProjectBuilder/<Build UUID>/
+        }
+    }
+}
+
 
 #define DEFAULT_BUILDROOTS_DIRECTORY "/Library/BuildRoots"
 
