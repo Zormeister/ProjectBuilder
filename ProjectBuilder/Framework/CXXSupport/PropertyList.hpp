@@ -67,6 +67,7 @@ class PropertyListFile {
     public:
 
     PropertyListFile(const std::vector<uint8_t> &file);
+    ~PropertyListFile();
 
     std::shared_ptr<PropertyListNode> GetRootNode();
 

@@ -12,4 +12,8 @@
 #define SUPPORT_BEGIN_NS namespace PBSupport {
 #define SUPPORT_END_NS };
 
+#if __APPLE__
+#define TARGET_OS_MAC 1
+#endif
+
 #endif
