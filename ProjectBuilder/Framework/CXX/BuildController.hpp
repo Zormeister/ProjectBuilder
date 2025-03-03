@@ -10,6 +10,7 @@
 #endif
 
 #include <filesystem>
+#include <uuid/uuid.h>
 
 PB_BEGIN_NS
 
@@ -34,9 +35,14 @@ class BuildController {
 
     void StartBuildingProjects(); /* Equivalent to PBBuildControllerBegin() */
 
+    void SetNotifier(Notification notifier);
+
     private:
     std::filesystem::path m_buildRootsPath; /* Derived from what's passed to the constructor */
     std::filesystem::path m_propertyListPath; /* Derived from what's passed to the constructor */
+
+    uuid_t m_currentBuildUUID;
+    Notification m_notifier;
 };
 
 PB_END_NS

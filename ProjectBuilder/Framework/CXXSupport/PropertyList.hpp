@@ -7,10 +7,16 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 
 #include <libxml/dict.h>
+#include <libxml/tree.h>
 
 SUPPORT_BEGIN_NS
+
+struct BinaryPlistHeader {
+    char magic[8]; // bplist00
+};
 
 class PropertyListNode {
 
@@ -43,16 +49,32 @@ class PropertyListString : public PropertyListNode {
     std::string m_string;
 };
 
+class PropertyListArray : public PropertyListNode {
+
+    public:
+    virtual NodeType GetNodeType() override { return NodeType::Array; }
+
+    size_t GetSize();
+
+    std::shared_ptr<PropertyListNode> GetNodeAtIndex(size_t index);
+
+    private:
+    std::vector<std::shared_ptr<PropertyListNode>> m_array;
+};
+
+
 class PropertyListFile {
     public:
 
-    PropertyListFile(std::vector<uint8_t> file);
+    PropertyListFile(const std::vector<uint8_t> &file);
 
     std::shared_ptr<PropertyListNode> GetRootNode();
 
     private:
     std::unique_ptr<std::vector<uint8_t>> m_rawFile;
     std::shared_ptr<PropertyListNode> m_rootNode;
+    xmlDocPtr m_xmlDoc;
+    xmlNodePtr m_rootXmlNode;
 };
 
 SUPPORT_END_NS
