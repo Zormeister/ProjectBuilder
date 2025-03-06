@@ -7,7 +7,6 @@
 
 #if TARGET_OS_LINUX
 #include <linux/uuid.h>
-#include <uuid/uuid.h>
 #endif
 
 using namespace ProjectBuilder;

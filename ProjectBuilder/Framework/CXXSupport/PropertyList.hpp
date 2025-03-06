@@ -10,6 +10,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <optional>
 
 #include <libxml/dict.h>
 #include <libxml/tree.h>
@@ -27,6 +28,8 @@ struct BinaryPlistHeader {
 class Node {
 
     public:
+    Node(std::optional<std::string> Key, xmlNodePtr XMLValueNode);
+
     enum struct NodeType {
         Array,
         Boolean,
@@ -36,18 +39,22 @@ class Node {
         Integer,
         String,
         Real,
+        Unknown,
     };
 
     virtual NodeType GetNodeType() = 0;
 
-    const std::string &GetKeyName();
+    std::optional<const std::string &> GetKeyName();
 
     protected:
     std::string m_keyName;
-    xmlNodePtr m_xmlNode;
+    xmlNodePtr m_xmlValueNode;
 };
 
+Node::NodeType GetNodeTypeForXMLNode(xmlNodePtr node);
+
 class String : public Node {
+    String(std::optional<std::string> KeyName, xmlNodePtr XMLNode);
 
     public:
     virtual NodeType GetNodeType() override { return NodeType::String; }
@@ -74,9 +81,10 @@ class Array : public Node {
 };
 
 class Dictionary : public Node {
+    Dictionary(std::optional<std::string> KeyName, xmlNodePtr XMLNode);
 
     public:
-    virtual NodeType GetNodeType() override { return NodeType::Array; }
+    virtual NodeType GetNodeType() override { return NodeType::Dictionary; }
 
     bool ContainsKey(const std::string &Key);
 

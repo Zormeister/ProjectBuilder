@@ -5,7 +5,7 @@ project(ProjectBuilder C CXX)
 find_package(libxml2 REQUIRED)
 
 add_library(PBSupport
-    ProjectBuilder/Framework/CXXSupport/PropertyListFile.cpp
+    ProjectBuilder/Framework/CXXSupport/File.cpp
 )
 
 target_link_libraries(PBSupport PUBLIC LibXml2::LibXml2)

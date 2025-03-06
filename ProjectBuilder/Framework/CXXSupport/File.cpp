@@ -2,34 +2,19 @@
 
 #include "PropertyList.hpp"
 #include "libxml/parser.h"
-#include "libxml/xmlerror.h"
 #include "libxml/xmlstring.h"
 #include <cstdio>
 #include <cstring>
 #include <memory>
 #include <stdexcept>
-#include <iostream>
+#include <system_error>
 #include <vector>
 
 using namespace PBSupport::PropertyList;
 
-#define TMP_BUF_SIZE 256
-void error(void *ctx, const char *msg, ...) {
-   char string[TMP_BUF_SIZE];
-   va_list arg_ptr;
-
-   va_start(arg_ptr, msg);
-   vsnprintf(string, TMP_BUF_SIZE, msg, arg_ptr);
-   va_end(arg_ptr);
-   std::cout << string << std::endl;
-   return;
-}
-
 File::File(const std::vector<uint8_t> &file) {
     /* setup my variables smh */
     m_rawFile = std::make_unique<std::vector<uint8_t>>(file);
-
-    xmlSetGenericErrorFunc(NULL, error);
     /* XML plist??? */
     if (*(file.data()) == '<') {
         m_xmlDoc = xmlReadMemory((const char *)m_rawFile->data(), m_rawFile->size(), nullptr, nullptr, XML_PARSE_DTDLOAD);
@@ -42,22 +27,25 @@ File::File(const std::vector<uint8_t> &file) {
         }
         xmlNodePtr cur = m_rootXmlNode;
         do {
-            printf("what the sigma (<%p>)\n", cur);
-            printf("node: %s\n", cur->name);
-            printf("child type: %d\n", cur->type);
             if (xmlStrcmp(cur->name, (const xmlChar *)"plist")  == 0) {
                 xmlChar *version = xmlGetProp(cur, (const xmlChar *)"version");
                 printf("plist version: %s\n", version);
                 /* A <plist></plist> will only ever have ONE child. */
-                xmlNodePtr rootNode = cur->children;
-                /* please tell me how 2 get funny name */
-                /*
-                 * <dict>
-                 * </dict>
-                 */
-                printf("child? <%p> name: %s\n", rootNode, rootNode->name);
-                printf("child type: %d\n", rootNode->type);
-                printf("content?: %s", xmlNodeGetContent(rootNode));
+                for (xmlNodePtr childNode = cur->children; childNode != nullptr; childNode = childNode->next) {
+                    if (childNode->type == XML_ELEMENT_NODE) {
+                        switch (GetNodeTypeForXMLNode(childNode)) {
+                            case Node::NodeType::Dictionary: {
+                                m_rootNode = std::make_shared<Dictionary>(std::nullopt, childNode);
+                                break;
+                            }
+                            case Node::NodeType::Array: {
+                                // do smthn
+                            }
+                            default:
+                                throw std::invalid_argument("Root node shouldn't be anything that isn't a dictionary or array. WTF?");
+                        }
+                    }
+                }
             }
             cur = cur->next;
         } while (cur != nullptr);
