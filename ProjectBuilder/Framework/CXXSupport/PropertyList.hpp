@@ -5,6 +5,8 @@
 
 #include "SupportBase.hpp"
 
+#include <ctime>
+#include <map>
 #include <string>
 #include <memory>
 #include <vector>
@@ -12,13 +14,17 @@
 #include <libxml/dict.h>
 #include <libxml/tree.h>
 
+/* this is designed to only serialise in memory. i do not know if i even WANT to try and implement a file saving impl */
+
 SUPPORT_BEGIN_NS
+
+namespace PropertyList {
 
 struct BinaryPlistHeader {
     char magic[8]; // bplist00
 };
 
-class PropertyListNode {
+class Node {
 
     public:
     enum struct NodeType {
@@ -34,11 +40,14 @@ class PropertyListNode {
 
     virtual NodeType GetNodeType() = 0;
 
+    const std::string &GetKeyName();
+
     protected:
-    std::string m_nodeKey;
+    std::string m_keyName;
+    xmlNodePtr m_xmlNode;
 };
 
-class PropertyListString : public PropertyListNode {
+class String : public Node {
 
     public:
     virtual NodeType GetNodeType() override { return NodeType::String; }
@@ -49,34 +58,72 @@ class PropertyListString : public PropertyListNode {
     std::string m_string;
 };
 
-class PropertyListArray : public PropertyListNode {
+class Array : public Node {
 
     public:
     virtual NodeType GetNodeType() override { return NodeType::Array; }
 
     size_t GetSize();
 
-    std::shared_ptr<PropertyListNode> GetNodeAtIndex(size_t index);
+    std::shared_ptr<Node> GetNodeAtIndex(size_t index);
+
+    void AddElement(std::shared_ptr<Node> Node);
 
     private:
-    std::vector<std::shared_ptr<PropertyListNode>> m_array;
+    std::vector<std::shared_ptr<Node>> m_array;
 };
 
+class Dictionary : public Node {
 
-class PropertyListFile {
     public:
+    virtual NodeType GetNodeType() override { return NodeType::Array; }
 
-    PropertyListFile(const std::vector<uint8_t> &file);
-    ~PropertyListFile();
+    bool ContainsKey(const std::string &Key);
 
-    std::shared_ptr<PropertyListNode> GetRootNode();
+    std::shared_ptr<Node> GetNode(const std::string &Key);
 
     private:
-    std::unique_ptr<std::vector<uint8_t>> m_rawFile;
-    std::shared_ptr<PropertyListNode> m_rootNode;
+    std::map<std::string, std::shared_ptr<Node>> m_map;
+};
+
+class Date : public Node {
+
+    public:
+    virtual NodeType GetNodeType() override { return NodeType::Date; }
+
+    const std::string &GetValue();
+
+    private:
+    std::string m_dateString;
+};
+
+class Boolean : public Node {
+
+    public:
+    virtual NodeType GetNodeType() override { return NodeType::Boolean; }
+
+    bool GetValue();
+
+    private:
+    bool m_value;
+};
+
+class File {
+    public:
+
+    File(const std::vector<uint8_t> &file);
+    ~File();
+
+    std::shared_ptr<Node> GetRootNode();
+
+    private:
+    std::unique_ptr<std::vector<uint8_t>> m_rawFile; // was this necessary - does the new vector copy data from the old one???
+    std::shared_ptr<Node> m_rootNode;
     xmlDocPtr m_xmlDoc;
     xmlNodePtr m_rootXmlNode;
 };
+
+}
 
 SUPPORT_END_NS
 

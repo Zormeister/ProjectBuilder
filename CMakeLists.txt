@@ -2,18 +2,17 @@ cmake_minimum_required(VERSION 3.24)
 
 project(ProjectBuilder C CXX)
 
-find_package(PkgConfig REQUIRED)
+find_package(libxml2 REQUIRED)
 
-pkg_check_modules(CoreFoundation REQUIRED CoreFoundation)
-
-find_package(libxml2)
-
-add_library(ProjectBuilder
-    ProjectBuilder/Framework/PBBuildController.c
-    ProjectBuilder/Framework/PBDiskImage.c
-    ProjectBuilder/Framework/PBConstants.c
+add_library(PBSupport
+    ProjectBuilder/Framework/CXXSupport/PropertyListFile.cpp
 )
 
-target_link_libraries(ProjectBuilder ${CoreFoundation_LIBRARIES} LibXml2::LibXml2)
-target_include_directories(ProjectBuilder PUBLIC ${CoreFoundation_INCLUDE_DIRS})
-target_compile_options(ProjectBuilder PUBLIC ${CoreFoundation_CFLAGS_OTHER})
+target_link_libraries(PBSupport PUBLIC LibXml2::LibXml2)
+
+
+add_executable(pbsupport_test
+    ProjectBuilder/Tests/pbsupport_util.cpp
+)
+
+target_link_libraries(pbsupport_test PUBLIC PBSupport)
