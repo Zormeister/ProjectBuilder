@@ -6,6 +6,7 @@
 #include <fstream>
 
 #if TARGET_OS_LINUX
+// This is needed on my system???
 #include <linux/uuid.h>
 #endif
 
@@ -13,11 +14,7 @@ using namespace ProjectBuilder;
 
 BuildController::BuildController(const std::filesystem::path &BuildRootsPath, const std::filesystem::path &PropertyListPath) {
     std::ifstream plistStream(PropertyListPath);
-#if TARGET_OS_LINUX
-    uuid_t uuid;
-    uuid_generate_random(uuid);
-    memcpy(m_currentBuildUUID, uuid, sizeof(uuid_t));
-#elif TARGET_OS_MAC
-    CFUUIDRef cfUUID = CFUUIDCreate(kCFAllocatorDefault);
-#endif
+
+    // perfect!
+    uuid_generate_random(m_currentBuildUUID);
 }

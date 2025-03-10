@@ -4,7 +4,7 @@
 
 using namespace PBSupport::PropertyList;
 
-Node::NodeType GetNodeTypeForXMLNode(xmlNodePtr node) {
+Node::NodeType PBSupport::PropertyList::GetNodeTypeForXMLNode(xmlNodePtr node) {
     if (xmlStrcmp(node->name, (xmlChar *)"dict") == 0) {
         return Node::NodeType::Dictionary;
     } else if (xmlStrcmp(node->name, (xmlChar *)"array") == 0) {

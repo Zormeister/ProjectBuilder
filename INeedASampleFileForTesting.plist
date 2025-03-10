@@ -4,6 +4,10 @@
 <dict>
 	<key>Config</key>
 	<dict>
+		<key>date1</key>
+		<date>2025-03-07T21:04:56Z</date>
+		<key>date2</key>
+		<date>2025-03-08T04:59:40Z</date>
 		<key>DiskImage</key>
 		<dict>
 			<key>Comment</key>

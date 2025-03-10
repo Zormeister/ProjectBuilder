@@ -16,6 +16,7 @@ PB_BEGIN_NS
 
 class BuildController {
 
+    public:
     /* Ripped from PBBuildController.h */
     enum struct NotificationReason {
         ProjectStatusChanged,
@@ -31,7 +32,7 @@ class BuildController {
 
     BuildController(const std::filesystem::path &BuildRootsPath, const std::filesystem::path &PropertyListPath);
 
-    std::filesystem::path GetBuildRootsPath(); /* I believe we need this for DI and others. */
+    const std::filesystem::path &GetBuildRootsPath(); /* I believe we need this for DI and others. */
 
     void StartBuildingProjects(); /* Equivalent to PBBuildControllerBegin() */
 

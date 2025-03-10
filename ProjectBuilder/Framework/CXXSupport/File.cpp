@@ -19,27 +19,30 @@ File::File(const std::vector<uint8_t> &file) {
     if (*(file.data()) == '<') {
         m_xmlDoc = xmlReadMemory((const char *)m_rawFile->data(), m_rawFile->size(), nullptr, nullptr, XML_PARSE_DTDLOAD);
         if (m_xmlDoc == nullptr) {
-            throw std::system_error();
+            throw std::runtime_error("Root XML Node is nullptr. Wtf?");
         }
         m_rootXmlNode = xmlDocGetRootElement(m_xmlDoc);
         if (m_rootXmlNode == nullptr) {
-            throw std::system_error();
+            throw std::runtime_error("Root XML Node is nullptr. Wtf?");
         }
         xmlNodePtr cur = m_rootXmlNode;
         do {
             if (xmlStrcmp(cur->name, (const xmlChar *)"plist")  == 0) {
                 xmlChar *version = xmlGetProp(cur, (const xmlChar *)"version");
-                printf("plist version: %s\n", version);
+                if (xmlStrcmp(version, (xmlChar *)"1.0")) {
+                    throw std::invalid_argument("OK. What the hell. Is there a new plist revision?");
+                }
                 /* A <plist></plist> will only ever have ONE child. */
                 for (xmlNodePtr childNode = cur->children; childNode != nullptr; childNode = childNode->next) {
                     if (childNode->type == XML_ELEMENT_NODE) {
                         switch (GetNodeTypeForXMLNode(childNode)) {
                             case Node::NodeType::Dictionary: {
-                                m_rootNode = std::make_shared<Dictionary>(std::nullopt, childNode);
+                                m_rootNode = std::make_shared<Dictionary>(childNode);
                                 break;
                             }
                             case Node::NodeType::Array: {
                                 // do smthn
+                                break;
                             }
                             default:
                                 throw std::invalid_argument("Root node shouldn't be anything that isn't a dictionary or array. WTF?");
@@ -52,7 +55,7 @@ File::File(const std::vector<uint8_t> &file) {
     } else {
         BinaryPlistHeader *hdr = (BinaryPlistHeader *)file.data();
         if (strncmp(hdr->magic, "bplist", 5) == 0) {
-            
+            throw std::runtime_error("binary plists are unsupported for now, soz.");
         } else {
             throw std::invalid_argument("bad plist file?");
         }

@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F00E0A082D35B41B0099A0DA /* PBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F0EA3D582D2C9F26003B1D31 /* PBConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F01BC79A2D6133990029D868 /* PBExternalRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = F01BC7982D6133990029D868 /* PBExternalRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F01BC79B2D6133990029D868 /* PBExternalRepository.c in Sources */ = {isa = PBXBuildFile; fileRef = F01BC7992D6133990029D868 /* PBExternalRepository.c */; };
 		F03D83922D5FD733004297A4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F03D83912D5FD733004297A4 /* main.cpp */; };
 		F03D83982D5FD7C1004297A4 /* xpc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F03D83972D5FD7C1004297A4 /* xpc.cpp */; };
 		F04D0B932D74F7D400349FD5 /* BuildController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B8D2D74F7D400349FD5 /* BuildController.hpp */; };
@@ -20,40 +17,36 @@
 		F04D0BA62D74F8C200349FD5 /* SupportBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B912D74F7D400349FD5 /* SupportBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		F04D0BA72D74F95E00349FD5 /* PBSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F04D0B9D2D74F89F00349FD5 /* PBSupport.framework */; };
 		F04D0BA82D74F95E00349FD5 /* PBSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F04D0B9D2D74F89F00349FD5 /* PBSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F04D0BAD2D74FA2700349FD5 /* PropertyListFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F04D0BAC2D74FA2700349FD5 /* PropertyListFile.cpp */; };
-		F04D0BAE2D74FA2700349FD5 /* PropertyListFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F04D0BAC2D74FA2700349FD5 /* PropertyListFile.cpp */; };
-		F06306292D2BF0B700351A77 /* PBRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = F06306282D2BE53300351A77 /* PBRuntime.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F04D0BAD2D74FA2700349FD5 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F04D0BAC2D74FA2700349FD5 /* File.cpp */; };
 		F06306312D2C70DA00351A77 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F06306302D2C70DA00351A77 /* main.cpp */; };
 		F09687052D6D869300349FD5 /* DevTools11.plist in Resources */ = {isa = PBXBuildFile; fileRef = F09687042D6D869300349FD5 /* DevTools11.plist */; };
-		F09687062D6D8B2300349FD5 /* PBBuildController.c in Sources */ = {isa = PBXBuildFile; fileRef = F0B425F12D6C3FFA00349FD5 /* PBBuildController.c */; };
-		F09687072D6D8B2800349FD5 /* PBBuildCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = F0BFEB4C2D690D2600349FD5 /* PBBuildCommand.c */; };
-		F09687082D6D8B2E00349FD5 /* PBConfig.c in Sources */ = {isa = PBXBuildFile; fileRef = F0F09B8D2D69315200142042 /* PBConfig.c */; };
-		F09687092D6D8B3300349FD5 /* PBConstants.c in Sources */ = {isa = PBXBuildFile; fileRef = F0EA3D592D2CA07C003B1D31 /* PBConstants.c */; };
-		F096870A2D6D8B3900349FD5 /* PBDiskImage.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C286582D6A9B9000349FD5 /* PBDiskImage.c */; };
-		F0B425F22D6C3FFB00349FD5 /* PBBuildController.h in Headers */ = {isa = PBXBuildFile; fileRef = F0B425F02D6C3FFA00349FD5 /* PBBuildController.h */; };
-		F0B425F32D6C3FFB00349FD5 /* PBBuildController.c in Sources */ = {isa = PBXBuildFile; fileRef = F0B425F12D6C3FFA00349FD5 /* PBBuildController.c */; };
-		F0BFEB152D67DD3E00349FD5 /* PBEnvironment.c in Sources */ = {isa = PBXBuildFile; fileRef = F0BFEB142D67DD3E00349FD5 /* PBEnvironment.c */; };
-		F0BFEB162D67DD3E00349FD5 /* PBEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = F0BFEB132D67DD3E00349FD5 /* PBEnvironment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0BFEB182D67E08400349FD5 /* Darwin19.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0BFEB172D67E08400349FD5 /* Darwin19.plist */; };
 		F0BFEB202D67E43900349FD5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0BFEB1F2D67E43900349FD5 /* main.cpp */; };
-		F0BFEB4D2D690D2600349FD5 /* PBBuildCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = F0BFEB4C2D690D2600349FD5 /* PBBuildCommand.c */; };
-		F0BFEB4E2D690D2600349FD5 /* PBBuildCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = F0BFEB4B2D690D2600349FD5 /* PBBuildCommand.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F0C286552D6A677500349FD5 /* PBProjectInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C286542D6A677500349FD5 /* PBProjectInfo.c */; };
-		F0C286562D6A677500349FD5 /* PBProjectInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C286532D6A677500349FD5 /* PBProjectInfo.h */; };
-		F0C286592D6A9B9000349FD5 /* PBDiskImage.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C286582D6A9B9000349FD5 /* PBDiskImage.c */; };
-		F0C2865A2D6A9B9000349FD5 /* PBDiskImage.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C286572D6A9B9000349FD5 /* PBDiskImage.h */; };
 		F0C65D552D21EBD000349FD5 /* ProjectBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F0C65D5B2D2207E200349FD5 /* PBProject.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C65D5A2D2207DF00349FD5 /* PBProject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F0C65D5D2D22091100349FD5 /* PBProject.c in Sources */ = {isa = PBXBuildFile; fileRef = F0C65D5C2D22090F00349FD5 /* PBProject.c */; };
 		F0C65D622D220A2200349FD5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */; };
-		F0EA3D5A2D2CA07C003B1D31 /* PBConstants.c in Sources */ = {isa = PBXBuildFile; fileRef = F0EA3D592D2CA07C003B1D31 /* PBConstants.c */; };
+		F0DB901D2D7A5AB900349FD5 /* Dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB901C2D7A5AB900349FD5 /* Dictionary.cpp */; };
+		F0DB901F2D7A5AC400349FD5 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB901E2D7A5AC400349FD5 /* Utils.cpp */; };
+		F0DB90212D7A5AD500349FD5 /* BuildController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB90202D7A5AD500349FD5 /* BuildController.cpp */; };
+		F0DB90252D7A5C0800349FD5 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB90242D7A5C0800349FD5 /* String.cpp */; };
+		F0DB90292D7AC58C00349FD5 /* Array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB90282D7AC58C00349FD5 /* Array.cpp */; };
+		F0DB902B2D7B899100349FD5 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB902A2D7B898A00349FD5 /* libxml2.2.tbd */; };
+		F0DB902D2D7C053600349FD5 /* Boolean.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB902C2D7C053600349FD5 /* Boolean.cpp */; };
+		F0DB90302D7C07CF00349FD5 /* Date.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB902E2D7C07B000349FD5 /* Date.cpp */; };
+		F0DB903E2D7C0B3E00349FD5 /* pbsupport_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB903C2D7C0B3E00349FD5 /* pbsupport_util.cpp */; };
+		F0DB903F2D7C15D100349FD5 /* PBSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F04D0B9D2D74F89F00349FD5 /* PBSupport.framework */; };
+		F0DB90402D7C15D100349FD5 /* PBSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F04D0B9D2D74F89F00349FD5 /* PBSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F0EFECC32D70FED000349FD5 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0EFECC22D70FED000349FD5 /* Utils.cpp */; };
-		F0F09B8E2D69315200142042 /* PBConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = F0F09B8C2D69315200142042 /* PBConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F0F09B8F2D69315200142042 /* PBConfig.c in Sources */ = {isa = PBXBuildFile; fileRef = F0F09B8D2D69315200142042 /* PBConfig.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		F04D0BA92D74F95E00349FD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F04245EF2B8066CC00418707 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F04D0B9C2D74F89F00349FD5;
+			remoteInfo = PBSupport;
+		};
+		F0DB90412D7C15D200349FD5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F04245EF2B8066CC00418707 /* Project object */;
 			proxyType = 1;
@@ -111,11 +104,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		F0DB90332D7C0A5100349FD5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		F0DB90432D7C15D200349FD5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F0DB90402D7C15D100349FD5 /* PBSupport.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F01BC7982D6133990029D868 /* PBExternalRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBExternalRepository.h; sourceTree = "<group>"; };
-		F01BC7992D6133990029D868 /* PBExternalRepository.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBExternalRepository.c; sourceTree = "<group>"; };
 		F03D838F2D5FD733004297A4 /* pbctl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pbctl; sourceTree = BUILT_PRODUCTS_DIR; };
 		F03D83912D5FD733004297A4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F03D83972D5FD7C1004297A4 /* xpc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xpc.cpp; sourceTree = "<group>"; };
@@ -127,37 +138,28 @@
 		F04D0B912D74F7D400349FD5 /* SupportBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SupportBase.hpp; sourceTree = "<group>"; };
 		F04D0B9D2D74F89F00349FD5 /* PBSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PBSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F04D0B9F2D74F89F00349FD5 /* PBSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBSupport.h; sourceTree = "<group>"; };
-		F04D0BAC2D74FA2700349FD5 /* PropertyListFile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PropertyListFile.cpp; sourceTree = "<group>"; };
-		F06306282D2BE53300351A77 /* PBRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBRuntime.h; sourceTree = "<group>"; };
+		F04D0BAC2D74FA2700349FD5 /* File.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = File.cpp; sourceTree = "<group>"; };
 		F063062E2D2C70DA00351A77 /* ProjectBuilderd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ProjectBuilderd; sourceTree = BUILT_PRODUCTS_DIR; };
 		F06306302D2C70DA00351A77 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		F0884D5B2BB3582B00716DF5 /* libplist++-2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libplist++-2.0.dylib"; path = "external/libplist++-2.0.dylib"; sourceTree = "<group>"; };
-		F0884D602BB359BA00716DF5 /* libplist-2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libplist-2.0.dylib"; path = "external/libplist-2.0.dylib"; sourceTree = "<group>"; };
 		F09687042D6D869300349FD5 /* DevTools11.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DevTools11.plist; sourceTree = "<group>"; };
-		F0B425F02D6C3FFA00349FD5 /* PBBuildController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBBuildController.h; sourceTree = "<group>"; };
-		F0B425F12D6C3FFA00349FD5 /* PBBuildController.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBBuildController.c; sourceTree = "<group>"; };
-		F0BFEB132D67DD3E00349FD5 /* PBEnvironment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBEnvironment.h; sourceTree = "<group>"; };
-		F0BFEB142D67DD3E00349FD5 /* PBEnvironment.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBEnvironment.c; sourceTree = "<group>"; };
 		F0BFEB172D67E08400349FD5 /* Darwin19.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Darwin19.plist; sourceTree = "<group>"; };
 		F0BFEB1D2D67E43800349FD5 /* projectbuilder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = projectbuilder; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0BFEB1F2D67E43900349FD5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		F0BFEB4B2D690D2600349FD5 /* PBBuildCommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBBuildCommand.h; sourceTree = "<group>"; };
-		F0BFEB4C2D690D2600349FD5 /* PBBuildCommand.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBBuildCommand.c; sourceTree = "<group>"; };
-		F0C286532D6A677500349FD5 /* PBProjectInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBProjectInfo.h; sourceTree = "<group>"; };
-		F0C286542D6A677500349FD5 /* PBProjectInfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBProjectInfo.c; sourceTree = "<group>"; };
-		F0C286572D6A9B9000349FD5 /* PBDiskImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBDiskImage.h; sourceTree = "<group>"; };
-		F0C286582D6A9B9000349FD5 /* PBDiskImage.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBDiskImage.c; sourceTree = "<group>"; };
 		F0C65D392D21EB0200349FD5 /* ProjectBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ProjectBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectBuilder.h; sourceTree = "<group>"; };
-		F0C65D5A2D2207DF00349FD5 /* PBProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBProject.h; sourceTree = "<group>"; };
-		F0C65D5C2D22090F00349FD5 /* PBProject.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBProject.c; sourceTree = "<group>"; };
 		F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F0DB901C2D7A5AB900349FD5 /* Dictionary.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Dictionary.cpp; sourceTree = "<group>"; };
+		F0DB901E2D7A5AC400349FD5 /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
+		F0DB90202D7A5AD500349FD5 /* BuildController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BuildController.cpp; sourceTree = "<group>"; };
+		F0DB90242D7A5C0800349FD5 /* String.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
+		F0DB90282D7AC58C00349FD5 /* Array.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Array.cpp; sourceTree = "<group>"; };
+		F0DB902A2D7B898A00349FD5 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/usr/lib/libxml2.2.tbd; sourceTree = DEVELOPER_DIR; };
+		F0DB902C2D7C053600349FD5 /* Boolean.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Boolean.cpp; sourceTree = "<group>"; };
+		F0DB902E2D7C07B000349FD5 /* Date.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Date.cpp; sourceTree = "<group>"; };
+		F0DB90352D7C0A5100349FD5 /* PBSupportTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PBSupportTest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0DB903C2D7C0B3E00349FD5 /* pbsupport_util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pbsupport_util.cpp; sourceTree = "<group>"; };
 		F0EA3D572D2C7FAF003B1D31 /* com.Zormeister.ProjectBuilder.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = com.Zormeister.ProjectBuilder.plist; sourceTree = "<group>"; };
-		F0EA3D582D2C9F26003B1D31 /* PBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBConstants.h; sourceTree = "<group>"; };
-		F0EA3D592D2CA07C003B1D31 /* PBConstants.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBConstants.c; sourceTree = "<group>"; };
 		F0EFECC22D70FED000349FD5 /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
-		F0F09B8C2D69315200142042 /* PBConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBConfig.h; sourceTree = "<group>"; };
-		F0F09B8D2D69315200142042 /* PBConfig.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PBConfig.c; sourceTree = "<group>"; };
 		F0FE16582B81AEEA006B4548 /* ExamplePlist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExamplePlist.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,6 +175,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0DB902B2D7B899100349FD5 /* libxml2.2.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +199,14 @@
 			files = (
 				F04D0BA72D74F95E00349FD5 /* PBSupport.framework in Frameworks */,
 				F0C65D622D220A2200349FD5 /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0DB90322D7C0A5100349FD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0DB903F2D7C15D100349FD5 /* PBSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +242,7 @@
 				F03D838F2D5FD733004297A4 /* pbctl */,
 				F0BFEB1D2D67E43800349FD5 /* projectbuilder */,
 				F04D0B9D2D74F89F00349FD5 /* PBSupport.framework */,
+				F0DB90352D7C0A5100349FD5 /* PBSupportTest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -242,41 +254,17 @@
 				F03D83962D5FD740004297A4 /* CLI */,
 				F06306352D2C70E100351A77 /* Daemon */,
 				F0C65D532D21EB9800349FD5 /* Framework */,
+				F0DB903D2D7C0B3E00349FD5 /* Tests */,
 			);
 			path = ProjectBuilder;
-			sourceTree = "<group>";
-		};
-		F04D0B8B2D74F2C700349FD5 /* CF */ = {
-			isa = PBXGroup;
-			children = (
-				F06306272D2BE4FD00351A77 /* Private */,
-				F0B425F12D6C3FFA00349FD5 /* PBBuildController.c */,
-				F0B425F02D6C3FFA00349FD5 /* PBBuildController.h */,
-				F0BFEB4C2D690D2600349FD5 /* PBBuildCommand.c */,
-				F0BFEB4B2D690D2600349FD5 /* PBBuildCommand.h */,
-				F0F09B8D2D69315200142042 /* PBConfig.c */,
-				F0F09B8C2D69315200142042 /* PBConfig.h */,
-				F0EA3D592D2CA07C003B1D31 /* PBConstants.c */,
-				F0EA3D582D2C9F26003B1D31 /* PBConstants.h */,
-				F0C286582D6A9B9000349FD5 /* PBDiskImage.c */,
-				F0C286572D6A9B9000349FD5 /* PBDiskImage.h */,
-				F0BFEB142D67DD3E00349FD5 /* PBEnvironment.c */,
-				F0BFEB132D67DD3E00349FD5 /* PBEnvironment.h */,
-				F01BC7992D6133990029D868 /* PBExternalRepository.c */,
-				F01BC7982D6133990029D868 /* PBExternalRepository.h */,
-				F0C286542D6A677500349FD5 /* PBProjectInfo.c */,
-				F0C286532D6A677500349FD5 /* PBProjectInfo.h */,
-				F0C65D5C2D22090F00349FD5 /* PBProject.c */,
-				F0C65D5A2D2207DF00349FD5 /* PBProject.h */,
-				F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */,
-			);
-			path = CF;
 			sourceTree = "<group>";
 		};
 		F04D0B8F2D74F7D400349FD5 /* CXX */ = {
 			isa = PBXGroup;
 			children = (
+				F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */,
 				F04D0B8C2D74F7D400349FD5 /* Base.hpp */,
+				F0DB90202D7A5AD500349FD5 /* BuildController.cpp */,
 				F04D0B8D2D74F7D400349FD5 /* BuildController.hpp */,
 				F04D0B8E2D74F7D400349FD5 /* DiskImage.hpp */,
 			);
@@ -286,20 +274,18 @@
 		F04D0B922D74F7D400349FD5 /* CXXSupport */ = {
 			isa = PBXGroup;
 			children = (
+				F0DB90282D7AC58C00349FD5 /* Array.cpp */,
+				F0DB902C2D7C053600349FD5 /* Boolean.cpp */,
+				F0DB902E2D7C07B000349FD5 /* Date.cpp */,
+				F0DB901C2D7A5AB900349FD5 /* Dictionary.cpp */,
+				F04D0BAC2D74FA2700349FD5 /* File.cpp */,
 				F04D0B9F2D74F89F00349FD5 /* PBSupport.h */,
 				F04D0B902D74F7D400349FD5 /* PropertyList.hpp */,
-				F04D0BAC2D74FA2700349FD5 /* PropertyListFile.cpp */,
+				F0DB90242D7A5C0800349FD5 /* String.cpp */,
 				F04D0B912D74F7D400349FD5 /* SupportBase.hpp */,
+				F0DB901E2D7A5AC400349FD5 /* Utils.cpp */,
 			);
 			path = CXXSupport;
-			sourceTree = "<group>";
-		};
-		F06306272D2BE4FD00351A77 /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				F06306282D2BE53300351A77 /* PBRuntime.h */,
-			);
-			path = Private;
 			sourceTree = "<group>";
 		};
 		F06306352D2C70E100351A77 /* Daemon */ = {
@@ -334,7 +320,6 @@
 			children = (
 				F04D0B8F2D74F7D400349FD5 /* CXX */,
 				F04D0B922D74F7D400349FD5 /* CXXSupport */,
-				F04D0B8B2D74F2C700349FD5 /* CF */,
 			);
 			path = Framework;
 			sourceTree = "<group>";
@@ -342,11 +327,18 @@
 		F0D2C44C2B8AD2DE00E71E8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F0884D602BB359BA00716DF5 /* libplist-2.0.dylib */,
-				F0884D5B2BB3582B00716DF5 /* libplist++-2.0.dylib */,
+				F0DB902A2D7B898A00349FD5 /* libxml2.2.tbd */,
 				F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F0DB903D2D7C0B3E00349FD5 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F0DB903C2D7C0B3E00349FD5 /* pbsupport_util.cpp */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,20 +358,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0F09B8E2D69315200142042 /* PBConfig.h in Headers */,
-				F0BFEB162D67DD3E00349FD5 /* PBEnvironment.h in Headers */,
 				F0C65D552D21EBD000349FD5 /* ProjectBuilder.h in Headers */,
 				F04D0B932D74F7D400349FD5 /* BuildController.hpp in Headers */,
 				F04D0B952D74F7D400349FD5 /* Base.hpp in Headers */,
 				F04D0B962D74F7D400349FD5 /* DiskImage.hpp in Headers */,
-				F01BC79A2D6133990029D868 /* PBExternalRepository.h in Headers */,
-				F0BFEB4E2D690D2600349FD5 /* PBBuildCommand.h in Headers */,
-				F06306292D2BF0B700351A77 /* PBRuntime.h in Headers */,
-				F0C2865A2D6A9B9000349FD5 /* PBDiskImage.h in Headers */,
-				F00E0A082D35B41B0099A0DA /* PBConstants.h in Headers */,
-				F0C65D5B2D2207E200349FD5 /* PBProject.h in Headers */,
-				F0C286562D6A677500349FD5 /* PBProjectInfo.h in Headers */,
-				F0B425F22D6C3FFB00349FD5 /* PBBuildController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +464,27 @@
 			productReference = F0C65D392D21EB0200349FD5 /* ProjectBuilder.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		F0DB90342D7C0A5100349FD5 /* PBSupportTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0DB90392D7C0A5100349FD5 /* Build configuration list for PBXNativeTarget "PBSupportTest" */;
+			buildPhases = (
+				F0DB90312D7C0A5100349FD5 /* Sources */,
+				F0DB90322D7C0A5100349FD5 /* Frameworks */,
+				F0DB90332D7C0A5100349FD5 /* CopyFiles */,
+				F0DB90432D7C15D200349FD5 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F0DB90422D7C15D200349FD5 /* PBXTargetDependency */,
+			);
+			name = PBSupportTest;
+			packageProductDependencies = (
+			);
+			productName = PBSupportTest;
+			productReference = F0DB90352D7C0A5100349FD5 /* PBSupportTest */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -506,6 +509,9 @@
 					F0C65D382D21EB0200349FD5 = {
 						CreatedOnToolsVersion = 16.2;
 					};
+					F0DB90342D7C0A5100349FD5 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 				};
 			};
 			buildConfigurationList = F04245F22B8066CC00418707 /* Build configuration list for PBXProject "ProjectBuilder" */;
@@ -526,6 +532,7 @@
 				F03D838E2D5FD733004297A4 /* pbctl */,
 				F0BFEB1C2D67E43800349FD5 /* projectbuilder */,
 				F04D0B9C2D74F89F00349FD5 /* PBSupport */,
+				F0DB90342D7C0A5100349FD5 /* PBSupportTest */,
 			);
 		};
 /* End PBXProject section */
@@ -563,7 +570,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F04D0BAD2D74FA2700349FD5 /* PropertyListFile.cpp in Sources */,
+				F04D0BAD2D74FA2700349FD5 /* File.cpp in Sources */,
+				F0DB901F2D7A5AC400349FD5 /* Utils.cpp in Sources */,
+				F0DB90252D7A5C0800349FD5 /* String.cpp in Sources */,
+				F0DB901D2D7A5AB900349FD5 /* Dictionary.cpp in Sources */,
+				F0DB90302D7C07CF00349FD5 /* Date.cpp in Sources */,
+				F0DB902D2D7C053600349FD5 /* Boolean.cpp in Sources */,
+				F0DB90292D7AC58C00349FD5 /* Array.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,13 +592,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F09687072D6D8B2800349FD5 /* PBBuildCommand.c in Sources */,
-				F09687062D6D8B2300349FD5 /* PBBuildController.c in Sources */,
 				F0EFECC32D70FED000349FD5 /* Utils.cpp in Sources */,
-				F09687092D6D8B3300349FD5 /* PBConstants.c in Sources */,
 				F0BFEB202D67E43900349FD5 /* main.cpp in Sources */,
-				F096870A2D6D8B3900349FD5 /* PBDiskImage.c in Sources */,
-				F09687082D6D8B2E00349FD5 /* PBConfig.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,16 +601,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F04D0BAE2D74FA2700349FD5 /* PropertyListFile.cpp in Sources */,
-				F0EA3D5A2D2CA07C003B1D31 /* PBConstants.c in Sources */,
-				F0BFEB4D2D690D2600349FD5 /* PBBuildCommand.c in Sources */,
-				F0B425F32D6C3FFB00349FD5 /* PBBuildController.c in Sources */,
-				F01BC79B2D6133990029D868 /* PBExternalRepository.c in Sources */,
-				F0BFEB152D67DD3E00349FD5 /* PBEnvironment.c in Sources */,
-				F0C286592D6A9B9000349FD5 /* PBDiskImage.c in Sources */,
-				F0C286552D6A677500349FD5 /* PBProjectInfo.c in Sources */,
-				F0F09B8F2D69315200142042 /* PBConfig.c in Sources */,
-				F0C65D5D2D22091100349FD5 /* PBProject.c in Sources */,
+				F0DB90212D7A5AD500349FD5 /* BuildController.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0DB90312D7C0A5100349FD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0DB903E2D7C0B3E00349FD5 /* pbsupport_util.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,6 +620,11 @@
 			isa = PBXTargetDependency;
 			target = F04D0B9C2D74F89F00349FD5 /* PBSupport */;
 			targetProxy = F04D0BA92D74F95E00349FD5 /* PBXContainerItemProxy */;
+		};
+		F0DB90422D7C15D200349FD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F04D0B9C2D74F89F00349FD5 /* PBSupport */;
+			targetProxy = F0DB90412D7C15D200349FD5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -784,7 +796,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -792,13 +804,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 				XROS_DEPLOYMENT_TARGET = 2.2;
@@ -829,7 +841,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -837,12 +849,12 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 				XROS_DEPLOYMENT_TARGET = 2.2;
@@ -951,6 +963,24 @@
 			};
 			name = Release;
 		};
+		F0DB903A2D7C0A5100349FD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F0DB903B2D7C0A5100349FD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1004,6 +1034,15 @@
 			buildConfigurations = (
 				F0C65D3D2D21EB0200349FD5 /* Debug */,
 				F0C65D3E2D21EB0200349FD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0DB90392D7C0A5100349FD5 /* Build configuration list for PBXNativeTarget "PBSupportTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0DB903A2D7C0A5100349FD5 /* Debug */,
+				F0DB903B2D7C0A5100349FD5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

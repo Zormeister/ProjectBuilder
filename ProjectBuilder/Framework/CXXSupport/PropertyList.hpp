@@ -3,9 +3,14 @@
 #ifndef PROJECTBUILDER_SUPPORT_PROPERTYLIST_HPP
 #define PROJECTBUILDER_SUPPORT_PROPERTYLIST_HPP
 
-#include "SupportBase.hpp"
+#ifdef __cplusplus
 
-#include <ctime>
+#if __APPLE__ == 0
+#include "SupportBase.hpp"
+#else
+#include <PBSupport/SupportBase.hpp>
+#endif
+
 #include <map>
 #include <string>
 #include <memory>
@@ -28,7 +33,6 @@ struct BinaryPlistHeader {
 class Node {
 
     public:
-    Node(std::optional<std::string> Key, xmlNodePtr XMLValueNode);
 
     enum struct NodeType {
         Array,
@@ -43,23 +47,19 @@ class Node {
     };
 
     virtual NodeType GetNodeType() = 0;
-
-    std::optional<const std::string &> GetKeyName();
-
-    protected:
-    std::string m_keyName;
-    xmlNodePtr m_xmlValueNode;
 };
 
 Node::NodeType GetNodeTypeForXMLNode(xmlNodePtr node);
 
 class String : public Node {
-    String(std::optional<std::string> KeyName, xmlNodePtr XMLNode);
 
     public:
+    String(xmlNodePtr XMLNode);
+    String(const std::string &String);
+
     virtual NodeType GetNodeType() override { return NodeType::String; }
 
-    std::string GetString();
+    const std::string &GetString() { return m_string; };
 
     private:
     std::string m_string;
@@ -68,6 +68,9 @@ class String : public Node {
 class Array : public Node {
 
     public:
+    Array(xmlNodePtr XMLNode);
+    Array(std::vector<std::shared_ptr<Node>> Vector);
+
     virtual NodeType GetNodeType() override { return NodeType::Array; }
 
     size_t GetSize();
@@ -75,20 +78,24 @@ class Array : public Node {
     std::shared_ptr<Node> GetNodeAtIndex(size_t index);
 
     void AddElement(std::shared_ptr<Node> Node);
+    void RemoveElement(size_t Index);
 
     private:
     std::vector<std::shared_ptr<Node>> m_array;
 };
 
 class Dictionary : public Node {
-    Dictionary(std::optional<std::string> KeyName, xmlNodePtr XMLNode);
 
     public:
+    Dictionary(xmlNodePtr XMLNode);
+    Dictionary(std::map<std::string, std::shared_ptr<Node>> Entries);
+    
     virtual NodeType GetNodeType() override { return NodeType::Dictionary; }
 
     bool ContainsKey(const std::string &Key);
 
-    std::shared_ptr<Node> GetNode(const std::string &Key);
+    /* large line. oof. */
+    std::optional<std::shared_ptr<Node>> GetNode(const std::string &Key);
 
     private:
     std::map<std::string, std::shared_ptr<Node>> m_map;
@@ -97,17 +104,26 @@ class Dictionary : public Node {
 class Date : public Node {
 
     public:
+    Date(xmlNodePtr XMLNode); /* Use XML Node for instanciation */
+    Date(const std::string &DateString); /* HAS to be an RFC3339 encoded timestamp. */
+    Date(); /* Get the current time & use that as our date */
+    
     virtual NodeType GetNodeType() override { return NodeType::Date; }
 
-    const std::string &GetValue();
+    const std::string &GetValue() { return m_dateString; }
+    
+    const std::string &GetFormattedValue();
 
     private:
     std::string m_dateString;
+    std::string m_saneFormatString;
 };
 
 class Boolean : public Node {
-
     public:
+    Boolean(xmlNodePtr XMLNode);
+    Boolean(bool value);
+
     virtual NodeType GetNodeType() override { return NodeType::Boolean; }
 
     bool GetValue();
@@ -116,11 +132,30 @@ class Boolean : public Node {
     bool m_value;
 };
 
+class Integer : public Node {
+    public:
+    Integer(xmlNodePtr XMLNode);
+    Integer(int value);
+
+    virtual NodeType GetNodeType() override { return NodeType::Boolean; }
+
+    int GetValue() { return m_value; }
+
+    private:
+    int m_value;
+};
+
 class File {
     public:
 
     File(const std::vector<uint8_t> &file);
+    File(Node::NodeType RootNodeType);
     ~File();
+
+    enum struct FileType {
+        XML,
+        BinaryPlist,
+    };
 
     std::shared_ptr<Node> GetRootNode();
 
@@ -134,5 +169,7 @@ class File {
 }
 
 SUPPORT_END_NS
+
+#endif
 
 #endif

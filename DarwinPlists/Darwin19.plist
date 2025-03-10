@@ -81,6 +81,12 @@
 					<string>install</string>
 				</dict>
 				<dict>
+					<key>Comment</key>
+					<string>I had to make the TriggersRebuildOf key just because this stupid library obliterates the mach &amp; machine headers.</string>
+					<key>TriggersRebuildOf</key>
+					<array>
+						<string>xnu_headers</string>
+					</array>
 					<key>BaseProject</key>
 					<string>xnu</string>
 					<key>Name</key>
@@ -91,6 +97,12 @@
 					<string>install</string>
 				</dict>
 				<dict>
+					<key>Comment</key>
+					<string>I had to make the TriggersRebuildOf key just because this stupid library obliterates the mach &amp; machine headers.</string>
+					<key>TriggersRebuildOf</key>
+					<array>
+						<string>xnu_headers</string>
+					</array>
 					<key>BaseProject</key>
 					<string>xnu</string>
 					<key>Name</key>

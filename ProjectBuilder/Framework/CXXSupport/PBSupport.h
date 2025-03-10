@@ -17,4 +17,9 @@ SUPPORT_EXPORT const unsigned char PBSupportVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <PBSupport/PublicHeader.h>
 
+#if defined(__APPLE__)
+#include <PBSupport/SupportBase.hpp>
+#include <PBSupport/PropertyList.hpp>
+#endif
+
 #endif
