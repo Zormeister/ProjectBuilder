@@ -8,3 +8,27 @@
 #include "PropertyList.hpp"
 
 using namespace PBSupport::PropertyList;
+
+Array::Array(xmlNodePtr XMLNode) : Node() {
+    xmlNodePtr child;
+    for (child = XMLNode->next->children; child != nullptr; child = child->next) {
+        if (child->type == XML_ELEMENT_NODE) {
+            switch (GetNodeTypeForXMLNode(child)) {
+                case Node::NodeType::Array:
+                    m_array.push_back(std::make_shared<Array>(child));
+                    break;
+                case Node::NodeType::Boolean:
+                    m_array.push_back(std::make_shared<Boolean>(child));
+                    break;
+                case Node::NodeType::String:
+                    m_array.push_back(std::make_shared<String>(child));
+                    break;
+                case Node::NodeType::Dictionary:
+                    m_array.push_back(std::make_shared<Dictionary>(child));
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}

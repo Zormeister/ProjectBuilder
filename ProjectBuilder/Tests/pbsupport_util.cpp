@@ -2,6 +2,8 @@
 
 #include "../Framework/CXXSupport/PropertyList.hpp"
 #include <cstdlib>
+#include <iostream>
+#include <memory>
 #include <stdexcept>
 #include <filesystem>
 #include <fstream>
@@ -26,6 +28,33 @@ void parse_args(int argc, const char *argv[]) {
     }
 }
 
+void dump_plist_node(std::shared_ptr<PropertyList::Node> n) {
+    switch (n->GetNodeType()) {
+        case PropertyList::Node::NodeType::Array: {
+            std::shared_ptr<PropertyList::Array> arrnode = std::dynamic_pointer_cast<PropertyList::Array>(n);
+            std::cout << "Node : Array\n";
+            for (int i = 0; i < arrnode->GetSize(); i++) {
+                dump_plist_node(arrnode->GetNodeAtIndex(i));
+            }
+            break;
+        }
+        case PropertyList::Node::NodeType::Boolean: {
+            std::shared_ptr<PropertyList::Boolean> boolnode = std::dynamic_pointer_cast<PropertyList::Boolean>(n);
+            std::cout << "Node : Boolean : " << (boolnode->GetValue() ? "True" : "False") << "\n";
+            break;
+        }
+        case PropertyList::Node::NodeType::Data: {
+            
+        }
+        case PropertyList::Node::NodeType::Date:
+        case PropertyList::Node::NodeType::Dictionary:
+        case PropertyList::Node::NodeType::Integer:
+        case PropertyList::Node::NodeType::String:
+        case PropertyList::Node::NodeType::Unknown:
+          break;
+        }
+}
+
 int main(int argc, const char *argv[]) {
     parse_args(argc, argv);
     if (filePath) {
@@ -40,6 +69,7 @@ int main(int argc, const char *argv[]) {
         stream.close();
 
         PropertyList::File file(vec);
+        auto rn = file.GetRootNode();
     }
     return 0;
 }

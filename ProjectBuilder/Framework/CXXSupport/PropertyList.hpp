@@ -27,7 +27,8 @@ SUPPORT_BEGIN_NS
 namespace PropertyList {
 
 struct BinaryPlistHeader {
-    char magic[8]; // bplist00
+    char magic[5]; // bplist00
+    char version[2];
 };
 
 class Node {
@@ -42,7 +43,6 @@ class Node {
         Dictionary,
         Integer,
         String,
-        Real,
         Unknown,
     };
 
@@ -137,13 +137,30 @@ class Integer : public Node {
     Integer(xmlNodePtr XMLNode);
     Integer(int value);
 
-    virtual NodeType GetNodeType() override { return NodeType::Boolean; }
+    virtual NodeType GetNodeType() override { return NodeType::Integer; }
 
     int GetValue() { return m_value; }
 
     private:
     int m_value;
 };
+
+class Data : public Node {
+    public:
+    Data(xmlNodePtr XMLNode);
+    Data(const uint8_t *Data, size_t Size);
+
+    virtual NodeType GetNodeType() override { return NodeType::Data; }
+
+    const std::vector<uint8_t> &GetData();
+
+    const size_t GetSize();
+
+    private:
+    std::vector<uint8_t> m_data;
+};
+
+const char *EncodeDataNode(std::shared_ptr<PropertyList::Data> Data);
 
 class File {
     public:

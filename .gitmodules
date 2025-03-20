@@ -1,6 +1,6 @@
-[submodule "External/OpenCFLite"]
-	path = External/OpenCFLite
-	url = https://github.com/gerickson/opencflite.git
-[submodule "External/libkqueue"]
-	path = External/libkqueue
-	url = https://github.com/mheily/libkqueue.git
+[submodule "External/date"]
+	path = External/date
+	url = https://github.com/HowardHinnant/date.git
+[submodule "External/libb64"]
+	path = External/libb64
+	url = https://github.com/libb64/libb64.git

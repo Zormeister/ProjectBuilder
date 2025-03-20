@@ -3,6 +3,7 @@
 #include "PropertyList.hpp"
 #include "libxml/parser.h"
 #include "libxml/xmlstring.h"
+#include <stdexcept>
 
 using namespace PBSupport::PropertyList;
 

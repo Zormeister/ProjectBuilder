@@ -6,7 +6,7 @@
 
 #include <ctime>
 #include <cstring>
-#include <chrono>
+#include <stdexcept>
 
 using namespace PBSupport::PropertyList;
 
@@ -19,8 +19,7 @@ Date::Date(xmlNodePtr XMLNode) : Node() {
 }
 
 Date::Date() : Node() {
-    const auto now = std::chrono::system_clock::now();
-    
+    throw std::runtime_error("i am so sorry i have not implemented this yet\n");
 }
 
 const std::string &Date::GetFormattedValue() {

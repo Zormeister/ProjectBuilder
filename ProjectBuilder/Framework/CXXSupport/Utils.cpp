@@ -17,6 +17,8 @@ Node::NodeType PBSupport::PropertyList::GetNodeTypeForXMLNode(xmlNodePtr node) {
         return Node::NodeType::Date;
     } else if (xmlStrcmp(node->name, (xmlChar *)"integer") == 0) {
         return Node::NodeType::Integer;
+    } else if (xmlStrcmp(node->name, (xmlChar *)"data") == 0) {
+        return Node::NodeType::Data;
     }
 
     return Node::NodeType::Unknown;

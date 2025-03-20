@@ -3,6 +3,7 @@
         "-DUNDER_CLANGD=1",
         "-isystem /usr/include",
         "-I/usr/include/libxml2",
+        "-I${workspaceFolder}/External/date/include",
         "-fblocks",
         "-DTARGET_OS_LINUX=1"
     ]

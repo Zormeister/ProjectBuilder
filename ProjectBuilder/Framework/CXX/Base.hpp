@@ -13,11 +13,8 @@
 
 /* This might have the effect of creating logic inconsistencies. */
 #if __APPLE__
-#define BRIDGE_CF_API 1
 #define TARGET_OS_MAC 1
 #define TARGET_OS_LINUX 0
-#else
-#define BRIDGE_CF_API 0
 #endif
 
 /* backing up my notes & docs */
@@ -54,7 +51,7 @@
  *  - x86_64
  *  - x86_64h - NOTE: Certain projects CANNOT use x86_64h - DO NOT use x86_64h for base system libraries. AT ALL.
  *  - arm64
- *  - arm
+ *  - armv7
  *  - arm64_32
  */
 
@@ -73,6 +70,7 @@
  * - Xcode
  * - Script
  * - CMake
+ * - XMake
  *
  * Support can be later expanded in the future.
  * This is a STRING value.

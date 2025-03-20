@@ -8,7 +8,7 @@
 PB_BEGIN_NS
 
 class DiskImage {
-    
+    DiskImage();
 };
 
 PB_END_NS

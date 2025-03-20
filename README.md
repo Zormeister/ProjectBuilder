@@ -8,3 +8,7 @@ Fedora requires the following packages:
 - libicu-devel
 - libdisptach-devel
 - libuuid-devel
+
+## VSCodium Setup
+
+`clangd` extension + `clangd-cmake` extension.

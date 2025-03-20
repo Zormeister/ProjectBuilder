@@ -7,7 +7,6 @@
 #include <cstring>
 #include <memory>
 #include <stdexcept>
-#include <system_error>
 #include <vector>
 
 using namespace PBSupport::PropertyList;
@@ -41,7 +40,7 @@ File::File(const std::vector<uint8_t> &file) {
                                 break;
                             }
                             case Node::NodeType::Array: {
-                                // do smthn
+                                m_rootNode = std::make_shared<Array>(childNode);
                                 break;
                             }
                             default:

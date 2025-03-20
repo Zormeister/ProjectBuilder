@@ -5,3 +5,4 @@ projectbuilder.xcodeproj/xcuserdata
 *.dylib
 External/tzcode
 External/tzcode.tar.gz
+.cache
