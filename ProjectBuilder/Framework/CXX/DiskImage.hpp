@@ -5,10 +5,14 @@
 
 #include "Base.hpp"
 
+#include <PBSupport/PBSupport.h>
+
+using namespace PBSupport;
+
 PB_BEGIN_NS
 
 class DiskImage {
-    DiskImage();
+    DiskImage(PropertyList::Dictionary imageInfo);
 };
 
 PB_END_NS

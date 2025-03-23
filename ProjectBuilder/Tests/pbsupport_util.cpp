@@ -44,12 +44,30 @@ void dump_plist_node(std::shared_ptr<PropertyList::Node> n) {
             break;
         }
         case PropertyList::Node::NodeType::Data: {
-            
+            std::cout << "Node : Data\n";
+            break;
         }
         case PropertyList::Node::NodeType::Date:
-        case PropertyList::Node::NodeType::Dictionary:
+            std::cout << "Node : Date\n";
+            break;
+        case PropertyList::Node::NodeType::Dictionary: {
+            std::cout << "Node : Dictionary\n";
+            std::shared_ptr<PropertyList::Dictionary> node = std::dynamic_pointer_cast<PropertyList::Dictionary>(n);
+            for (auto iter = node->GetIterator(); iter != node->GetIteratorEnd(); ++iter) {
+                std::cout << "Key : " << iter->first << std::endl;
+                dump_plist_node(iter->second);
+            };
+            break;
+        }
         case PropertyList::Node::NodeType::Integer:
-        case PropertyList::Node::NodeType::String:
+            std::cout << "Node  : Integer\n";
+            break;
+        case PropertyList::Node::NodeType::String: {
+            std::shared_ptr<PropertyList::String> node = std::dynamic_pointer_cast<PropertyList::String>(n);
+            std::cout << "Node  : String\n";
+            std::cout << "Value : " << node->GetString() << std::endl;
+            break;
+        }
         case PropertyList::Node::NodeType::Unknown:
           break;
         }
@@ -70,6 +88,7 @@ int main(int argc, const char *argv[]) {
 
         PropertyList::File file(vec);
         auto rn = file.GetRootNode();
+        dump_plist_node(rn);
     }
     return 0;
 }

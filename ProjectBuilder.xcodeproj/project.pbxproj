@@ -19,6 +19,18 @@
 		F04D0BA82D74F95E00349FD5 /* PBSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F04D0B9D2D74F89F00349FD5 /* PBSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F04D0BAD2D74FA2700349FD5 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F04D0BAC2D74FA2700349FD5 /* File.cpp */; };
 		F06306312D2C70DA00351A77 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F06306302D2C70DA00351A77 /* main.cpp */; };
+		F0803D012D8F98FF00349FD5 /* Integer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0803D002D8F98FF00349FD5 /* Integer.cpp */; };
+		F0803D0A2D8F9B4000349FD5 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB901E2D7A5AC400349FD5 /* Utils.cpp */; };
+		F0803D0B2D8F9B4600349FD5 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB90242D7A5C0800349FD5 /* String.cpp */; };
+		F0803D0C2D8F9B4E00349FD5 /* Integer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0803D002D8F98FF00349FD5 /* Integer.cpp */; };
+		F0803D0D2D8F9B5300349FD5 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F04D0BAC2D74FA2700349FD5 /* File.cpp */; };
+		F0803D0E2D8F9B5900349FD5 /* Dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB901C2D7A5AB900349FD5 /* Dictionary.cpp */; };
+		F0803D0F2D8F9B6000349FD5 /* Date.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB902E2D7C07B000349FD5 /* Date.cpp */; };
+		F0803D102D8F9B6800349FD5 /* Data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0F92C612D8F634E00349FD5 /* Data.cpp */; };
+		F0803D112D8F9B6D00349FD5 /* Boolean.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB902C2D7C053600349FD5 /* Boolean.cpp */; };
+		F0803D122D8F9B7500349FD5 /* Array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB90282D7AC58C00349FD5 /* Array.cpp */; };
+		F0803D152D8FA12E00349FD5 /* libPBSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0803D062D8F9B0B00349FD5 /* libPBSupport.a */; };
+		F0803D192D8FA1C800349FD5 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F0803D182D8FA1C000349FD5 /* libxml2.2.tbd */; };
 		F09687052D6D869300349FD5 /* DevTools11.plist in Resources */ = {isa = PBXBuildFile; fileRef = F09687042D6D869300349FD5 /* DevTools11.plist */; };
 		F0BFEB182D67E08400349FD5 /* Darwin19.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0BFEB172D67E08400349FD5 /* Darwin19.plist */; };
 		F0BFEB202D67E43900349FD5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0BFEB1F2D67E43900349FD5 /* main.cpp */; };
@@ -33,9 +45,8 @@
 		F0DB902D2D7C053600349FD5 /* Boolean.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB902C2D7C053600349FD5 /* Boolean.cpp */; };
 		F0DB90302D7C07CF00349FD5 /* Date.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB902E2D7C07B000349FD5 /* Date.cpp */; };
 		F0DB903E2D7C0B3E00349FD5 /* pbsupport_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB903C2D7C0B3E00349FD5 /* pbsupport_util.cpp */; };
-		F0DB903F2D7C15D100349FD5 /* PBSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F04D0B9D2D74F89F00349FD5 /* PBSupport.framework */; };
-		F0DB90402D7C15D100349FD5 /* PBSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F04D0B9D2D74F89F00349FD5 /* PBSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F0EFECC32D70FED000349FD5 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0EFECC22D70FED000349FD5 /* Utils.cpp */; };
+		F0F92C622D8F634E00349FD5 /* Data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0F92C612D8F634E00349FD5 /* Data.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,12 +57,19 @@
 			remoteGlobalIDString = F04D0B9C2D74F89F00349FD5;
 			remoteInfo = PBSupport;
 		};
-		F0DB90412D7C15D200349FD5 /* PBXContainerItemProxy */ = {
+		F0803D132D8F9C9B00349FD5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F04245EF2B8066CC00418707 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = F04D0B9C2D74F89F00349FD5;
-			remoteInfo = PBSupport;
+			remoteGlobalIDString = F0F92C632D8F637200349FD5;
+			remoteInfo = libb64;
+		};
+		F0803D162D8FA12E00349FD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F04245EF2B8066CC00418707 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0803D052D8F9B0B00349FD5;
+			remoteInfo = libPBSupport;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -113,17 +131,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		F0DB90432D7C15D200349FD5 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				F0DB90402D7C15D100349FD5 /* PBSupport.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -141,6 +148,9 @@
 		F04D0BAC2D74FA2700349FD5 /* File.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = File.cpp; sourceTree = "<group>"; };
 		F063062E2D2C70DA00351A77 /* ProjectBuilderd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ProjectBuilderd; sourceTree = BUILT_PRODUCTS_DIR; };
 		F06306302D2C70DA00351A77 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F0803D002D8F98FF00349FD5 /* Integer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Integer.cpp; sourceTree = "<group>"; };
+		F0803D062D8F9B0B00349FD5 /* libPBSupport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPBSupport.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0803D182D8FA1C000349FD5 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 		F09687042D6D869300349FD5 /* DevTools11.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DevTools11.plist; sourceTree = "<group>"; };
 		F0BFEB172D67E08400349FD5 /* Darwin19.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Darwin19.plist; sourceTree = "<group>"; };
 		F0BFEB1D2D67E43800349FD5 /* projectbuilder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = projectbuilder; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +170,7 @@
 		F0DB903C2D7C0B3E00349FD5 /* pbsupport_util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pbsupport_util.cpp; sourceTree = "<group>"; };
 		F0EA3D572D2C7FAF003B1D31 /* com.Zormeister.ProjectBuilder.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = com.Zormeister.ProjectBuilder.plist; sourceTree = "<group>"; };
 		F0EFECC22D70FED000349FD5 /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
+		F0F92C612D8F634E00349FD5 /* Data.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Data.cpp; sourceTree = "<group>"; };
 		F0FE16582B81AEEA006B4548 /* ExamplePlist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExamplePlist.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +197,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F0803D042D8F9B0B00349FD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F0BFEB1A2D67E43800349FD5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -206,7 +224,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0DB903F2D7C15D100349FD5 /* PBSupport.framework in Frameworks */,
+				F0803D152D8FA12E00349FD5 /* libPBSupport.a in Frameworks */,
+				F0803D192D8FA1C800349FD5 /* libxml2.2.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +262,7 @@
 				F0BFEB1D2D67E43800349FD5 /* projectbuilder */,
 				F04D0B9D2D74F89F00349FD5 /* PBSupport.framework */,
 				F0DB90352D7C0A5100349FD5 /* PBSupportTest */,
+				F0803D062D8F9B0B00349FD5 /* libPBSupport.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -276,9 +296,11 @@
 			children = (
 				F0DB90282D7AC58C00349FD5 /* Array.cpp */,
 				F0DB902C2D7C053600349FD5 /* Boolean.cpp */,
+				F0F92C612D8F634E00349FD5 /* Data.cpp */,
 				F0DB902E2D7C07B000349FD5 /* Date.cpp */,
 				F0DB901C2D7A5AB900349FD5 /* Dictionary.cpp */,
 				F04D0BAC2D74FA2700349FD5 /* File.cpp */,
+				F0803D002D8F98FF00349FD5 /* Integer.cpp */,
 				F04D0B9F2D74F89F00349FD5 /* PBSupport.h */,
 				F04D0B902D74F7D400349FD5 /* PropertyList.hpp */,
 				F0DB90242D7A5C0800349FD5 /* String.cpp */,
@@ -328,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				F0DB902A2D7B898A00349FD5 /* libxml2.2.tbd */,
+				F0803D182D8FA1C000349FD5 /* libxml2.2.tbd */,
 				F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */,
 			);
 			name = Frameworks;
@@ -354,6 +377,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F0803D022D8F9B0B00349FD5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F0C65D342D21EB0200349FD5 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -366,6 +396,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
+
+/* Begin PBXLegacyTarget section */
+		F0F92C632D8F637200349FD5 /* libb64 */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = all_src;
+			buildConfigurationList = F0F92C642D8F637200349FD5 /* Build configuration list for PBXLegacyTarget "libb64" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "$(PROJECT_DIR)/External/libb64";
+			dependencies = (
+			);
+			name = libb64;
+			packageProductDependencies = (
+			);
+			passBuildSettingsInEnvironment = 1;
+			productName = libb64;
+		};
+/* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
 		F03D838E2D5FD733004297A4 /* pbctl */ = {
@@ -397,6 +446,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F0803D142D8F9C9B00349FD5 /* PBXTargetDependency */,
 			);
 			name = PBSupport;
 			packageProductDependencies = (
@@ -421,6 +471,25 @@
 			productName = ProjectBuilderd;
 			productReference = F063062E2D2C70DA00351A77 /* ProjectBuilderd */;
 			productType = "com.apple.product-type.tool";
+		};
+		F0803D052D8F9B0B00349FD5 /* libPBSupport */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0803D072D8F9B0B00349FD5 /* Build configuration list for PBXNativeTarget "libPBSupport" */;
+			buildPhases = (
+				F0803D022D8F9B0B00349FD5 /* Headers */,
+				F0803D032D8F9B0B00349FD5 /* Sources */,
+				F0803D042D8F9B0B00349FD5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libPBSupport;
+			packageProductDependencies = (
+			);
+			productName = PBSupport_static;
+			productReference = F0803D062D8F9B0B00349FD5 /* libPBSupport.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 		F0BFEB1C2D67E43800349FD5 /* projectbuilder */ = {
 			isa = PBXNativeTarget;
@@ -471,12 +540,11 @@
 				F0DB90312D7C0A5100349FD5 /* Sources */,
 				F0DB90322D7C0A5100349FD5 /* Frameworks */,
 				F0DB90332D7C0A5100349FD5 /* CopyFiles */,
-				F0DB90432D7C15D200349FD5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F0DB90422D7C15D200349FD5 /* PBXTargetDependency */,
+				F0803D172D8FA12E00349FD5 /* PBXTargetDependency */,
 			);
 			name = PBSupportTest;
 			packageProductDependencies = (
@@ -503,6 +571,9 @@
 					F063062D2D2C70DA00351A77 = {
 						CreatedOnToolsVersion = 14.2;
 					};
+					F0803D052D8F9B0B00349FD5 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					F0BFEB1C2D67E43800349FD5 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -510,6 +581,9 @@
 						CreatedOnToolsVersion = 16.2;
 					};
 					F0DB90342D7C0A5100349FD5 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					F0F92C632D8F637200349FD5 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
@@ -533,6 +607,8 @@
 				F0BFEB1C2D67E43800349FD5 /* projectbuilder */,
 				F04D0B9C2D74F89F00349FD5 /* PBSupport */,
 				F0DB90342D7C0A5100349FD5 /* PBSupportTest */,
+				F0F92C632D8F637200349FD5 /* libb64 */,
+				F0803D052D8F9B0B00349FD5 /* libPBSupport */,
 			);
 		};
 /* End PBXProject section */
@@ -573,6 +649,8 @@
 				F04D0BAD2D74FA2700349FD5 /* File.cpp in Sources */,
 				F0DB901F2D7A5AC400349FD5 /* Utils.cpp in Sources */,
 				F0DB90252D7A5C0800349FD5 /* String.cpp in Sources */,
+				F0F92C622D8F634E00349FD5 /* Data.cpp in Sources */,
+				F0803D012D8F98FF00349FD5 /* Integer.cpp in Sources */,
 				F0DB901D2D7A5AB900349FD5 /* Dictionary.cpp in Sources */,
 				F0DB90302D7C07CF00349FD5 /* Date.cpp in Sources */,
 				F0DB902D2D7C053600349FD5 /* Boolean.cpp in Sources */,
@@ -585,6 +663,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				F06306312D2C70DA00351A77 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0803D032D8F9B0B00349FD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0803D0B2D8F9B4600349FD5 /* String.cpp in Sources */,
+				F0803D0D2D8F9B5300349FD5 /* File.cpp in Sources */,
+				F0803D122D8F9B7500349FD5 /* Array.cpp in Sources */,
+				F0803D102D8F9B6800349FD5 /* Data.cpp in Sources */,
+				F0803D0C2D8F9B4E00349FD5 /* Integer.cpp in Sources */,
+				F0803D112D8F9B6D00349FD5 /* Boolean.cpp in Sources */,
+				F0803D0F2D8F9B6000349FD5 /* Date.cpp in Sources */,
+				F0803D0E2D8F9B5900349FD5 /* Dictionary.cpp in Sources */,
+				F0803D0A2D8F9B4000349FD5 /* Utils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -621,10 +715,15 @@
 			target = F04D0B9C2D74F89F00349FD5 /* PBSupport */;
 			targetProxy = F04D0BA92D74F95E00349FD5 /* PBXContainerItemProxy */;
 		};
-		F0DB90422D7C15D200349FD5 /* PBXTargetDependency */ = {
+		F0803D142D8F9C9B00349FD5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F04D0B9C2D74F89F00349FD5 /* PBSupport */;
-			targetProxy = F0DB90412D7C15D200349FD5 /* PBXContainerItemProxy */;
+			target = F0F92C632D8F637200349FD5 /* libb64 */;
+			targetProxy = F0803D132D8F9C9B00349FD5 /* PBXContainerItemProxy */;
+		};
+		F0803D172D8FA12E00349FD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0803D052D8F9B0B00349FD5 /* libPBSupport */;
+			targetProxy = F0803D162D8FA12E00349FD5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -702,8 +801,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/external/libplist/include";
-				LIBRARY_SEARCH_PATHS = "${PROJECT_DIR}/external/libplist/**";
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/External/libb64/include";
+				LIBRARY_SEARCH_PATHS = "${PROJECT_DIR}/External/libb64/src";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -761,8 +860,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/external/libplist/include";
-				LIBRARY_SEARCH_PATHS = "${PROJECT_DIR}/external/libplist/**";
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/External/libb64/include";
+				LIBRARY_SEARCH_PATHS = "${PROJECT_DIR}/External/libb64/src";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -785,6 +884,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/External/libb64/include";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
@@ -796,10 +896,12 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "${PROJECT_DIR}/External/libb64/src";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				OTHER_LDFLAGS = "-lb64";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Zormeister.PBSupport;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
@@ -830,6 +932,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/External/libb64/include";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
@@ -841,10 +944,12 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "${PROJECT_DIR}/External/libb64/src";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				OTHER_LDFLAGS = "-lb64";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Zormeister.PBSupport;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
@@ -878,6 +983,30 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F0803D082D8F9B0B00349FD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_LDFLAGS = "-lb64";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F0803D092D8F9B0B00349FD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_LDFLAGS = "-lb64";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -968,6 +1097,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_LDFLAGS = "-lb64";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -977,6 +1107,32 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_LDFLAGS = "-lb64";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F0F92C652D8F637200349FD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F0F92C662D8F637200349FD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1020,6 +1176,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		F0803D072D8F9B0B00349FD5 /* Build configuration list for PBXNativeTarget "libPBSupport" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0803D082D8F9B0B00349FD5 /* Debug */,
+				F0803D092D8F9B0B00349FD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F0BFEB212D67E43900349FD5 /* Build configuration list for PBXNativeTarget "projectbuilder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1043,6 +1208,15 @@
 			buildConfigurations = (
 				F0DB903A2D7C0A5100349FD5 /* Debug */,
 				F0DB903B2D7C0A5100349FD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0F92C642D8F637200349FD5 /* Build configuration list for PBXLegacyTarget "libb64" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0F92C652D8F637200349FD5 /* Debug */,
+				F0F92C662D8F637200349FD5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

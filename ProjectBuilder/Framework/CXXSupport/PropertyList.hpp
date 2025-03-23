@@ -73,9 +73,9 @@ class Array : public Node {
 
     virtual NodeType GetNodeType() override { return NodeType::Array; }
 
-    size_t GetSize();
+    size_t GetSize() { return m_array.size(); };
 
-    std::shared_ptr<Node> GetNodeAtIndex(size_t index);
+    std::shared_ptr<Node> GetNodeAtIndex(size_t index) { return m_array[index]; };
 
     void AddElement(std::shared_ptr<Node> Node);
     void RemoveElement(size_t Index);
@@ -96,6 +96,11 @@ class Dictionary : public Node {
 
     /* large line. oof. */
     std::optional<std::shared_ptr<Node>> GetNode(const std::string &Key);
+    
+    auto GetIterator() { return m_map.begin(); }
+    auto GetIteratorEnd() { return m_map.end(); }
+    
+    auto GetMap() { return m_map; }
 
     private:
     std::map<std::string, std::shared_ptr<Node>> m_map;
@@ -126,7 +131,7 @@ class Boolean : public Node {
 
     virtual NodeType GetNodeType() override { return NodeType::Boolean; }
 
-    bool GetValue();
+    bool GetValue() { return m_value; }
 
     private:
     bool m_value;
@@ -174,7 +179,7 @@ class File {
         BinaryPlist,
     };
 
-    std::shared_ptr<Node> GetRootNode();
+    std::shared_ptr<Node> GetRootNode() { return m_rootNode; }
 
     private:
     std::unique_ptr<std::vector<uint8_t>> m_rawFile; // was this necessary - does the new vector copy data from the old one???

@@ -29,7 +29,7 @@ File::File(const std::vector<uint8_t> &file) {
             if (xmlStrcmp(cur->name, (const xmlChar *)"plist")  == 0) {
                 xmlChar *version = xmlGetProp(cur, (const xmlChar *)"version");
                 if (xmlStrcmp(version, (xmlChar *)"1.0")) {
-                    throw std::invalid_argument("OK. What the hell. Is there a new plist revision?");
+                    throw std::invalid_argument("Is there a new plist revision?");
                 }
                 /* A <plist></plist> will only ever have ONE child. */
                 for (xmlNodePtr childNode = cur->children; childNode != nullptr; childNode = childNode->next) {
@@ -62,7 +62,6 @@ File::File(const std::vector<uint8_t> &file) {
 }
 
 File::~File() {
-    /* At this point, something needs to signal to the lower nodes that their data is about to be taken away. */
     if (m_xmlDoc) {
         xmlFreeDoc(m_xmlDoc);
     }
