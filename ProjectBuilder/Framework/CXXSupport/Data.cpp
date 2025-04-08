@@ -2,9 +2,13 @@
 
 #include "PropertyList.hpp"
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <libxml/parser.h>
+#define BUFFERSIZE BUFSIZ
 #include <b64/decode.h>
+#include <b64/encode.h>
+#include <memory>
 #include <vector>
 
 using namespace PBSupport::PropertyList;
@@ -15,4 +19,19 @@ Data::Data(xmlNodePtr XMLNode) : Node() {
     m_data.reserve(strlen((const char *)data));
     dec.decode((const char *)data, strlen((const char *)data), (char *)m_data.data());
     printf("%s\n", m_data.data());
+}
+
+Data::Data(const std::vector<uint8_t> &Data) : Node() {
+    // is there a safe way to do this or is this safe
+    // OOP is messing with my brain more than
+    // the OOPness of IOKit ever did holy hell
+    m_data = Data;
+}
+
+// istg if someone puts in a massive amount of data such as a whole kernel binary i will shoot you
+std::shared_ptr<char []> Data::EncodeData() {
+    std::shared_ptr<char []> ptr(new char[m_data.size()]);
+    base64::encoder enc;
+    enc.encode((char *)m_data.data(), m_data.size(), ptr.get());
+    return ptr;
 }

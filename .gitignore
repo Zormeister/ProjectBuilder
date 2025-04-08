@@ -1,8 +1,7 @@
 build
-projectbuilder.xcodeproj/project.xcworkspace
-projectbuilder.xcodeproj/xcuserdata
+ProjectBuilder.xcodeproj/project.xcworkspace
+ProjectBuilder.xcodeproj/xcuserdata
 .DS_Store
 *.dylib
-External/tzcode
-External/tzcode.tar.gz
 .cache
+.xmake

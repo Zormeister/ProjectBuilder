@@ -4,12 +4,18 @@
 <dict>
 	<key>Config</key>
 	<dict>
-		<key>SelfReliantSDKConfig</key>
+		<key>SDK</key>
 		<dict>
 			<key>Comment</key>
 			<string>the amount of random features i need is insane</string>
-			<key>SDKRoot</key>
+			<key>Root</key>
 			<string>/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.internal</string>
+			<key>Name</key>
+			<string>MacOSX10.15.internal</string>
+			<key>Platform</key>
+			<string>MacOSX</string>
+			<key>Compiler</key>
+			<string>com.apple.compilers.llvm.clang.1_0</string>
 		</dict>
 		<key>DiskImage</key>
 		<dict>

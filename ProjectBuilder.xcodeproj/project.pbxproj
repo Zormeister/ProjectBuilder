@@ -3,12 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		F03D83922D5FD733004297A4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F03D83912D5FD733004297A4 /* main.cpp */; };
 		F03D83982D5FD7C1004297A4 /* xpc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F03D83972D5FD7C1004297A4 /* xpc.cpp */; };
+		F04C0B982DA4F0FE002B8602 /* Platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04C0B952DA4F0F7002B8602 /* Platform.hpp */; };
+		F04C0B992DA4F0FE002B8602 /* Keys.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F04C0B962DA4F0FC002B8602 /* Keys.cpp */; };
+		F04C0B9A2DA4F0FE002B8602 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F04C0B972DA4F0FE002B8602 /* Platform.cpp */; };
 		F04D0B932D74F7D400349FD5 /* BuildController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B8D2D74F7D400349FD5 /* BuildController.hpp */; };
 		F04D0B952D74F7D400349FD5 /* Base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B8C2D74F7D400349FD5 /* Base.hpp */; };
 		F04D0B962D74F7D400349FD5 /* DiskImage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B8E2D74F7D400349FD5 /* DiskImage.hpp */; };
@@ -138,6 +141,9 @@
 		F03D83912D5FD733004297A4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F03D83972D5FD7C1004297A4 /* xpc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xpc.cpp; sourceTree = "<group>"; };
 		F046EA702D6E5A7700349FD5 /* INeedASampleFileForTesting.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = INeedASampleFileForTesting.plist; sourceTree = "<group>"; };
+		F04C0B952DA4F0F7002B8602 /* Platform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Platform.hpp; sourceTree = "<group>"; };
+		F04C0B962DA4F0FC002B8602 /* Keys.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Keys.cpp; sourceTree = "<group>"; };
+		F04C0B972DA4F0FE002B8602 /* Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Platform.cpp; sourceTree = "<group>"; };
 		F04D0B8C2D74F7D400349FD5 /* Base.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Base.hpp; sourceTree = "<group>"; };
 		F04D0B8D2D74F7D400349FD5 /* BuildController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BuildController.hpp; sourceTree = "<group>"; };
 		F04D0B8E2D74F7D400349FD5 /* DiskImage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DiskImage.hpp; sourceTree = "<group>"; };
@@ -287,6 +293,9 @@
 				F0DB90202D7A5AD500349FD5 /* BuildController.cpp */,
 				F04D0B8D2D74F7D400349FD5 /* BuildController.hpp */,
 				F04D0B8E2D74F7D400349FD5 /* DiskImage.hpp */,
+				F04C0B962DA4F0FC002B8602 /* Keys.cpp */,
+				F04C0B972DA4F0FE002B8602 /* Platform.cpp */,
+				F04C0B952DA4F0F7002B8602 /* Platform.hpp */,
 			);
 			path = CXX;
 			sourceTree = "<group>";
@@ -392,6 +401,7 @@
 				F04D0B932D74F7D400349FD5 /* BuildController.hpp in Headers */,
 				F04D0B952D74F7D400349FD5 /* Base.hpp in Headers */,
 				F04D0B962D74F7D400349FD5 /* DiskImage.hpp in Headers */,
+				F04C0B982DA4F0FE002B8602 /* Platform.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,7 +569,6 @@
 		F04245EF2B8066CC00418707 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					F03D838E2D5FD733004297A4 = {
@@ -589,7 +598,7 @@
 				};
 			};
 			buildConfigurationList = F04245F22B8066CC00418707 /* Build configuration list for PBXProject "ProjectBuilder" */;
-			compatibilityVersion = "Xcode 12.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -696,6 +705,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0DB90212D7A5AD500349FD5 /* BuildController.cpp in Sources */,
+				F04C0B9A2DA4F0FE002B8602 /* Platform.cpp in Sources */,
+				F04C0B992DA4F0FE002B8602 /* Keys.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

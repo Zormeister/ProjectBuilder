@@ -16,6 +16,7 @@
 #include <memory>
 #include <vector>
 #include <optional>
+#include <filesystem>
 
 #include <libxml/dict.h>
 #include <libxml/tree.h>
@@ -77,8 +78,8 @@ class Array : public Node {
 
     std::shared_ptr<Node> GetNodeAtIndex(size_t index) { return m_array[index]; };
 
-    void AddElement(std::shared_ptr<Node> Node);
-    void RemoveElement(size_t Index);
+    void AddElement(std::shared_ptr<Node> Node) { m_array.push_back(Node); }
+    void RemoveElement(size_t Index) { m_array.erase(m_array.begin() + Index); }
 
     private:
     std::vector<std::shared_ptr<Node>> m_array;
@@ -153,13 +154,15 @@ class Integer : public Node {
 class Data : public Node {
     public:
     Data(xmlNodePtr XMLNode);
-    Data(const uint8_t *Data, size_t Size);
+    Data(const std::vector<uint8_t> &Data);
 
     virtual NodeType GetNodeType() override { return NodeType::Data; }
 
-    const std::vector<uint8_t> &GetData();
+    const std::vector<uint8_t> &GetData() { return m_data; };
 
-    const size_t GetSize();
+    const size_t GetSize() { return m_data.size(); };
+
+    std::shared_ptr<char []> EncodeData();
 
     private:
     std::vector<uint8_t> m_data;
@@ -170,22 +173,25 @@ const char *EncodeDataNode(std::shared_ptr<PropertyList::Data> Data);
 class File {
     public:
 
-    File(const std::vector<uint8_t> &file);
-    File(Node::NodeType RootNodeType);
-    ~File();
-
     enum struct FileType {
         XML,
         BinaryPlist,
     };
 
+    File(const std::vector<uint8_t> &file);
+    File(Node::NodeType RootNodeType, FileType Type = FileType::XML);
+    ~File();
+
     std::shared_ptr<Node> GetRootNode() { return m_rootNode; }
 
+    bool SaveFile(const std::filesystem::path &FilePath);
+
     private:
-    std::unique_ptr<std::vector<uint8_t>> m_rawFile; // was this necessary - does the new vector copy data from the old one???
+    std::shared_ptr<std::vector<uint8_t>> m_rawFile; // was this necessary - does the new vector copy data from the old one???
     std::shared_ptr<Node> m_rootNode;
     xmlDocPtr m_xmlDoc;
     xmlNodePtr m_rootXmlNode;
+    FileType m_fileType;
 };
 
 }

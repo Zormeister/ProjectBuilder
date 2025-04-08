@@ -6,6 +6,8 @@
 #include <string>
 #include <cstring>
 #include <filesystem>
+#include <iostream>
+#include "../Framework/CXX/Platform.hpp"
 
 #if TARGET_OS_LINUX
 #include <unistd.h>
@@ -23,6 +25,7 @@ std::string gBuildRootsPath;
 enum InternalAction {
     Usage,
     Build,
+    ListPlatforms,
 };
 
 InternalAction gCurrentAction = InternalAction::Usage;
@@ -38,6 +41,8 @@ void parse_args(int argc, const char *argv[]) {
             // If we have no destination root, just leave the binaries in /Library/Caches/com.Zormeister.ProjectBuilder/<Build UUID>/
         } else if (s == "-buildrootpath") {
             gBuildRootsPath = argv[i + 1];
+        } else if (s == "--list-platforms") {
+            gCurrentAction = InternalAction::ListPlatforms;
         }
     }
 }
@@ -46,7 +51,16 @@ void parse_args(int argc, const char *argv[]) {
 #define DEFAULT_BUILDROOTS_DIRECTORY "/Library/BuildRoots"
 
 int main(int argc, const char * argv[]) {
-    /* This is me testing my shitcode. */
-    struct passwd *pwd = getpwuid(getuid());
+    switch (gCurrentAction) {
+        case ListPlatforms: {
+            auto vec = ProjectBuilder::Platform::GetAvailablePlatforms();
+            for (auto plat = vec.begin(); plat != vec.end(); ++plat) {
+                std::cout << "Platform : " << plat->GetName() << std::endl;
+            }
+        };
+
+        default:
+        break;
+    }
     return 0;
 }

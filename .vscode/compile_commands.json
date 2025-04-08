@@ -1,0 +1,96 @@
+[
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_static/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Boolean.cpp.o", "ProjectBuilder/Framework/CXXSupport/Boolean.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Boolean.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_static/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Date.cpp.o", "ProjectBuilder/Framework/CXXSupport/Date.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Date.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_static/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/String.cpp.o", "ProjectBuilder/Framework/CXXSupport/String.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/String.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_static/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Utils.cpp.o", "ProjectBuilder/Framework/CXXSupport/Utils.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Utils.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_static/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Integer.cpp.o", "ProjectBuilder/Framework/CXXSupport/Integer.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Integer.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_static/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Data.cpp.o", "ProjectBuilder/Framework/CXXSupport/Data.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Data.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_static/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Array.cpp.o", "ProjectBuilder/Framework/CXXSupport/Array.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Array.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_static/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Dictionary.cpp.o", "ProjectBuilder/Framework/CXXSupport/Dictionary.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Dictionary.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_static/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/File.cpp.o", "ProjectBuilder/Framework/CXXSupport/File.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/File.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/pbsupport_util/linux/x86_64/release/ProjectBuilder/Tests/pbsupport_util.cpp.o", "ProjectBuilder/Tests/pbsupport_util.cpp"],
+  "file": "ProjectBuilder/Tests/pbsupport_util.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fPIC", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_shared/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Boolean.cpp.o", "ProjectBuilder/Framework/CXXSupport/Boolean.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Boolean.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fPIC", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_shared/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Date.cpp.o", "ProjectBuilder/Framework/CXXSupport/Date.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Date.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fPIC", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_shared/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/String.cpp.o", "ProjectBuilder/Framework/CXXSupport/String.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/String.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fPIC", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_shared/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Utils.cpp.o", "ProjectBuilder/Framework/CXXSupport/Utils.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Utils.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fPIC", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_shared/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Integer.cpp.o", "ProjectBuilder/Framework/CXXSupport/Integer.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Integer.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fPIC", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_shared/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Data.cpp.o", "ProjectBuilder/Framework/CXXSupport/Data.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Data.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fPIC", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_shared/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Array.cpp.o", "ProjectBuilder/Framework/CXXSupport/Array.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Array.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fPIC", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_shared/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/Dictionary.cpp.o", "ProjectBuilder/Framework/CXXSupport/Dictionary.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/Dictionary.cpp"
+},
+{
+  "directory": "/Developer/SWE/ProjectBuilder",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fPIC", "-O3", "-std=c++17", "-I/Developer/SWE/ProjectBuilder/ProjectBuilder/Framework", "-I", "/usr/include/libxml2", "-DNDEBUG", "-o", "build/.objs/PBSupport_shared/linux/x86_64/release/ProjectBuilder/Framework/CXXSupport/File.cpp.o", "ProjectBuilder/Framework/CXXSupport/File.cpp"],
+  "file": "ProjectBuilder/Framework/CXXSupport/File.cpp"
+}]

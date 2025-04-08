@@ -1,6 +1,7 @@
 // Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
 #include "../Framework/CXXSupport/PropertyList.hpp"
+#include <cstdio>
 #include <cstdlib>
 #include <iostream>
 #include <memory>
@@ -47,9 +48,12 @@ void dump_plist_node(std::shared_ptr<PropertyList::Node> n) {
             std::cout << "Node : Data\n";
             break;
         }
-        case PropertyList::Node::NodeType::Date:
+        case PropertyList::Node::NodeType::Date: {
+            std::shared_ptr<PropertyList::Date> node = std::dynamic_pointer_cast<PropertyList::Date>(n);
             std::cout << "Node : Date\n";
+            std::cout << "Value : " << node->GetFormattedValue() << std::endl;
             break;
+        }
         case PropertyList::Node::NodeType::Dictionary: {
             std::cout << "Node : Dictionary\n";
             std::shared_ptr<PropertyList::Dictionary> node = std::dynamic_pointer_cast<PropertyList::Dictionary>(n);
@@ -59,9 +63,12 @@ void dump_plist_node(std::shared_ptr<PropertyList::Node> n) {
             };
             break;
         }
-        case PropertyList::Node::NodeType::Integer:
+        case PropertyList::Node::NodeType::Integer: {
+            std::shared_ptr<PropertyList::Integer> node = std::dynamic_pointer_cast<PropertyList::Integer>(n);
             std::cout << "Node  : Integer\n";
+            fprintf(stdout, "Value : %d", node->GetValue());
             break;
+        }
         case PropertyList::Node::NodeType::String: {
             std::shared_ptr<PropertyList::String> node = std::dynamic_pointer_cast<PropertyList::String>(n);
             std::cout << "Node  : String\n";
