@@ -12,10 +12,7 @@
 #define PB_END_NS };
 
 /* This might have the effect of creating logic inconsistencies. */
-#if __APPLE__
-#define TARGET_OS_MAC 1
-#define TARGET_OS_LINUX 0
-#endif
+#include <TargetConditionals.h>
 
 /* backing up my notes & docs */
 

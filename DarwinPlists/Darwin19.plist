@@ -6,6 +6,8 @@
 	<dict>
 		<key>SDK</key>
 		<dict>
+			<key>CanonicalName</key>
+			<string>macosx10.15.internal</string>
 			<key>Comment</key>
 			<string>the amount of random features i need is insane</string>
 			<key>Root</key>
@@ -47,23 +49,6 @@
 	<key>Projects</key>
 	<array>
 		<dict>
-			<key>HasVariants</key>
-			<true/>
-			<key>Variants</key>
-			<array>
-				<dict>
-					<key>EnvironmentVariable</key>
-					<string>MACHINE_CONFIGS</string>
-					<key>Comment</key>
-					<string>ignore t7000 and t8010, i will toy around with BCM2712 outside of PB for now</string>
-					<key>Arch</key>
-					<string>arm64</string>
-					<key>VariantTypes</key>
-					<array>
-						<string>BCM2837</string>
-					</array>
-				</dict>
-			</array>
 			<key>SubProjects</key>
 			<array>
 				<dict>
@@ -135,8 +120,11 @@
 					<string>xnu_development</string>
 					<key>BuildSystem</key>
 					<string>Makefile</string>
-					<key>Target</key>
-					<string>installhdrs</string>
+					<key>Targets</key>
+					<array>
+						<string>all_desktop</string>
+						<string>all_embedded</string>
+					</array>
 				</dict>
 				<dict>
 					<key>BaseProject</key>
@@ -179,24 +167,9 @@
 				<key>Type</key>
 				<string>Git</string>
 				<key>URL</key>
-				<string>https://github.com/Zormeister/xnu-6153.141.1</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Version</key>
-			<string>1</string>
-			<key>Name</key>
-			<string>sdk_init</string>
-			<key>BuildSystem</key>
-			<string>Script</string>
-			<key>ScriptPath</key>
-			<string>setup_sdk.sh</string>
-			<key>ExternalRepository</key>
-			<dict>
-				<key>Type</key>
-				<string>Git</string>
-				<key>URL</key>
-				<string>https://github.com/Zormeister/SDKInit</string>
+				<string>https://github.com/Zormeister/xnu</string>
+				<key>Branch</key>
+				<string>6153</string>
 			</dict>
 		</dict>
 		<dict>

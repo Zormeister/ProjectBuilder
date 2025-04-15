@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F01C07B72DABAC2F00124F05 /* SDK.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F01C07B42DABAC2E00124F05 /* SDK.hpp */; };
+		F01C07B82DABAC2F00124F05 /* Toolchain.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F01C07B52DABAC2F00124F05 /* Toolchain.hpp */; };
+		F01C07B92DABAC2F00124F05 /* SDK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F01C07B62DABAC2F00124F05 /* SDK.cpp */; };
 		F03D83922D5FD733004297A4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F03D83912D5FD733004297A4 /* main.cpp */; };
 		F03D83982D5FD7C1004297A4 /* xpc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F03D83972D5FD7C1004297A4 /* xpc.cpp */; };
 		F04C0B982DA4F0FE002B8602 /* Platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04C0B952DA4F0F7002B8602 /* Platform.hpp */; };
@@ -137,6 +140,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F01C07B42DABAC2E00124F05 /* SDK.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDK.hpp; sourceTree = "<group>"; };
+		F01C07B52DABAC2F00124F05 /* Toolchain.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Toolchain.hpp; sourceTree = "<group>"; };
+		F01C07B62DABAC2F00124F05 /* SDK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDK.cpp; sourceTree = "<group>"; };
 		F03D838F2D5FD733004297A4 /* pbctl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pbctl; sourceTree = BUILT_PRODUCTS_DIR; };
 		F03D83912D5FD733004297A4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F03D83972D5FD7C1004297A4 /* xpc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xpc.cpp; sourceTree = "<group>"; };
@@ -296,6 +302,9 @@
 				F04C0B962DA4F0FC002B8602 /* Keys.cpp */,
 				F04C0B972DA4F0FE002B8602 /* Platform.cpp */,
 				F04C0B952DA4F0F7002B8602 /* Platform.hpp */,
+				F01C07B62DABAC2F00124F05 /* SDK.cpp */,
+				F01C07B42DABAC2E00124F05 /* SDK.hpp */,
+				F01C07B52DABAC2F00124F05 /* Toolchain.hpp */,
 			);
 			path = CXX;
 			sourceTree = "<group>";
@@ -398,8 +407,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0C65D552D21EBD000349FD5 /* ProjectBuilder.h in Headers */,
+				F01C07B82DABAC2F00124F05 /* Toolchain.hpp in Headers */,
 				F04D0B932D74F7D400349FD5 /* BuildController.hpp in Headers */,
 				F04D0B952D74F7D400349FD5 /* Base.hpp in Headers */,
+				F01C07B72DABAC2F00124F05 /* SDK.hpp in Headers */,
 				F04D0B962D74F7D400349FD5 /* DiskImage.hpp in Headers */,
 				F04C0B982DA4F0FE002B8602 /* Platform.hpp in Headers */,
 			);
@@ -706,6 +717,7 @@
 			files = (
 				F0DB90212D7A5AD500349FD5 /* BuildController.cpp in Sources */,
 				F04C0B9A2DA4F0FE002B8602 /* Platform.cpp in Sources */,
+				F01C07B92DABAC2F00124F05 /* SDK.cpp in Sources */,
 				F04C0B992DA4F0FE002B8602 /* Keys.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -887,6 +899,7 @@
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -915,7 +928,7 @@
 				OTHER_LDFLAGS = "-lb64";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Zormeister.PBSupport;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = auto;
+				SDKROOT = "";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
 				SUPPORTS_MACCATALYST = NO;
@@ -935,6 +948,7 @@
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -963,7 +977,7 @@
 				OTHER_LDFLAGS = "-lb64";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Zormeister.PBSupport;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = auto;
+				SDKROOT = "";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
 				SUPPORTS_MACCATALYST = NO;
