@@ -10,6 +10,8 @@
 		F01C07B72DABAC2F00124F05 /* SDK.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F01C07B42DABAC2E00124F05 /* SDK.hpp */; };
 		F01C07B82DABAC2F00124F05 /* Toolchain.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F01C07B52DABAC2F00124F05 /* Toolchain.hpp */; };
 		F01C07B92DABAC2F00124F05 /* SDK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F01C07B62DABAC2F00124F05 /* SDK.cpp */; };
+		F01DBC142DCF625C00813612 /* Diagnostics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F01DBC122DCF625C00813612 /* Diagnostics.cpp */; };
+		F01DBC152DCF625C00813612 /* Diagnostics.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F01DBC132DCF625C00813612 /* Diagnostics.hpp */; };
 		F03D83922D5FD733004297A4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F03D83912D5FD733004297A4 /* main.cpp */; };
 		F03D83982D5FD7C1004297A4 /* xpc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F03D83972D5FD7C1004297A4 /* xpc.cpp */; };
 		F04C0B982DA4F0FE002B8602 /* Platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04C0B952DA4F0F7002B8602 /* Platform.hpp */; };
@@ -143,6 +145,8 @@
 		F01C07B42DABAC2E00124F05 /* SDK.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDK.hpp; sourceTree = "<group>"; };
 		F01C07B52DABAC2F00124F05 /* Toolchain.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Toolchain.hpp; sourceTree = "<group>"; };
 		F01C07B62DABAC2F00124F05 /* SDK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDK.cpp; sourceTree = "<group>"; };
+		F01DBC122DCF625C00813612 /* Diagnostics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Diagnostics.cpp; sourceTree = "<group>"; };
+		F01DBC132DCF625C00813612 /* Diagnostics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Diagnostics.hpp; sourceTree = "<group>"; };
 		F03D838F2D5FD733004297A4 /* pbctl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pbctl; sourceTree = BUILT_PRODUCTS_DIR; };
 		F03D83912D5FD733004297A4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F03D83972D5FD7C1004297A4 /* xpc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xpc.cpp; sourceTree = "<group>"; };
@@ -298,6 +302,8 @@
 				F04D0B8C2D74F7D400349FD5 /* Base.hpp */,
 				F0DB90202D7A5AD500349FD5 /* BuildController.cpp */,
 				F04D0B8D2D74F7D400349FD5 /* BuildController.hpp */,
+				F01DBC122DCF625C00813612 /* Diagnostics.cpp */,
+				F01DBC132DCF625C00813612 /* Diagnostics.hpp */,
 				F04D0B8E2D74F7D400349FD5 /* DiskImage.hpp */,
 				F04C0B962DA4F0FC002B8602 /* Keys.cpp */,
 				F04C0B972DA4F0FE002B8602 /* Platform.cpp */,
@@ -411,6 +417,7 @@
 				F04D0B932D74F7D400349FD5 /* BuildController.hpp in Headers */,
 				F04D0B952D74F7D400349FD5 /* Base.hpp in Headers */,
 				F01C07B72DABAC2F00124F05 /* SDK.hpp in Headers */,
+				F01DBC152DCF625C00813612 /* Diagnostics.hpp in Headers */,
 				F04D0B962D74F7D400349FD5 /* DiskImage.hpp in Headers */,
 				F04C0B982DA4F0FE002B8602 /* Platform.hpp in Headers */,
 			);
@@ -715,6 +722,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F01DBC142DCF625C00813612 /* Diagnostics.cpp in Sources */,
 				F0DB90212D7A5AD500349FD5 /* BuildController.cpp in Sources */,
 				F04C0B9A2DA4F0FE002B8602 /* Platform.cpp in Sources */,
 				F01C07B92DABAC2F00124F05 /* SDK.cpp in Sources */,
@@ -1120,6 +1128,7 @@
 		F0DB903A2D7C0A5100349FD5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OTHER_LDFLAGS = "-lb64";
@@ -1130,6 +1139,7 @@
 		F0DB903B2D7C0A5100349FD5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OTHER_LDFLAGS = "-lb64";
