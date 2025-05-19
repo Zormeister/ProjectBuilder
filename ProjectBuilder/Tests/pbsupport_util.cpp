@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <fstream>
 #include <vector>
+#include <unistd.h>
 
 using namespace PBSupport;
 
@@ -31,7 +32,7 @@ void parse_args(int argc, const char *argv[]) {
 
 void dump_plist_node(std::shared_ptr<PropertyList::Node> n) {
     switch (n->GetNodeType()) {
-        case PropertyList::Node::NodeType::Array: {
+        case PropertyList::NodeType::Array: {
             std::shared_ptr<PropertyList::Array> arrnode = std::dynamic_pointer_cast<PropertyList::Array>(n);
             std::cout << "Node : Array\n";
             for (int i = 0; i < arrnode->GetSize(); i++) {
@@ -39,22 +40,22 @@ void dump_plist_node(std::shared_ptr<PropertyList::Node> n) {
             }
             break;
         }
-        case PropertyList::Node::NodeType::Boolean: {
+        case PropertyList::NodeType::Boolean: {
             std::shared_ptr<PropertyList::Boolean> boolnode = std::dynamic_pointer_cast<PropertyList::Boolean>(n);
             std::cout << "Node : Boolean : " << (boolnode->GetValue() ? "True" : "False") << "\n";
             break;
         }
-        case PropertyList::Node::NodeType::Data: {
+        case PropertyList::NodeType::Data: {
             std::cout << "Node : Data\n";
             break;
         }
-        case PropertyList::Node::NodeType::Date: {
+        case PropertyList::NodeType::Date: {
             std::shared_ptr<PropertyList::Date> node = std::dynamic_pointer_cast<PropertyList::Date>(n);
             std::cout << "Node : Date\n";
             std::cout << "Value : " << node->GetFormattedValue() << std::endl;
             break;
         }
-        case PropertyList::Node::NodeType::Dictionary: {
+        case PropertyList::NodeType::Dictionary: {
             std::cout << "Node : Dictionary\n";
             std::shared_ptr<PropertyList::Dictionary> node = std::dynamic_pointer_cast<PropertyList::Dictionary>(n);
             for (auto iter = node->GetIterator(); iter != node->GetIteratorEnd(); ++iter) {
@@ -63,19 +64,19 @@ void dump_plist_node(std::shared_ptr<PropertyList::Node> n) {
             };
             break;
         }
-        case PropertyList::Node::NodeType::Integer: {
+        case PropertyList::NodeType::Integer: {
             std::shared_ptr<PropertyList::Integer> node = std::dynamic_pointer_cast<PropertyList::Integer>(n);
             std::cout << "Node  : Integer\n";
             fprintf(stdout, "Value : %d", node->GetValue());
             break;
         }
-        case PropertyList::Node::NodeType::String: {
+        case PropertyList::NodeType::String: {
             std::shared_ptr<PropertyList::String> node = std::dynamic_pointer_cast<PropertyList::String>(n);
             std::cout << "Node  : String\n";
             std::cout << "Value : " << node->GetString() << std::endl;
             break;
         }
-        case PropertyList::Node::NodeType::Unknown:
+        case PropertyList::NodeType::Unknown:
           break;
         }
 }
@@ -96,6 +97,10 @@ int main(int argc, const char *argv[]) {
         PropertyList::File file(vec);
         auto rn = file.GetRootNode();
         dump_plist_node(rn);
+        
+        char *wd = getwd(NULL);
+        std::filesystem::path savepath = std::string(wd) + "/tmp.plist";
+        file.SaveFile(savepath);
     }
     return 0;
 }

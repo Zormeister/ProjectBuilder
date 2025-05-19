@@ -7,17 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F01C07B72DABAC2F00124F05 /* SDK.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F01C07B42DABAC2E00124F05 /* SDK.hpp */; };
-		F01C07B82DABAC2F00124F05 /* Toolchain.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F01C07B52DABAC2F00124F05 /* Toolchain.hpp */; };
-		F01C07B92DABAC2F00124F05 /* SDK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F01C07B62DABAC2F00124F05 /* SDK.cpp */; };
+		F01325B52DD984470059D4C1 /* Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F01325B32DD984470059D4C1 /* Plugin.cpp */; };
+		F01325B62DD984470059D4C1 /* Plugin.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F01325B42DD984470059D4C1 /* Plugin.hpp */; settings = {ATTRIBUTES = (Private, ); }; };
 		F03D83922D5FD733004297A4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F03D83912D5FD733004297A4 /* main.cpp */; };
 		F03D83982D5FD7C1004297A4 /* xpc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F03D83972D5FD7C1004297A4 /* xpc.cpp */; };
-		F04C0B982DA4F0FE002B8602 /* Platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04C0B952DA4F0F7002B8602 /* Platform.hpp */; };
-		F04C0B992DA4F0FE002B8602 /* Keys.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F04C0B962DA4F0FC002B8602 /* Keys.cpp */; };
-		F04C0B9A2DA4F0FE002B8602 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F04C0B972DA4F0FE002B8602 /* Platform.cpp */; };
 		F04D0B932D74F7D400349FD5 /* BuildController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B8D2D74F7D400349FD5 /* BuildController.hpp */; };
 		F04D0B952D74F7D400349FD5 /* Base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B8C2D74F7D400349FD5 /* Base.hpp */; };
-		F04D0B962D74F7D400349FD5 /* DiskImage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B8E2D74F7D400349FD5 /* DiskImage.hpp */; };
 		F04D0BA02D74F89F00349FD5 /* PBSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B9F2D74F89F00349FD5 /* PBSupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F04D0BA52D74F8B700349FD5 /* PropertyList.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B902D74F7D400349FD5 /* PropertyList.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		F04D0BA62D74F8C200349FD5 /* SupportBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B912D74F7D400349FD5 /* SupportBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -140,19 +135,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F01C07B42DABAC2E00124F05 /* SDK.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDK.hpp; sourceTree = "<group>"; };
-		F01C07B52DABAC2F00124F05 /* Toolchain.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Toolchain.hpp; sourceTree = "<group>"; };
-		F01C07B62DABAC2F00124F05 /* SDK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDK.cpp; sourceTree = "<group>"; };
+		F01325B32DD984470059D4C1 /* Plugin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Plugin.cpp; sourceTree = "<group>"; };
+		F01325B42DD984470059D4C1 /* Plugin.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Plugin.hpp; sourceTree = "<group>"; };
 		F03D838F2D5FD733004297A4 /* pbctl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pbctl; sourceTree = BUILT_PRODUCTS_DIR; };
 		F03D83912D5FD733004297A4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F03D83972D5FD7C1004297A4 /* xpc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xpc.cpp; sourceTree = "<group>"; };
 		F046EA702D6E5A7700349FD5 /* INeedASampleFileForTesting.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = INeedASampleFileForTesting.plist; sourceTree = "<group>"; };
-		F04C0B952DA4F0F7002B8602 /* Platform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Platform.hpp; sourceTree = "<group>"; };
-		F04C0B962DA4F0FC002B8602 /* Keys.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Keys.cpp; sourceTree = "<group>"; };
-		F04C0B972DA4F0FE002B8602 /* Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Platform.cpp; sourceTree = "<group>"; };
 		F04D0B8C2D74F7D400349FD5 /* Base.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Base.hpp; sourceTree = "<group>"; };
 		F04D0B8D2D74F7D400349FD5 /* BuildController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BuildController.hpp; sourceTree = "<group>"; };
-		F04D0B8E2D74F7D400349FD5 /* DiskImage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DiskImage.hpp; sourceTree = "<group>"; };
 		F04D0B902D74F7D400349FD5 /* PropertyList.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PropertyList.hpp; sourceTree = "<group>"; };
 		F04D0B912D74F7D400349FD5 /* SupportBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SupportBase.hpp; sourceTree = "<group>"; };
 		F04D0B9D2D74F89F00349FD5 /* PBSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PBSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +234,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F01325A32DD982B50059D4C1 /* PlugIns */ = {
+			isa = PBXGroup;
+			children = (
+				F01325B32DD984470059D4C1 /* Plugin.cpp */,
+				F01325B42DD984470059D4C1 /* Plugin.hpp */,
+			);
+			path = PlugIns;
+			sourceTree = "<group>";
+		};
 		F03D83962D5FD740004297A4 /* CLI */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,17 +293,11 @@
 		F04D0B8F2D74F7D400349FD5 /* CXX */ = {
 			isa = PBXGroup;
 			children = (
+				F01325A32DD982B50059D4C1 /* PlugIns */,
 				F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */,
 				F04D0B8C2D74F7D400349FD5 /* Base.hpp */,
 				F0DB90202D7A5AD500349FD5 /* BuildController.cpp */,
 				F04D0B8D2D74F7D400349FD5 /* BuildController.hpp */,
-				F04D0B8E2D74F7D400349FD5 /* DiskImage.hpp */,
-				F04C0B962DA4F0FC002B8602 /* Keys.cpp */,
-				F04C0B972DA4F0FE002B8602 /* Platform.cpp */,
-				F04C0B952DA4F0F7002B8602 /* Platform.hpp */,
-				F01C07B62DABAC2F00124F05 /* SDK.cpp */,
-				F01C07B42DABAC2E00124F05 /* SDK.hpp */,
-				F01C07B52DABAC2F00124F05 /* Toolchain.hpp */,
 			);
 			path = CXX;
 			sourceTree = "<group>";
@@ -407,12 +400,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0C65D552D21EBD000349FD5 /* ProjectBuilder.h in Headers */,
-				F01C07B82DABAC2F00124F05 /* Toolchain.hpp in Headers */,
 				F04D0B932D74F7D400349FD5 /* BuildController.hpp in Headers */,
 				F04D0B952D74F7D400349FD5 /* Base.hpp in Headers */,
-				F01C07B72DABAC2F00124F05 /* SDK.hpp in Headers */,
-				F04D0B962D74F7D400349FD5 /* DiskImage.hpp in Headers */,
-				F04C0B982DA4F0FE002B8602 /* Platform.hpp in Headers */,
+				F01325B62DD984470059D4C1 /* Plugin.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,9 +706,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0DB90212D7A5AD500349FD5 /* BuildController.cpp in Sources */,
-				F04C0B9A2DA4F0FE002B8602 /* Platform.cpp in Sources */,
-				F01C07B92DABAC2F00124F05 /* SDK.cpp in Sources */,
-				F04C0B992DA4F0FE002B8602 /* Keys.cpp in Sources */,
+				F01325B52DD984470059D4C1 /* Plugin.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -754,6 +742,7 @@
 		F03D83942D5FD733004297A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
@@ -764,6 +753,7 @@
 		F03D83952D5FD733004297A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
@@ -994,6 +984,7 @@
 		F06306332D2C70DA00351A77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
@@ -1004,6 +995,7 @@
 		F06306342D2C70DA00351A77 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
@@ -1014,6 +1006,7 @@
 		F0803D082D8F9B0B00349FD5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
@@ -1026,6 +1019,7 @@
 		F0803D092D8F9B0B00349FD5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
@@ -1038,6 +1032,7 @@
 		F0BFEB222D67E43900349FD5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1047,6 +1042,7 @@
 		F0BFEB232D67E43900349FD5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1056,6 +1052,7 @@
 		F0C65D3D2D21EB0200349FD5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1088,6 +1085,7 @@
 		F0C65D3E2D21EB0200349FD5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1120,6 +1118,7 @@
 		F0DB903A2D7C0A5100349FD5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OTHER_LDFLAGS = "-lb64";
@@ -1130,6 +1129,7 @@
 		F0DB903B2D7C0A5100349FD5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				OTHER_LDFLAGS = "-lb64";

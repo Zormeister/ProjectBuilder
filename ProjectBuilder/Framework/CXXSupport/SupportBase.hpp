@@ -3,17 +3,10 @@
 #ifndef PROJECTBUILDER_SUPPORT_BASE_HPP
 #define PROJECTBUILDER_SUPPORT_BASE_HPP
 
-/* 
+/*
  * Suport framework?
  * me when no modern plist c++ library
  * i'll interface with libxml2 for ease of use...
  */
-
-#define SUPPORT_BEGIN_NS namespace PBSupport {
-#define SUPPORT_END_NS };
-
-#if __APPLE__
-#define TARGET_OS_MAC 1
-#endif
 
 #endif

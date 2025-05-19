@@ -23,7 +23,7 @@
 
 /* this is designed to only serialise in memory. i do not know if i even WANT to try and implement a file saving impl */
 
-SUPPORT_BEGIN_NS
+namespace PBSupport {
 
 namespace PropertyList {
 
@@ -32,25 +32,26 @@ struct BinaryPlistHeader {
     char version[2];
 };
 
+enum struct NodeType {
+    Array,
+    Boolean,
+    Data,
+    Date,
+    Dictionary,
+    Integer,
+    String,
+    Unknown,
+};
+
 class Node {
 
     public:
 
-    enum struct NodeType {
-        Array,
-        Boolean,
-        Data,
-        Date,
-        Dictionary,
-        Integer,
-        String,
-        Unknown,
-    };
-
     virtual NodeType GetNodeType() = 0;
 };
 
-Node::NodeType GetNodeTypeForXMLNode(xmlNodePtr node);
+NodeType GetNodeTypeForXMLNode(xmlNodePtr Node);
+xmlNodePtr BuildXMLNodeFromNode(std::shared_ptr<Node> Node);
 
 class String : public Node {
 
@@ -90,17 +91,17 @@ class Dictionary : public Node {
     public:
     Dictionary(xmlNodePtr XMLNode);
     Dictionary(std::map<std::string, std::shared_ptr<Node>> Entries);
-    
+
     virtual NodeType GetNodeType() override { return NodeType::Dictionary; }
 
     bool ContainsKey(const std::string &Key);
 
     /* large line. oof. */
     std::optional<std::shared_ptr<Node>> GetNode(const std::string &Key);
-    
+
     auto GetIterator() { return m_map.begin(); }
     auto GetIteratorEnd() { return m_map.end(); }
-    
+
     auto GetMap() { return m_map; }
 
     private:
@@ -113,11 +114,11 @@ class Date : public Node {
     Date(xmlNodePtr XMLNode); /* Use XML Node for instanciation */
     Date(const std::string &DateString); /* HAS to be an RFC3339 encoded timestamp. */
     Date(); /* Get the current time & use that as our date */
-    
+
     virtual NodeType GetNodeType() override { return NodeType::Date; }
 
     const std::string &GetValue() { return m_dateString; }
-    
+
     const std::string &GetFormattedValue();
 
     private:
@@ -162,7 +163,7 @@ class Data : public Node {
 
     const size_t GetSize() { return m_data.size(); };
 
-    std::shared_ptr<char []> EncodeData();
+    std::vector<char> EncodeData(); /* Encode stored data to base64 */
 
     private:
     std::vector<uint8_t> m_data;
@@ -179,7 +180,7 @@ class File {
     };
 
     File(const std::vector<uint8_t> &file);
-    File(Node::NodeType RootNodeType, FileType Type = FileType::XML);
+    File(NodeType RootNodeType, FileType Type = FileType::XML);
     ~File();
 
     std::shared_ptr<Node> GetRootNode() { return m_rootNode; }
@@ -196,7 +197,7 @@ class File {
 
 }
 
-SUPPORT_END_NS
+}
 
 #endif
 
