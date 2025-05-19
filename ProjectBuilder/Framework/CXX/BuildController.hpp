@@ -12,40 +12,35 @@
 #include <filesystem>
 #include <uuid/uuid.h>
 
-PB_BEGIN_NS
+namespace ProjectBuilder {
 
-class BuildController {
+    class BuildController {
 
-    public:
-    /* Ripped from PBBuildController.h */
-    enum struct NotificationReason {
-        ProjectStatusChanged,
-        DiskImageCheckpoint,
-        FinishedBuildingAllProjects,
-    };
+        public:
+        /* Ripped from PBBuildController.h */
+        enum struct NotificationReason {
+            ProjectStatusChanged,
+            FinishedBuildingAllProjects,
+        };
 
-    struct DiskImageCheckpointData {
-        /* TBD: I need to write DiskImage CXX API edition */
-    };
+        typedef void (*Notification)(BuildController::NotificationReason Reason, void *Data);
 
-    typedef void (*Notification)(BuildController::NotificationReason Reason, void *Data);
+        BuildController(const std::filesystem::path &BuildRootsPath, const std::filesystem::path &PropertyListPath);
 
-    BuildController(const std::filesystem::path &BuildRootsPath, const std::filesystem::path &PropertyListPath);
+        const std::filesystem::path &GetBuildRootsPath(); /* I believe we need this for DI and others. */
 
-    const std::filesystem::path &GetBuildRootsPath(); /* I believe we need this for DI and others. */
+        void StartBuildingProjects(); /* Equivalent to PBBuildControllerBegin() */
 
-    void StartBuildingProjects(); /* Equivalent to PBBuildControllerBegin() */
+        void SetNotifier(Notification notifier);
 
-    void SetNotifier(Notification notifier);
+        private:
+        std::filesystem::path m_buildRootsPath; /* Derived from what's passed to the constructor */
+        std::filesystem::path m_propertyListPath; /* Derived from what's passed to the constructor */
 
-    private:
-    std::filesystem::path m_buildRootsPath; /* Derived from what's passed to the constructor */
-    std::filesystem::path m_propertyListPath; /* Derived from what's passed to the constructor */
-
-    uuid_t m_currentBuildUUID;
-    Notification m_notifier;
+        uuid_t m_currentBuildUUID;
+        Notification m_notifier;
 };
 
-PB_END_NS
+}
 
 #endif

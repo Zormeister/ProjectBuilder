@@ -48,3 +48,11 @@ Dictionary::Dictionary(xmlNodePtr XMLNode) : Node() {
         }
     }
 }
+
+bool Dictionary::ContainsKey(const std::string &Key) {
+    if (m_map.count(Key) == 0) {
+        return false;
+    } else {
+        return true;
+    }
+}

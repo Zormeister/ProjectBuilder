@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <fstream>
 #include <vector>
+#include <unistd.h>
 
 using namespace PBSupport;
 
@@ -96,6 +97,10 @@ int main(int argc, const char *argv[]) {
         PropertyList::File file(vec);
         auto rn = file.GetRootNode();
         dump_plist_node(rn);
+        
+        char *wd = getwd(NULL);
+        std::filesystem::path savepath = std::string(wd) + "/tmp.plist";
+        file.SaveFile(savepath);
     }
     return 0;
 }
