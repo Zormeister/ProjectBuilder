@@ -29,10 +29,9 @@ Data::Data(const std::vector<uint8_t> &Data) : Node() {
 }
 
 // istg if someone puts in a massive amount of data such as a whole kernel binary i will shoot you
-std::vector<char> Data::EncodeData() {
-    std::vector<char> vec;
-    vec.reserve(((4 * m_data.size() / 3) + 3) & ~3);
+std::shared_ptr<char []> Data::EncodeData() {
+    std::shared_ptr<char []> ptr(new char[m_data.size()]);
     base64::encoder enc;
-    enc.encode((char *)m_data.data(), m_data.size(), vec.data());
-    return vec;
+    enc.encode((char *)m_data.data(), m_data.size(), ptr.get());
+    return ptr;
 }

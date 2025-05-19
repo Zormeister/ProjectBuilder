@@ -14,25 +14,25 @@ Array::Array(xmlNodePtr XMLNode) : Node() {
     for (child = XMLNode->children; child != nullptr; child = child->next) {
         if (child->type == XML_ELEMENT_NODE) {
             switch (GetNodeTypeForXMLNode(child)) {
-                case NodeType::Array:
+                case Node::NodeType::Array:
                     m_array.push_back(std::make_shared<Array>(child));
                     break;
-                case NodeType::Boolean:
+                case Node::NodeType::Boolean:
                     m_array.push_back(std::make_shared<Boolean>(child));
                     break;
-                case NodeType::Data:
+                case Node::NodeType::Data:
                     m_array.push_back(std::make_shared<Data>(child));
                     break;
-                case NodeType::Date:
+                case Node::NodeType::Date:
                     m_array.push_back(std::make_shared<Date>(child));
                     break;
-                case NodeType::Dictionary:
+                case Node::NodeType::Dictionary:
                     m_array.push_back(std::make_shared<Dictionary>(child));
                     break;
-                case NodeType::Integer:
+                case Node::NodeType::Integer:
                     m_array.push_back(std::make_shared<Integer>(child));
                     break;
-                case NodeType::String:
+                case Node::NodeType::String:
                     m_array.push_back(std::make_shared<String>(child));
                     break;
                 default:

@@ -17,25 +17,25 @@ Dictionary::Dictionary(xmlNodePtr XMLNode) : Node() {
             } else {
                 if (key) {
                     switch (GetNodeTypeForXMLNode(child)) {
-                        case NodeType::Array:
+                        case Node::NodeType::Array:
                             m_map.insert_or_assign(key, std::make_shared<Array>(child));
                             break;
-                        case NodeType::Boolean:
+                        case Node::NodeType::Boolean:
                             m_map.insert_or_assign(key, std::make_shared<Boolean>(child));
                             break;
-                        case NodeType::String:
+                        case Node::NodeType::String:
                             m_map.insert_or_assign(key, std::make_shared<String>(child));
                             break;
-                        case NodeType::Data:
+                        case Node::NodeType::Data:
                             m_map.insert_or_assign(key, std::make_shared<Data>(child));
                             break;
-                        case NodeType::Date:
+                        case Node::NodeType::Date:
                             m_map.insert_or_assign(key, std::make_shared<Date>(child));
                             break;
-                        case NodeType::Dictionary:
+                        case Node::NodeType::Dictionary:
                             m_map.insert_or_assign(key, std::make_shared<Dictionary>(child));
                             break;
-                        case NodeType::Integer:
+                        case Node::NodeType::Integer:
                             m_map.insert_or_assign(key, std::make_shared<Integer>(child));
                             break;
                         default:
@@ -46,13 +46,5 @@ Dictionary::Dictionary(xmlNodePtr XMLNode) : Node() {
                 }
             }
         }
-    }
-}
-
-bool Dictionary::ContainsKey(const std::string &Key) {
-    if (m_map.count(Key) == 0) {
-        return false;
-    } else {
-        return true;
     }
 }

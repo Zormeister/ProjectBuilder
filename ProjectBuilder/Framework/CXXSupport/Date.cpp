@@ -11,7 +11,7 @@
 using namespace PBSupport::PropertyList;
 
 Date::Date(xmlNodePtr XMLNode) : Node() {
-    if (xmlStrcmp(XMLNode->name, (xmlChar *)"date") == 0) {
+    if (xmlStrcmp(XMLNode->name, (xmlChar *)"date")) {
         m_dateString = (const char *)xmlNodeGetContent(XMLNode);
     } else {
         throw std::invalid_argument("How did we get here? The XML Node wasn't named 'date'.");
@@ -32,6 +32,7 @@ const std::string &Date::GetFormattedValue() {
     tm.tm_hour = stoi(tmp.substr(11, 2));
     tm.tm_min = stoi(tmp.substr(14, 2));
     tm.tm_sec = stoi(tmp.substr(17, 2));
+    time_t time = mktime(&tm);
     char date[32];
     strftime(date, 32, "%+", &tm);
     m_saneFormatString = date;

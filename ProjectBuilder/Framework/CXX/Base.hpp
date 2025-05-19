@@ -3,23 +3,16 @@
 #ifndef PROJECTBUILDER_BASE_HPP
 #define PROJECTBUILDER_BASE_HPP
 
-#include <string>
-
-/*
+/* 
  * Why write a C++ API?
  * Science isn't about why, it's about why not.
  */
 
+#define PB_BEGIN_NS namespace ProjectBuilder {
+#define PB_END_NS };
+
 /* This might have the effect of creating logic inconsistencies. */
-#if __APPLE__
 #include <TargetConditionals.h>
-#endif
-
-namespace ProjectBuilder {
-
-std::string GetDeveloperDir(void);
-
-}
 
 /* backing up my notes & docs */
 
@@ -119,7 +112,7 @@ std::string GetDeveloperDir(void);
  */
 
 /*
-
+ 
  const CFStringRef kPBManifestConfigKey = CFSTR("Config");
  const CFStringRef kPBManifestProjectsKey = CFSTR("Projects");
  const CFStringRef kPBManifestSubProjectsKey = CFSTR("SubProjects");
@@ -143,7 +136,7 @@ std::string GetDeveloperDir(void);
  const CFStringRef kPBDiskImageDiskTypeKey = CFSTR("Type");
  const CFStringRef kPBDiskImageDiskLayoutKey = CFSTR("Layout");
  const CFStringRef kPBDiskImageFileSystemKey = CFSTR("FileSystem");
-
+ 
  */
 
 #endif

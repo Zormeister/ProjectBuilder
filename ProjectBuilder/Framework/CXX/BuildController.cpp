@@ -1,6 +1,9 @@
 // Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
 #include "BuildController.hpp"
+#include "DiskImage.hpp"
+
+#include <cstring>
 #include <fstream>
 
 #if TARGET_OS_LINUX
@@ -15,6 +18,4 @@ BuildController::BuildController(const std::filesystem::path &BuildRootsPath, co
 
     // perfect!
     uuid_generate_random(m_currentBuildUUID);
-
-    /* Initialize PlugIns here. */
 }

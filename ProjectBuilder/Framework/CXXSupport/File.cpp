@@ -16,7 +16,6 @@ File::File(const std::vector<uint8_t> &file) {
     m_rawFile = std::make_shared<std::vector<uint8_t>>(file);
     /* XML plist??? */
     if (*(file.data()) == '<') {
-        m_fileType = FileType::XML;
         m_xmlDoc = xmlReadMemory((const char *)m_rawFile->data(), m_rawFile->size(), nullptr, nullptr, XML_PARSE_DTDLOAD);
         if (m_xmlDoc == nullptr) {
             throw std::runtime_error("Root XML Node is nullptr. Wtf?");
@@ -36,11 +35,11 @@ File::File(const std::vector<uint8_t> &file) {
                 for (xmlNodePtr childNode = cur->children; childNode != nullptr; childNode = childNode->next) {
                     if (childNode->type == XML_ELEMENT_NODE) {
                         switch (GetNodeTypeForXMLNode(childNode)) {
-                            case NodeType::Dictionary: {
+                            case Node::NodeType::Dictionary: {
                                 m_rootNode = std::make_shared<Dictionary>(childNode);
                                 break;
                             }
-                            case NodeType::Array: {
+                            case Node::NodeType::Array: {
                                 m_rootNode = std::make_shared<Array>(childNode);
                                 break;
                             }
@@ -70,17 +69,20 @@ File::~File() {
 
 bool File::SaveFile(const std::filesystem::path &FilePath) {
     auto type = m_fileType;
-    if (type == FileType::XML) {
-        auto xml = xmlNewDoc((xmlChar *)"1.0");
-        auto plistNode = xmlNewNode(NULL, (xmlChar *)"plist");
-        auto dtd = xmlNewDtd(xml, (xmlChar *)"plist", (xmlChar *)"-//Apple//DTD PLIST 1.0//EN", (xmlChar *)"http://www.apple.com/DTDs/PropertyList-1.0.dtd");
-        xmlSetProp(plistNode, (xmlChar *)"version", (xmlChar *)"1.0");
-        xmlDocSetRootElement(xml, (xmlNodePtr)dtd); /* Set the root element as the DTD */
-        xmlAddSibling((xmlNodePtr)dtd, plistNode);
-        /* now let's have some fun */
-
-        xmlSaveFileEnc(FilePath.c_str(), xml, "UTF-8");
-        xmlFreeDtd(dtd);
+    if (type == File::FileType::XML) {
+        if (m_xmlDoc) {
+            // this is tricky, because i could save time by reusing m_xmlDoc
+            // however i'd have to scan for what keys have changed, which would either take
+            // longer to do, or i just straight-up make a new doc and layer over the old one
+            throw std::runtime_error("sorry, don't know what to do here. thoughts from others would be appreciated");
+        } else {
+            auto xml = xmlNewDoc((xmlChar *)"1.0");
+            auto plistNode = xmlNewNode(NULL, (xmlChar *)"plist");
+            xmlSetProp(plistNode, (xmlChar *)"version", (xmlChar *)"1.0");
+            xmlDocSetRootElement(xml, plistNode);
+            auto dtd = xmlNewDtd(xml, (xmlChar *)"plist", (xmlChar *)"-//Apple//DTD PLIST 1.0//EN", (xmlChar *)"http://www.apple.com/DTDs/PropertyList-1.0.dtd");
+            
+        }
     } else {
         throw std::runtime_error("sorry, no bplist or any other kind of plist here.");
     }

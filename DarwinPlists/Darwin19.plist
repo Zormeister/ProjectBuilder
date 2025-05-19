@@ -40,7 +40,6 @@
 		<array>
 			<string>x86_64</string>
 			<string>arm64</string>
-			<string>armv7</string>
 		</array>
 		<key>SetXBSVariables</key>
 		<true/>
