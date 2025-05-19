@@ -81,7 +81,6 @@ bool File::SaveFile(const std::filesystem::path &FilePath) {
             xmlSetProp(plistNode, (xmlChar *)"version", (xmlChar *)"1.0");
             xmlDocSetRootElement(xml, plistNode);
             auto dtd = xmlNewDtd(xml, (xmlChar *)"plist", (xmlChar *)"-//Apple//DTD PLIST 1.0//EN", (xmlChar *)"http://www.apple.com/DTDs/PropertyList-1.0.dtd");
-            
         }
     } else {
         throw std::runtime_error("sorry, no bplist or any other kind of plist here.");

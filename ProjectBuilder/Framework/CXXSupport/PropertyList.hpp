@@ -32,25 +32,25 @@ struct BinaryPlistHeader {
     char version[2];
 };
 
+enum struct NodeType {
+    Array,
+    Boolean,
+    Data,
+    Date,
+    Dictionary,
+    Integer,
+    String,
+    Unknown,
+};
+
 class Node {
 
     public:
 
-    enum struct NodeType {
-        Array,
-        Boolean,
-        Data,
-        Date,
-        Dictionary,
-        Integer,
-        String,
-        Unknown,
-    };
-
     virtual NodeType GetNodeType() = 0;
 };
 
-Node::NodeType GetNodeTypeForXMLNode(xmlNodePtr node);
+NodeType GetNodeTypeForXMLNode(xmlNodePtr node);
 
 class String : public Node {
 
@@ -162,7 +162,7 @@ class Data : public Node {
 
     const size_t GetSize() { return m_data.size(); };
 
-    std::shared_ptr<char []> EncodeData();
+    std::vector<char> EncodeData(); /* Encode stored data to base64 */
 
     private:
     std::vector<uint8_t> m_data;

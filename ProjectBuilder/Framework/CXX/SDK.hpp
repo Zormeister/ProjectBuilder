@@ -18,7 +18,7 @@
  * UNDER CONSTRUCTION!!!
  */
 
-PB_BEGIN_NS
+namespace ProjectBuilder {
 
 using namespace PBSupport;
 
@@ -67,8 +67,7 @@ class SDK {
 
     /*!
       @function HasVariants
-      @abstract Returns the deployment target of the SDK
-      @return Returns a string such as "10.15" or "10.11" or "12.3", etc.
+      @return Returns true based on if it has variant plists
      */
     bool HasVariants();
 
@@ -97,6 +96,6 @@ class SDK {
     static std::vector<SDK> GetAvailableSDKs();
 };
 
-PB_END_NS
+}
 
 #endif
