@@ -3,10 +3,12 @@
 #ifndef PROJECTBUILDER_BUILDCONTROLLER_HPP
 #define PROJECTBUILDER_BUILDCONTROLLER_HPP
 
+#include <vector>
 #if __APPLE__
 #include <ProjectBuilder/Base.hpp>
 #else
 #include "Base.hpp"
+#include "Project.hpp"
 #endif
 
 #include <filesystem>
@@ -15,7 +17,6 @@
 namespace ProjectBuilder {
 
     class BuildController {
-
         public:
         /* Ripped from PBBuildController.h */
         enum struct NotificationReason {
@@ -39,7 +40,9 @@ namespace ProjectBuilder {
 
         uuid_t m_currentBuildUUID;
         Notification m_notifier;
-};
+
+        std::vector<Project> m_projects;
+    };
 
 }
 

@@ -75,5 +75,15 @@ xmlNodePtr PBSupport::PropertyList::BuildXMLNodeFromNode(std::shared_ptr<Node> N
             }
             return xml;
         }
+        case NodeType::Dictionary: {
+            auto dict = std::dynamic_pointer_cast<Dictionary>(Node);
+            auto xml = xmlNewNode(NULL, (xmlChar *)"dict");
+            for (auto iter = dict->GetIterator(); iter != dict->GetIteratorEnd(); ++iter) {
+                auto key = xmlNewChild(xml, NULL, (xmlChar *)"key", (xmlChar *)iter->first.c_str());
+                auto child = BuildXMLNodeFromNode(iter->second);
+                xmlAddSibling(key, child);
+            };
+            return xml;
+        }
     }
 }
