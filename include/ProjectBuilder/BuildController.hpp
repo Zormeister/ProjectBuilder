@@ -4,13 +4,8 @@
 #define PROJECTBUILDER_BUILDCONTROLLER_HPP
 
 #include <vector>
-#if __APPLE__
 #include <ProjectBuilder/Base.hpp>
-#else
-#include "Base.hpp"
-#include "Project.hpp"
-#endif
-
+#include <ProjectBuilder/Project.hpp>
 #include <filesystem>
 #include <uuid/uuid.h>
 
@@ -28,11 +23,11 @@ namespace ProjectBuilder {
 
         BuildController(const std::filesystem::path &BuildRootsPath, const std::filesystem::path &PropertyListPath);
 
-        const std::filesystem::path &GetBuildRootsPath(); /* I believe we need this for DI and others. */
+        const std::filesystem::path &getBuildRootsPath(); /* I believe we need this for DI and others. */
 
-        void StartBuildingProjects(); /* Equivalent to PBBuildControllerBegin() */
+        void startBuildingProjects(); /* Equivalent to PBBuildControllerBegin() */
 
-        void SetNotifier(Notification notifier);
+        void setNotifier(Notification notifier);
 
         private:
         std::filesystem::path m_buildRootsPath; /* Derived from what's passed to the constructor */

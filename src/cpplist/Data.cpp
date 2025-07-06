@@ -1,6 +1,6 @@
 // Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
-#include "PropertyList.hpp"
+#include <cpplist/cpplist.hpp>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -11,7 +11,7 @@
 #include <memory>
 #include <vector>
 
-using namespace PBSupport::PropertyList;
+using namespace cpplist;
 
 Data::Data(xmlNodePtr XMLNode) : Node() {
     auto data = xmlNodeGetContent(XMLNode);

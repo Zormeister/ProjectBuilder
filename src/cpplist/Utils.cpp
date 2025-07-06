@@ -1,15 +1,15 @@
 // Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
-#include "PropertyList.hpp"
+#include <cpplist/cpplist.hpp>
 #include <libxml/parser.h>
 #include <memory>
 #include <cstdlib>
 #include <string>
 #include <unistd.h>
 
-using namespace PBSupport::PropertyList;
+using namespace cpplist;
 
-NodeType PBSupport::PropertyList::GetNodeTypeForXMLNode(xmlNodePtr node) {
+NodeType cpplist::GetNodeTypeForXMLNode(xmlNodePtr node) {
     if (xmlStrcmp(node->name, (xmlChar *)"dict") == 0) {
         return NodeType::Dictionary;
     } else if (xmlStrcmp(node->name, (xmlChar *)"array") == 0) {
@@ -29,7 +29,7 @@ NodeType PBSupport::PropertyList::GetNodeTypeForXMLNode(xmlNodePtr node) {
     return NodeType::Unknown;
 }
 
-xmlNodePtr PBSupport::PropertyList::BuildXMLNodeFromNode(std::shared_ptr<Node> Node) {
+xmlNodePtr cpplist::BuildXMLNodeFromNode(std::shared_ptr<Node> Node) {
     switch (Node->GetNodeType()) {
         case NodeType::String: {
             auto string = std::dynamic_pointer_cast<String>(Node);
@@ -84,6 +84,9 @@ xmlNodePtr PBSupport::PropertyList::BuildXMLNodeFromNode(std::shared_ptr<Node> N
                 xmlAddSibling(key, child);
             };
             return xml;
+        }
+        case NodeType::Unknown: {
+            return nullptr;
         }
     }
 }

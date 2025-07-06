@@ -3,11 +3,6 @@
 #include "BuildController.hpp"
 #include <fstream>
 
-#if TARGET_OS_LINUX
-// This is needed on my system???
-#include <linux/uuid.h>
-#endif
-
 using namespace ProjectBuilder;
 
 BuildController::BuildController(const std::filesystem::path &BuildRootsPath, const std::filesystem::path &PropertyListPath) {

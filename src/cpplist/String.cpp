@@ -1,8 +1,8 @@
 // Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
-#include "PropertyList.hpp"
+#include <cpplist/cpplist.hpp>
 
-using namespace PBSupport::PropertyList;
+using namespace cpplist;
 
 String::String(xmlNodePtr XMLValueNode) : Node() {
     m_string = (const char *)xmlNodeGetContent(XMLValueNode); /* Our value should just be the string given back here. */

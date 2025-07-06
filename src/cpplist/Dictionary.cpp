@@ -1,11 +1,9 @@
 // Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
-#include "PropertyList.hpp"
-#include "libxml/parser.h"
-#include "libxml/xmlstring.h"
+#include <cpplist/cpplist.hpp>
 #include <memory>
 
-using namespace PBSupport::PropertyList;
+using namespace cpplist;
 
 Dictionary::Dictionary(xmlNodePtr XMLNode) : Node() {
     xmlNodePtr child;

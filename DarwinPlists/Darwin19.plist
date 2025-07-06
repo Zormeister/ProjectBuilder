@@ -4,6 +4,13 @@
 <dict>
 	<key>Config</key>
 	<dict>
+		<key>EnabledPlugIns</key>
+		<array>
+			<string>CustomSDK</string>
+			<string>XBSVariables</string>
+			<string>DiskImage</string>
+			<string>BuildPackager</string>
+		</array>
 		<key>SDK</key>
 		<dict>
 			<key>CanonicalName</key>
@@ -42,10 +49,6 @@
 			<string>arm64</string>
 			<string>armv7</string>
 		</array>
-		<key>SetXBSVariables</key>
-		<true/>
-		<key>GenerateDarwinBuildRoots</key>
-		<true/>
 	</dict>
 	<key>Projects</key>
 	<array>

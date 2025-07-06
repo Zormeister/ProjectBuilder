@@ -1,15 +1,16 @@
 // Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
-#include "PropertyList.hpp"
+#include <cpplist/cpplist.hpp>
 #include "libxml/parser.h"
 #include "libxml/xmlstring.h"
+#include "libxml/xmlsave.h"
 #include <cstdio>
 #include <cstring>
 #include <memory>
 #include <stdexcept>
 #include <vector>
 
-using namespace PBSupport::PropertyList;
+using namespace cpplist;
 
 File::File(const std::vector<uint8_t> &file) {
     /* setup my variables smh */
@@ -79,7 +80,8 @@ bool File::SaveFile(const std::filesystem::path &FilePath) {
         xmlAddSibling((xmlNodePtr)dtd, plistNode);
         /* now let's have some fun */
         auto n = BuildXMLNodeFromNode(m_rootNode);
-        xmlSaveFileEnc(FilePath.c_str(), xml, "UTF-8");
+        xmlAddChild(plistNode, n);
+        xmlSaveFormatFileEnc(FilePath.c_str(), xml, "UTF-8", 1);
         xmlFreeDtd(dtd);
     } else {
         throw std::runtime_error("sorry, no bplist or any other kind of plist here.");

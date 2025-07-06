@@ -5,9 +5,9 @@
 //  Created by Zormeister on 7/3/2025.
 //
 
-#include "PropertyList.hpp"
+#include <cpplist/cpplist.hpp>
 
-using namespace PBSupport::PropertyList;
+using namespace cpplist;
 
 Array::Array(xmlNodePtr XMLNode) : Node() {
     xmlNodePtr child;

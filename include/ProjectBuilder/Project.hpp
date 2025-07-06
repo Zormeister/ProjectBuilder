@@ -2,23 +2,21 @@
 
 #ifndef PROJECTBUILDER_PROJECT_HPP
 #define PROJECTBUILDER_PROJECT_HPP
+
 #include <map>
-#if __APPLE__
 #include <ProjectBuilder/Base.hpp>
-#else
-#include "Base.hpp"
-#include "CXXSupport/PropertyList.hpp"
-#include "CXX/Architecture.hpp"
-#endif
+#include <ProjectBuilder/Architecture.hpp>
+#include <cpplist/cpplist.hpp>
 
 namespace ProjectBuilder {
-    using namespace PBSupport;
+    using namespace cpplist;
 
     class Project {
         public:
-        Project(std::shared_ptr<PropertyList::Dictionary> ProjectInfo);
+        Project(std::shared_ptr<cpplist::Dictionary> ProjectInfo);
+
         /* Build Environment related stuff */
-        std::vector<Architecture> GetArch();
+        std::vector<Architecture> GetArchs();
         const std::string &GetName();
         const std::string &GetRealName();
         const std::string &GetSourcePath();
@@ -27,6 +25,8 @@ namespace ProjectBuilder {
         /* Environment services */
         bool ModifyEnvrionment(const std::string &Name, const std::string &Value);
         void RemoveEnvironmentVariable(const std::string &VarName);
+        
+        bool Build();
 
         private:
         std::map<std::string, std::string> m_environmentVariables;

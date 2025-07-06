@@ -1,14 +1,12 @@
 // Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
-#include "PropertyList.hpp"
-#include "libxml/parser.h"
-#include "libxml/xmlstring.h"
+#include <cpplist/cpplist.hpp>
 
 #include <ctime>
 #include <cstring>
 #include <stdexcept>
 
-using namespace PBSupport::PropertyList;
+using namespace cpplist;
 
 Date::Date(xmlNodePtr XMLNode) : Node() {
     if (xmlStrcmp(XMLNode->name, (xmlChar *)"date") == 0) {

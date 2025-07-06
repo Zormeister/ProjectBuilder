@@ -1,15 +1,9 @@
 // Copyright (C) 2025 Zormeister, All rights reserved. Licensed under the BSD 3-Clause License.
 
-#ifndef PROJECTBUILDER_SUPPORT_PROPERTYLIST_HPP
-#define PROJECTBUILDER_SUPPORT_PROPERTYLIST_HPP
+#ifndef __CPPLIST_CPPLIST__
+#define __CPPLIST_CPPLIST__
 
 #ifdef __cplusplus
-
-#if __APPLE__ == 0
-#include "SupportBase.hpp"
-#else
-#include <PBSupport/SupportBase.hpp>
-#endif
 
 #include <map>
 #include <string>
@@ -17,15 +11,10 @@
 #include <vector>
 #include <optional>
 #include <filesystem>
-
 #include <libxml/dict.h>
 #include <libxml/tree.h>
 
-/* this is designed to only serialise in memory. i do not know if i even WANT to try and implement a file saving impl */
-
-namespace PBSupport {
-
-namespace PropertyList {
+namespace cpplist {
 
 struct BinaryPlistHeader {
     char magic[5]; // bplist00
@@ -168,7 +157,7 @@ class Data : public Node {
     std::vector<uint8_t> m_data;
 };
 
-const char *EncodeDataNode(std::shared_ptr<PropertyList::Data> Data);
+const char *EncodeDataNode(std::shared_ptr<cpplist::Data> Data);
 xmlNodePtr BuildXMLNodeFromNode(std::shared_ptr<Node> Node);
 
 class File {
@@ -194,8 +183,6 @@ class File {
     xmlNodePtr m_rootXmlNode;
     FileType m_fileType;
 };
-
-}
 
 }
 
