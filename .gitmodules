@@ -1,9 +1,3 @@
-[submodule "External/date"]
-	path = External/date
-	url = https://github.com/HowardHinnant/date.git
-[submodule "External/libb64"]
-	path = External/libb64
-	url = https://github.com/libb64/libb64.git
 [submodule "External/CarbonHeaders"]
 	path = External/CarbonHeaders
 	url = https://github.com/Zormeister/CarbonHeaders

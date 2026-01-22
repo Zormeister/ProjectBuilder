@@ -3,46 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F01A4E122DE2AE7C00349FD5 /* Architecture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F01A4E112DE2AE7C00349FD5 /* Architecture.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		F01A4E182DE2AE8D00349FD5 /* Project.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F01A4E162DE2AE8D00349FD5 /* Project.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		F01A4E2C2DE2B39000349FD5 /* SystemCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F01A4E2B2DE2B39000349FD5 /* SystemCommand.cpp */; };
-		F01A4E2D2DE2B39000349FD5 /* SystemCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F01A4E2A2DE2B39000349FD5 /* SystemCommand.hpp */; };
-		F04D0B932D74F7D400349FD5 /* BuildController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B8D2D74F7D400349FD5 /* BuildController.hpp */; };
-		F04D0B952D74F7D400349FD5 /* Base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B8C2D74F7D400349FD5 /* Base.hpp */; };
+		421C06A42F204F7600E5B924 /* PBArchitecture.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C06A32F204F7600E5B924 /* PBArchitecture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		421C06A62F204F9100E5B924 /* PBBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C06A52F204F9100E5B924 /* PBBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		421C06C32F21D1F700E5B924 /* Architecture.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06C22F21D1F700E5B924 /* Architecture.c */; };
 		F09687052D6D869300349FD5 /* DevTools11.plist in Resources */ = {isa = PBXBuildFile; fileRef = F09687042D6D869300349FD5 /* DevTools11.plist */; };
 		F0BFEB182D67E08400349FD5 /* Darwin19.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0BFEB172D67E08400349FD5 /* Darwin19.plist */; };
 		F0C65D552D21EBD000349FD5 /* ProjectBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0C65D622D220A2200349FD5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */; };
-		F0D9F1992E1A39A400349FD5 /* Array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB90282D7AC58C00349FD5 /* Array.cpp */; };
-		F0D9F19A2E1A39B500349FD5 /* Boolean.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB902C2D7C053600349FD5 /* Boolean.cpp */; };
-		F0D9F19B2E1A39CA00349FD5 /* Data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0F92C612D8F634E00349FD5 /* Data.cpp */; };
-		F0D9F19C2E1A3A0F00349FD5 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F0803D182D8FA1C000349FD5 /* libxml2.2.tbd */; platformFilters = (macos, ); };
-		F0D9F19D2E1A3A3700349FD5 /* Date.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB902E2D7C07B000349FD5 /* Date.cpp */; };
-		F0D9F19E2E1A3A4A00349FD5 /* Dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB901C2D7A5AB900349FD5 /* Dictionary.cpp */; };
-		F0D9F19F2E1A3A6000349FD5 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F04D0BAC2D74FA2700349FD5 /* File.cpp */; };
-		F0D9F1A02E1A3A6D00349FD5 /* libcpplist.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D9F1952E1A393F00349FD5 /* libcpplist.dylib */; };
-		F0D9F1A12E1A3A6D00349FD5 /* libcpplist.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F0D9F1952E1A393F00349FD5 /* libcpplist.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		F0D9F1A42E1A3A8B00349FD5 /* Integer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0803D002D8F98FF00349FD5 /* Integer.cpp */; };
-		F0D9F1A52E1A3AA300349FD5 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB90242D7A5C0800349FD5 /* String.cpp */; };
-		F0D9F1A62E1A3AC400349FD5 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB901E2D7A5AC400349FD5 /* Utils.cpp */; };
-		F0D9F1A72E1A3BBB00349FD5 /* cpplist.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F04D0B902D74F7D400349FD5 /* cpplist.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		F0D9F1A92E1A3C5900349FD5 /* Project.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0D9F1A82E1A3C5900349FD5 /* Project.cpp */; };
-		F0DB90212D7A5AD500349FD5 /* BuildController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0DB90202D7A5AD500349FD5 /* BuildController.cpp */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		F0D9F1A22E1A3A6D00349FD5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F04245EF2B8066CC00418707 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F0D9F1942E1A393F00349FD5;
-			remoteInfo = "libcpplist (dynamic)";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		F01A4E282DE2B03800349FD5 /* CopyFiles */ = {
@@ -60,7 +32,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F0D9F1A12E1A3A6D00349FD5 /* libcpplist.dylib in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,33 +49,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F01A4E112DE2AE7C00349FD5 /* Architecture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Architecture.hpp; sourceTree = "<group>"; };
-		F01A4E162DE2AE8D00349FD5 /* Project.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Project.hpp; sourceTree = "<group>"; };
-		F01A4E2A2DE2B39000349FD5 /* SystemCommand.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SystemCommand.hpp; sourceTree = "<group>"; };
-		F01A4E2B2DE2B39000349FD5 /* SystemCommand.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SystemCommand.cpp; sourceTree = "<group>"; };
+		421C06A32F204F7600E5B924 /* PBArchitecture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBArchitecture.h; sourceTree = "<group>"; };
+		421C06A52F204F9100E5B924 /* PBBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBBase.h; sourceTree = "<group>"; };
+		421C06C22F21D1F700E5B924 /* Architecture.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Architecture.c; sourceTree = "<group>"; };
+		421C06C52F21D86100E5B924 /* CFRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFRuntime.h; sourceTree = "<group>"; };
 		F046EA702D6E5A7700349FD5 /* INeedASampleFileForTesting.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = INeedASampleFileForTesting.plist; sourceTree = "<group>"; };
-		F04D0B8C2D74F7D400349FD5 /* Base.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Base.hpp; sourceTree = "<group>"; };
-		F04D0B8D2D74F7D400349FD5 /* BuildController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BuildController.hpp; sourceTree = "<group>"; };
-		F04D0B902D74F7D400349FD5 /* cpplist.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cpplist.hpp; sourceTree = "<group>"; };
-		F04D0BAC2D74FA2700349FD5 /* File.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = File.cpp; sourceTree = "<group>"; };
-		F0803D002D8F98FF00349FD5 /* Integer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Integer.cpp; sourceTree = "<group>"; };
 		F0803D182D8FA1C000349FD5 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 		F09687042D6D869300349FD5 /* DevTools11.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DevTools11.plist; sourceTree = "<group>"; };
 		F0BFEB172D67E08400349FD5 /* Darwin19.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Darwin19.plist; sourceTree = "<group>"; };
 		F0C65D392D21EB0200349FD5 /* ProjectBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ProjectBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectBuilder.h; sourceTree = "<group>"; };
 		F0D2C44D2B8AD2DE00E71E8A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		F0D9F1952E1A393F00349FD5 /* libcpplist.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libcpplist.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		F0D9F1A82E1A3C5900349FD5 /* Project.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Project.cpp; sourceTree = "<group>"; };
-		F0DB901C2D7A5AB900349FD5 /* Dictionary.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Dictionary.cpp; sourceTree = "<group>"; };
-		F0DB901E2D7A5AC400349FD5 /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
-		F0DB90202D7A5AD500349FD5 /* BuildController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BuildController.cpp; sourceTree = "<group>"; };
-		F0DB90242D7A5C0800349FD5 /* String.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
-		F0DB90282D7AC58C00349FD5 /* Array.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Array.cpp; sourceTree = "<group>"; };
 		F0DB902A2D7B898A00349FD5 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/usr/lib/libxml2.2.tbd; sourceTree = DEVELOPER_DIR; };
-		F0DB902C2D7C053600349FD5 /* Boolean.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Boolean.cpp; sourceTree = "<group>"; };
-		F0DB902E2D7C07B000349FD5 /* Date.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Date.cpp; sourceTree = "<group>"; };
-		F0F92C612D8F634E00349FD5 /* Data.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Data.cpp; sourceTree = "<group>"; };
 		F0FE16582B81AEEA006B4548 /* ExamplePlist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExamplePlist.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,22 +69,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0D9F1A02E1A3A6D00349FD5 /* libcpplist.dylib in Frameworks */,
 				F0C65D622D220A2200349FD5 /* CoreFoundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F0D9F1932E1A393F00349FD5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F0D9F19C2E1A3A0F00349FD5 /* libxml2.2.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		421C06C12F21D1E700E5B924 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				421C06C22F21D1F700E5B924 /* Architecture.c */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		421C06C42F21D83E00E5B924 /* CoreFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				421C06C52F21D86100E5B924 /* CFRuntime.h */,
+			);
+			path = CoreFoundation;
+			sourceTree = "<group>";
+		};
 		F04245EE2B8066CC00418707 = {
 			isa = PBXGroup;
 			children = (
@@ -146,7 +109,6 @@
 			isa = PBXGroup;
 			children = (
 				F0C65D392D21EB0200349FD5 /* ProjectBuilder.framework */,
-				F0D9F1952E1A393F00349FD5 /* libcpplist.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,7 +135,6 @@
 		F0D9F18B2E1A37EE00349FD5 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				F0D9F18F2E1A385900349FD5 /* cpplist */,
 				F0D9F18C2E1A37F200349FD5 /* ProjectBuilder */,
 			);
 			path = src;
@@ -182,9 +143,7 @@
 		F0D9F18C2E1A37F200349FD5 /* ProjectBuilder */ = {
 			isa = PBXGroup;
 			children = (
-				F0DB90202D7A5AD500349FD5 /* BuildController.cpp */,
-				F01A4E2B2DE2B39000349FD5 /* SystemCommand.cpp */,
-				F0D9F1A82E1A3C5900349FD5 /* Project.cpp */,
+				421C06C12F21D1E700E5B924 /* Foundation */,
 			);
 			path = ProjectBuilder;
 			sourceTree = "<group>";
@@ -192,7 +151,7 @@
 		F0D9F18D2E1A380100349FD5 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				F0D9F1902E1A388300349FD5 /* cpplist */,
+				421C06C42F21D83E00E5B924 /* CoreFoundation */,
 				F0D9F18E2E1A380500349FD5 /* ProjectBuilder */,
 			);
 			path = include;
@@ -201,38 +160,11 @@
 		F0D9F18E2E1A380500349FD5 /* ProjectBuilder */ = {
 			isa = PBXGroup;
 			children = (
-				F01A4E112DE2AE7C00349FD5 /* Architecture.hpp */,
-				F04D0B8C2D74F7D400349FD5 /* Base.hpp */,
-				F04D0B8D2D74F7D400349FD5 /* BuildController.hpp */,
 				F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */,
-				F01A4E162DE2AE8D00349FD5 /* Project.hpp */,
-				F01A4E2A2DE2B39000349FD5 /* SystemCommand.hpp */,
+				421C06A32F204F7600E5B924 /* PBArchitecture.h */,
+				421C06A52F204F9100E5B924 /* PBBase.h */,
 			);
 			path = ProjectBuilder;
-			sourceTree = "<group>";
-		};
-		F0D9F18F2E1A385900349FD5 /* cpplist */ = {
-			isa = PBXGroup;
-			children = (
-				F0DB90282D7AC58C00349FD5 /* Array.cpp */,
-				F0DB902C2D7C053600349FD5 /* Boolean.cpp */,
-				F0F92C612D8F634E00349FD5 /* Data.cpp */,
-				F0DB902E2D7C07B000349FD5 /* Date.cpp */,
-				F0DB901C2D7A5AB900349FD5 /* Dictionary.cpp */,
-				F04D0BAC2D74FA2700349FD5 /* File.cpp */,
-				F0803D002D8F98FF00349FD5 /* Integer.cpp */,
-				F0DB90242D7A5C0800349FD5 /* String.cpp */,
-				F0DB901E2D7A5AC400349FD5 /* Utils.cpp */,
-			);
-			path = cpplist;
-			sourceTree = "<group>";
-		};
-		F0D9F1902E1A388300349FD5 /* cpplist */ = {
-			isa = PBXGroup;
-			children = (
-				F04D0B902D74F7D400349FD5 /* cpplist.hpp */,
-			);
-			path = cpplist;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,43 +174,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F01A4E182DE2AE8D00349FD5 /* Project.hpp in Headers */,
+				421C06A62F204F9100E5B924 /* PBBase.h in Headers */,
 				F0C65D552D21EBD000349FD5 /* ProjectBuilder.h in Headers */,
-				F01A4E2D2DE2B39000349FD5 /* SystemCommand.hpp in Headers */,
-				F01A4E122DE2AE7C00349FD5 /* Architecture.hpp in Headers */,
-				F04D0B932D74F7D400349FD5 /* BuildController.hpp in Headers */,
-				F04D0B952D74F7D400349FD5 /* Base.hpp in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F0D9F1912E1A393F00349FD5 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F0D9F1A72E1A3BBB00349FD5 /* cpplist.hpp in Headers */,
+				421C06A42F204F7600E5B924 /* PBArchitecture.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
-
-/* Begin PBXLegacyTarget section */
-		F0F92C632D8F637200349FD5 /* libb64 */ = {
-			isa = PBXLegacyTarget;
-			buildArgumentsString = all_src;
-			buildConfigurationList = F0F92C642D8F637200349FD5 /* Build configuration list for PBXLegacyTarget "libb64" */;
-			buildPhases = (
-			);
-			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "$(PROJECT_DIR)/External/libb64";
-			dependencies = (
-			);
-			name = libb64;
-			packageProductDependencies = (
-			);
-			passBuildSettingsInEnvironment = 1;
-			productName = libb64;
-		};
-/* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
 		F0C65D382D21EB0200349FD5 /* ProjectBuilder */ = {
@@ -296,7 +198,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				F0D9F1A32E1A3A6D00349FD5 /* PBXTargetDependency */,
 			);
 			name = ProjectBuilder;
 			packageProductDependencies = (
@@ -304,25 +205,6 @@
 			productName = ProjectBuilder;
 			productReference = F0C65D392D21EB0200349FD5 /* ProjectBuilder.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		F0D9F1942E1A393F00349FD5 /* libcpplist (dynamic) */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F0D9F1962E1A393F00349FD5 /* Build configuration list for PBXNativeTarget "libcpplist (dynamic)" */;
-			buildPhases = (
-				F0D9F1912E1A393F00349FD5 /* Headers */,
-				F0D9F1922E1A393F00349FD5 /* Sources */,
-				F0D9F1932E1A393F00349FD5 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "libcpplist (dynamic)";
-			packageProductDependencies = (
-			);
-			productName = cpplist;
-			productReference = F0D9F1952E1A393F00349FD5 /* libcpplist.dylib */;
-			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
 
@@ -333,12 +215,6 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					F0C65D382D21EB0200349FD5 = {
-						CreatedOnToolsVersion = 16.2;
-					};
-					F0D9F1942E1A393F00349FD5 = {
-						CreatedOnToolsVersion = 16.4;
-					};
-					F0F92C632D8F637200349FD5 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
@@ -357,8 +233,6 @@
 			projectRoot = "";
 			targets = (
 				F0C65D382D21EB0200349FD5 /* ProjectBuilder */,
-				F0F92C632D8F637200349FD5 /* libb64 */,
-				F0D9F1942E1A393F00349FD5 /* libcpplist (dynamic) */,
 			);
 		};
 /* End PBXProject section */
@@ -380,37 +254,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0D9F1A92E1A3C5900349FD5 /* Project.cpp in Sources */,
-				F0DB90212D7A5AD500349FD5 /* BuildController.cpp in Sources */,
-				F01A4E2C2DE2B39000349FD5 /* SystemCommand.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F0D9F1922E1A393F00349FD5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F0D9F19B2E1A39CA00349FD5 /* Data.cpp in Sources */,
-				F0D9F1A42E1A3A8B00349FD5 /* Integer.cpp in Sources */,
-				F0D9F1A52E1A3AA300349FD5 /* String.cpp in Sources */,
-				F0D9F19A2E1A39B500349FD5 /* Boolean.cpp in Sources */,
-				F0D9F1A62E1A3AC400349FD5 /* Utils.cpp in Sources */,
-				F0D9F1992E1A39A400349FD5 /* Array.cpp in Sources */,
-				F0D9F19F2E1A3A6000349FD5 /* File.cpp in Sources */,
-				F0D9F19E2E1A3A4A00349FD5 /* Dictionary.cpp in Sources */,
-				F0D9F19D2E1A3A3700349FD5 /* Date.cpp in Sources */,
+				421C06C32F21D1F700E5B924 /* Architecture.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F0D9F1A32E1A3A6D00349FD5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F0D9F1942E1A393F00349FD5 /* libcpplist (dynamic) */;
-			targetProxy = F0D9F1A22E1A3A6D00349FD5 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		F04245FC2B8066CC00418707 /* Debug */ = {
@@ -606,73 +454,6 @@
 			};
 			name = Release;
 		};
-		F0D9F1972E1A393F00349FD5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
-				CODE_SIGN_STYLE = Automatic;
-				DRIVERKIT_DEPLOYMENT_TARGET = 24.5;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_PREFIX = "";
-				GCC_C_LANGUAGE_STANDARD = c11;
-				OTHER_LDFLAGS = "-lb64";
-				PRODUCT_NAME = libcpplist;
-				REGISTER_APP_GROUPS = YES;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = macosx;
-				SUPPORTS_MACCATALYST = NO;
-			};
-			name = Debug;
-		};
-		F0D9F1982E1A393F00349FD5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
-				CODE_SIGN_STYLE = Automatic;
-				DRIVERKIT_DEPLOYMENT_TARGET = 24.5;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_PREFIX = "";
-				GCC_C_LANGUAGE_STANDARD = c11;
-				OTHER_LDFLAGS = "-lb64";
-				PRODUCT_NAME = libcpplist;
-				REGISTER_APP_GROUPS = YES;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = macosx;
-				SUPPORTS_MACCATALYST = NO;
-			};
-			name = Release;
-		};
-		F0F92C652D8F637200349FD5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEBUGGING_SYMBOLS = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		F0F92C662D8F637200349FD5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -690,24 +471,6 @@
 			buildConfigurations = (
 				F0C65D3D2D21EB0200349FD5 /* Debug */,
 				F0C65D3E2D21EB0200349FD5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F0D9F1962E1A393F00349FD5 /* Build configuration list for PBXNativeTarget "libcpplist (dynamic)" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F0D9F1972E1A393F00349FD5 /* Debug */,
-				F0D9F1982E1A393F00349FD5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F0F92C642D8F637200349FD5 /* Build configuration list for PBXLegacyTarget "libb64" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F0F92C652D8F637200349FD5 /* Debug */,
-				F0F92C662D8F637200349FD5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
