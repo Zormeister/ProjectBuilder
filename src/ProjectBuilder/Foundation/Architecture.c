@@ -89,13 +89,13 @@ void __PBArchitectureRegister(void)
 {
     __PBArchitectureTypeID = _CFRuntimeRegisterClass(&__PBArchitectureClass);
     _CFRuntimeInitStaticInstance(&__PBArchitectureX86_64, __PBArchitectureTypeID);
+    _CFRuntimeInitStaticInstance(&__PBArchitectureX86_64H, __PBArchitectureTypeID);
 }
 
 CFTypeID PBArchitectureGetTypeID(void)
 {
     if (__PBArchitectureTypeID == _kCFRuntimeNotATypeID) {
-        __PBArchitectureTypeID = _CFRuntimeRegisterClass(&__PBArchitectureClass);
-        _CFRuntimeInitStaticInstance(&__PBArchitectureX86_64, __PBArchitectureTypeID);
+        __PBArchitectureRegister();
     }
     
     return __PBArchitectureTypeID;
@@ -110,7 +110,7 @@ PBArchitectureRef PBArchitectureGetFromHost(void)
     
     switch (type) {
         case kPBArchitectureCPUTypeX86_64:
-            if (subType == kPBArchitectureX86_64SubTypeHaswell) {
+            if (subType == kPBArchitectureX86_64SubTypeHaswell) { 
                 return kPBArchitectureX86_64H;
             } else {
                 return kPBArchitectureX86_64;
