@@ -14,12 +14,30 @@ PB_DECLARE_CLASS(PBArchitecture);
 //
 typedef CF_ENUM(UInt32, PBArchitectureCPUType) {
     kPBArchitectureCPUTypeX86       = 0x7,
-    kPBArchitectureCPUTypeX86_64    = 0x10000007,
+    kPBArchitectureCPUTypeX86_64    = 0x1000007,
+    
+    kPBArchitectureCPUTypeARM       = 12,
+    kPBArchitectureCPUTypeARM64     = 0x100000C,
+    kPBArchitectureCPUTypeARM64_32  = 0x200000C,
 };
+
+//
+// random thought; but since ARM64_32 exists, could X32 be ported to Mach-O?
+//
 
 typedef CF_ENUM(UInt32, PBArchitectureCPUSubType) {
     kPBArchitectureX86_64SubTypeAll       = 0x3,
     kPBArchitectureX86_64SubTypeHaswell   = 0x8,
+    
+    kPBArchitectureARMSubTypeV6           = 0x6,
+    kPBArchitectureARMSubTypeV7           = 0x9,
+    kPBArchitectureARMSubTypeV7F          = 0xA,
+    kPBArchitectureARMSubTypeV7S          = 0xB,
+    kPBArchitectureARMSubTypeV7K          = 0xC,
+    
+    kPBArchitectureARM64SubTypeAll        = 0x0,
+    kPBArchitectureARM64SubTypeV8         = 0x1,
+    kPBArchitectureARM64SubTypeARM64E     = 0x2,
 };
 
 CFTypeID PBArchitectureGetTypeID(void);

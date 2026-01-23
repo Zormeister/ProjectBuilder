@@ -10,6 +10,10 @@
 		421C06A42F204F7600E5B924 /* PBArchitecture.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C06A32F204F7600E5B924 /* PBArchitecture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		421C06A62F204F9100E5B924 /* PBBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C06A52F204F9100E5B924 /* PBBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		421C06C32F21D1F700E5B924 /* Architecture.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06C22F21D1F700E5B924 /* Architecture.c */; };
+		421C06CF2F2415F400E5B924 /* PBPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C06CE2F2415F400E5B924 /* PBPlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		421C06D12F24167C00E5B924 /* Platform.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06D02F24167C00E5B924 /* Platform.c */; };
+		421C06D32F241C1200E5B924 /* PBProject.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C06D22F241C1200E5B924 /* PBProject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		421C06D52F243DAC00E5B924 /* PBBuildQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C06D42F243DAC00E5B924 /* PBBuildQueue.h */; };
 		F09687052D6D869300349FD5 /* DevTools11.plist in Resources */ = {isa = PBXBuildFile; fileRef = F09687042D6D869300349FD5 /* DevTools11.plist */; };
 		F0BFEB182D67E08400349FD5 /* Darwin19.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0BFEB172D67E08400349FD5 /* Darwin19.plist */; };
 		F0C65D552D21EBD000349FD5 /* ProjectBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -53,6 +57,10 @@
 		421C06A52F204F9100E5B924 /* PBBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBBase.h; sourceTree = "<group>"; };
 		421C06C22F21D1F700E5B924 /* Architecture.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Architecture.c; sourceTree = "<group>"; };
 		421C06C52F21D86100E5B924 /* CFRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFRuntime.h; sourceTree = "<group>"; };
+		421C06CE2F2415F400E5B924 /* PBPlatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBPlatform.h; sourceTree = "<group>"; };
+		421C06D02F24167C00E5B924 /* Platform.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Platform.c; sourceTree = "<group>"; };
+		421C06D22F241C1200E5B924 /* PBProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBProject.h; sourceTree = "<group>"; };
+		421C06D42F243DAC00E5B924 /* PBBuildQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBBuildQueue.h; sourceTree = "<group>"; };
 		F046EA702D6E5A7700349FD5 /* INeedASampleFileForTesting.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = INeedASampleFileForTesting.plist; sourceTree = "<group>"; };
 		F0803D182D8FA1C000349FD5 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 		F09687042D6D869300349FD5 /* DevTools11.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DevTools11.plist; sourceTree = "<group>"; };
@@ -80,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				421C06C22F21D1F700E5B924 /* Architecture.c */,
+				421C06D02F24167C00E5B924 /* Platform.c */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -163,6 +172,9 @@
 				F0C65D542D21EBD000349FD5 /* ProjectBuilder.h */,
 				421C06A32F204F7600E5B924 /* PBArchitecture.h */,
 				421C06A52F204F9100E5B924 /* PBBase.h */,
+				421C06CE2F2415F400E5B924 /* PBPlatform.h */,
+				421C06D22F241C1200E5B924 /* PBProject.h */,
+				421C06D42F243DAC00E5B924 /* PBBuildQueue.h */,
 			);
 			path = ProjectBuilder;
 			sourceTree = "<group>";
@@ -175,8 +187,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				421C06A62F204F9100E5B924 /* PBBase.h in Headers */,
+				421C06CF2F2415F400E5B924 /* PBPlatform.h in Headers */,
+				421C06D32F241C1200E5B924 /* PBProject.h in Headers */,
 				F0C65D552D21EBD000349FD5 /* ProjectBuilder.h in Headers */,
 				421C06A42F204F7600E5B924 /* PBArchitecture.h in Headers */,
+				421C06D52F243DAC00E5B924 /* PBBuildQueue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				421C06D12F24167C00E5B924 /* Platform.c in Sources */,
 				421C06C32F21D1F700E5B924 /* Architecture.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

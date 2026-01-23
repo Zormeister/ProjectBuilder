@@ -58,7 +58,9 @@ static struct __CFRuntimeClass __PBArchitectureClass = {
     NULL,                   // hash
     NULL,                   // copyFormattingDesc
     NULL,                   // copyDebugDesc
+#if CF_RECLAIM_AVAILABLE
     NULL,                   // reclaim
+#endif
     NULL,                   // refcount
     0,                      // requiredAlignment
 };
@@ -110,7 +112,7 @@ PBArchitectureRef PBArchitectureGetFromHost(void)
     
     switch (type) {
         case kPBArchitectureCPUTypeX86_64:
-            if (subType == kPBArchitectureX86_64SubTypeHaswell) { 
+            if (subType == kPBArchitectureX86_64SubTypeHaswell) {
                 return kPBArchitectureX86_64H;
             } else {
                 return kPBArchitectureX86_64;
