@@ -5,6 +5,8 @@
 
 #include <ProjectBuilder/PBBase.h>
 
+CF_EXTERN_C_BEGIN
+
 PB_DECLARE_CLASS(PBArchitecture);
 
 //
@@ -20,10 +22,31 @@ typedef CF_ENUM(UInt32, PBArchitectureCPUSubType) {
     kPBArchitectureX86_64SubTypeHaswell   = 0x8,
 };
 
-PB_EXPORT CFTypeID PBArchitectureGetTypeID(void);
+CFTypeID PBArchitectureGetTypeID(void);
 
-PB_EXPORT PBArchitectureRef PBArchitectureCreateFromHostArch(CFAllocatorRef allocator);
+//
+// This will return one of the constants.
+//
+PBArchitectureRef PBArchitectureGetFromHost(void);
 
-PB_EXPORT PBArchitectureRef PBArchitectureCreateWithString(CFAllocatorRef allocator, CFStringRef string);
+//
+// This will return one of the constant PBArchitecture objects.
+//
+PBArchitectureRef PBArchitectureGetFromString(CFStringRef string);
+
+//
+// This list consists of architectures native to Xcode.
+//
+const PBArchitectureRef kPBArchitectureARM64;
+const PBArchitectureRef kPBArchitectureARM64E;
+
+const PBArchitectureRef kPBArchitectureARMV7;
+const PBArchitectureRef kPBArchitectureARMV7S;
+const PBArchitectureRef kPBArchitectureARMV7K;
+
+const PBArchitectureRef kPBArchitectureX86_64;
+const PBArchitectureRef kPBArchitectureX86_64H;
+
+CF_EXTERN_C_END
 
 #endif /* __PROJECTBUILDER_PBARCHITECTURE__ */

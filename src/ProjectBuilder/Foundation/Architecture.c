@@ -1,5 +1,10 @@
 // Copyright (c) 2026, Samuel Zormeister. All rights reserved. SPDX: BSD-3-Clause
 
+#if __APPLE__
+#include <mach/mach.h>
+#include <mach/mach_host.h>
+#endif
+
 #include <ProjectBuilder/PBArchitecture.h>
 #include <CoreFoundation/CFRuntime.h>
 
@@ -11,6 +16,19 @@ struct __PBArchitecture {
     PBArchitectureCPUType cpuType;
     PBArchitectureCPUSubType cpuSubType;
 };
+
+void __PBArchitectureGetHostArch(PBArchitectureCPUType *type, PBArchitectureCPUSubType *subType)
+{
+#if __APPLE__
+    struct host_basic_info info;
+    mach_msg_type_number_t info_cnt = sizeof(struct host_basic_info) / sizeof(integer_t);
+
+    host_info(mach_host_self(), HOST_BASIC_INFO, (host_info_t)&info, &info_cnt);
+    
+    *type = info.cpu_type;
+    *subType = info.cpu_subtype;
+#endif // __APPLE__
+}
 
 static CFTypeID __PBArchitectureTypeID = _kCFRuntimeNotATypeID;
 
@@ -51,9 +69,27 @@ static struct __CFRuntimeClass __PBArchitectureClass = {
 struct __PBArchitecture __PBArchitectureX86_64 = {
     .archString = CFSTR("x86_64"),
     .cpuType = kPBArchitectureCPUTypeX86_64,
+    .cpuSubType = kPBArchitectureX86_64SubTypeAll,
 };
 
 const PBArchitectureRef kPBArchitectureX86_64 = &__PBArchitectureX86_64;
+
+//
+// Static architecture definitions.
+//
+struct __PBArchitecture __PBArchitectureX86_64H = {
+    .archString = CFSTR("x86_64h"),
+    .cpuType = kPBArchitectureCPUTypeX86_64,
+    .cpuSubType = kPBArchitectureX86_64SubTypeHaswell,
+};
+
+const PBArchitectureRef kPBArchitectureX86_64H = &__PBArchitectureX86_64H;
+
+void __PBArchitectureRegister(void)
+{
+    __PBArchitectureTypeID = _CFRuntimeRegisterClass(&__PBArchitectureClass);
+    _CFRuntimeInitStaticInstance(&__PBArchitectureX86_64, __PBArchitectureTypeID);
+}
 
 CFTypeID PBArchitectureGetTypeID(void)
 {
@@ -63,4 +99,25 @@ CFTypeID PBArchitectureGetTypeID(void)
     }
     
     return __PBArchitectureTypeID;
+}
+
+PBArchitectureRef PBArchitectureGetFromHost(void)
+{
+    PBArchitectureCPUType type = 0;             // TODO: invalid value?
+    PBArchitectureCPUSubType subType = 0;       // TODO: invalid value?
+    
+    __PBArchitectureGetHostArch(&type, &subType);
+    
+    switch (type) {
+        case kPBArchitectureCPUTypeX86_64:
+            if (subType == kPBArchitectureX86_64SubTypeHaswell) {
+                return kPBArchitectureX86_64H;
+            } else {
+                return kPBArchitectureX86_64;
+            }
+        default:
+            break;
+    }
+    
+    return NULL;
 }
