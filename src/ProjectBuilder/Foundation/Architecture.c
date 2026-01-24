@@ -208,7 +208,15 @@ PBArchitectureRef PBArchitectureGetFromHost(void)
                 case kPBArchitectureARMSubTypeV7K:
                     return kPBArchitectureARMV7K;
             }
-            return NULL;
+            break;
+        case kPBArchitectureCPUTypeARM64:
+            switch (subType) {
+                case kPBArchitectureARM64SubTypeAll:
+                    return kPBArchitectureARM64;
+                case kPBArchitectureARM64SubTypeARM64E:
+                    return kPBArchitectureARM64E;
+            }
+            break;
         default:
             break;
     }
