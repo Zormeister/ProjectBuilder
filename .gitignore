@@ -5,3 +5,4 @@ ProjectBuilder.xcodeproj/xcuserdata
 *.dylib
 .cache
 .xmake
+compile_commands.json

@@ -1,0 +1,3403 @@
+diff --git a/CoreFoundation/Base.subproj/CFBase.c b/CoreFoundation/Base.subproj/CFBase.c
+index 3cf350e..d9c5efa 100755
+--- a/CoreFoundation/Base.subproj/CFBase.c
++++ b/CoreFoundation/Base.subproj/CFBase.c
+@@ -1,7 +1,7 @@
+ /*	CFBase.c
+ 	Copyright (c) 1998-2017, Apple Inc. and the Swift project authors
+- 
++
+ 	Portions Copyright (c) 2014-2017, Apple Inc. and the Swift project authors
+ 	Licensed under Apache License v2.0 with Runtime Library Exception
+ 	See http://swift.org/LICENSE.txt for license information
+ 	See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
+@@ -42,12 +42,12 @@ struct __CFAllocator {
+     void	(*batch_free)(struct _malloc_zone_t *zone, void **to_be_freed, unsigned num_to_be_freed); /* frees all the pointers in to_be_freed; note that to_be_freed may be overwritten during the process */
+ 
+     const struct malloc_introspection_t	*introspect;
+     unsigned	version;
+-    
++
+     /* aligned memory allocation. The callback may be NULL. */
+ 	void *(*memalign)(struct _malloc_zone_t *zone, size_t alignment, size_t size);
+-    
++
+     /* free a pointer known to be in zone and known to have the given size. The callback may be NULL. */
+     void (*free_definite_size)(struct _malloc_zone_t *zone, void *ptr, size_t size);
+ #endif
+     CFAllocatorRef _allocator;
+@@ -258,9 +258,9 @@ static void *__CFAllocatorNullReallocate(void *ptr, CFIndex newsize, CFOptionFla
+ 
+ #if defined (__cplusplus)
+ static void * __CFAllocatorCPPMalloc(CFIndex allocSize, CFOptionFlags hint, void *info)
+ {
+-	return malloc(allocSize);	
++	return malloc(allocSize);
+ }
+ static void * __CFAllocatorCPPReAlloc(void *ptr, CFIndex newsize, CFOptionFlags hint, void *info)
+ {
+ 	return realloc(ptr, newsize);
+@@ -425,9 +425,9 @@ static const CFRuntimeClass __CFAllocatorClass = {
+     NULL,	// copy
+     NULL,
+     NULL,	// equal
+     NULL,	// hash
+-    NULL,	// 
++    NULL,	//
+     __CFAllocatorCopyDescription
+ };
+ 
+ static void _CFAllocatorSetInstanceTypeIDAndIsa(struct __CFAllocator *memory) {
+@@ -469,9 +469,9 @@ CFAllocatorRef CFAllocatorGetDefault(void) {
+ }
+ 
+ void CFAllocatorSetDefault(CFAllocatorRef allocator) {
+     CFAllocatorRef current = __CFGetDefaultAllocator();
+-#if defined(DEBUG) 
++#if defined(DEBUG)
+     if (NULL != allocator) {
+ 	__CFGenericValidateType(allocator, __kCFAllocatorTypeID);
+     }
+ #endif
+@@ -759,11 +759,13 @@ static void __CFReallocationFailed(void *ptr, CFStringRef reason, void (^realloc
+     _Bool recovered = false;
+     if (reallocationFailureHandler) {
+         reallocationFailureHandler(ptr, &recovered);
+     }
+-    
++
+     if (!recovered) {
++#if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI
+             CRSetCrashLogMessage("Failed to grow buffer");
++#endif
+             HALT;
+     }
+ }
+ 
+@@ -835,9 +837,11 @@ static const CFRuntimeClass __CFNullClass = {
+ CFTypeID CFNullGetTypeID(void) {
+     static dispatch_once_t initOnce = 0;
+     dispatch_once(&initOnce, ^{
+         __kCFNullTypeID = _CFRuntimeRegisterClass(&__CFNullClass); // initOnce covered
++#if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI
+         _CFRuntimeBridgeTypeToClass(__kCFNullTypeID, objc_getClass("NSNull"));
++#endif
+         _CFRuntimeSetInstanceTypeIDAndIsa(&__kCFNull, __kCFNullTypeID);
+     });
+     return __kCFNullTypeID;
+ }
+@@ -856,6 +860,4 @@ void _CFRuntimeSetCFMPresent(void *addr) {
+ 
+ extern void __HALT() {
+     __builtin_trap();
+ }
+-
+-
+diff --git a/CoreFoundation/Base.subproj/CFInternal.h b/CoreFoundation/Base.subproj/CFInternal.h
+index 8110472..29e6c1a 100755
+--- a/CoreFoundation/Base.subproj/CFInternal.h
++++ b/CoreFoundation/Base.subproj/CFInternal.h
+@@ -1,7 +1,7 @@
+ /*	CFInternal.h
+ 	Copyright (c) 1998-2017, Apple Inc. and the Swift project authors
+- 
++
+ 	Portions Copyright (c) 2014-2017, Apple Inc. and the Swift project authors
+ 	Licensed under Apache License v2.0 with Runtime Library Exception
+ 	See http://swift.org/LICENSE.txt for license information
+ 	See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
+@@ -361,9 +361,9 @@ CF_PRIVATE CFStringRef _CFStringCreateWithWidthContexts(CFDictionaryRef widthCon
+ 
+ /* result is long long or int, depending on doLonglong
+ */
+ extern Boolean __CFStringScanInteger(CFStringInlineBuffer *buf, CFTypeRef locale, SInt32 *indexPtr, Boolean doLonglong, void *result);
+-extern Boolean __CFStringScanDouble(CFStringInlineBuffer *buf, CFTypeRef locale, SInt32 *indexPtr, double *resultPtr); 
++extern Boolean __CFStringScanDouble(CFStringInlineBuffer *buf, CFTypeRef locale, SInt32 *indexPtr, double *resultPtr);
+ extern Boolean __CFStringScanHex(CFStringInlineBuffer *buf, SInt32 *indexPtr, unsigned *result);
+ 
+ extern const char *__CFgetenv(const char *n);
+ extern const char *__CFgetenvIfNotRestricted(const char *n);    // Returns NULL in a restricted process
+@@ -469,10 +469,12 @@ extern CFTypeRef CFMakeUncollectable(CFTypeRef cf);
+ CF_PRIVATE void _CFRaiseMemoryException(CFStringRef reason);
+ 
+ CF_EXPORT CF_PRIVATE Boolean __CFProphylacticAutofsAccess;
+ 
++#if __OBJC__
+ CF_EXPORT id __NSDictionary0__;
+ CF_EXPORT id __NSArray0__;
++#endif
+ 
+ 
+ #if DEPLOYMENT_TARGET_MACOSX
+ 
+@@ -631,14 +633,14 @@ extern void __THE_PROCESS_HAS_FORKED_AND_YOU_CANNOT_USE_THIS_COREFOUNDATION_FUNC
+ extern void *__CFStartSimpleThread(void *func, void *arg);
+ 
+ /* ==================== Simple file access ==================== */
+ /* For dealing with abstract types.  MF:!!! These ought to be somewhere else and public. */
+-    
++
+ CF_EXPORT CFStringRef _CFCopyExtensionForAbstractType(CFStringRef abstractType);
+ 
+ /* ==================== Simple file access ==================== */
+ /* These functions all act on a c-strings which must be in the file system encoding. */
+-    
++
+ CF_PRIVATE Boolean _CFCreateDirectory(const char *path);
+ CF_PRIVATE Boolean _CFRemoveDirectory(const char *path);
+ CF_PRIVATE Boolean _CFDeleteFile(const char *path);
+ 
+@@ -1006,5 +1008,4 @@ enum {
+ 
+ CF_EXTERN_C_END
+ 
+ #endif /* ! __COREFOUNDATION_CFINTERNAL__ */
+-
+diff --git a/CoreFoundation/Base.subproj/CFPriv.h b/CoreFoundation/Base.subproj/CFPriv.h
+index bec593c..679c0cd 100755
+--- a/CoreFoundation/Base.subproj/CFPriv.h
++++ b/CoreFoundation/Base.subproj/CFPriv.h
+@@ -1,16 +1,16 @@
+ /*	CFPriv.h
+ 	Copyright (c) 1998-2017, Apple Inc. and the Swift project authors
+- 
++
+ 	Portions Copyright (c) 2014-2017, Apple Inc. and the Swift project authors
+ 	Licensed under Apache License v2.0 with Runtime Library Exception
+ 	See http://swift.org/LICENSE.txt for license information
+ 	See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
+ */
+ 
+ /*
+         APPLE SPI:  NOT TO BE USED OUTSIDE APPLE!*
+- 
++
+         *or swift-corelibs-foundation
+ */
+ 
+ #if !defined(__COREFOUNDATION_CFPRIV__)
+@@ -24,8 +24,16 @@
+ #include <CoreFoundation/CFLocale.h>
+ #include <CoreFoundation/CFDate.h>
+ #include <CoreFoundation/CFSet.h>
+ #include <math.h>
++#include <time.h>
++
++//
++// FIXME: I have to include this or else it'll break.
++//
++#if DEPLOYMENT_TARGET_LINUX
++#include <sys/types.h>
++#endif
+ 
+ #ifndef CF_CROSS_PLATFORM_EXPORT
+     #if !DEPLOYMENT_RUNTIME_OBJC
+         #define CF_CROSS_PLATFORM_EXPORT extern
+@@ -239,9 +247,9 @@ CF_EXPORT const CFStringRef _kCFSystemVersionProductNameKey;
+ CF_EXPORT const CFStringRef _kCFSystemVersionProductCopyrightKey;
+ CF_EXPORT const CFStringRef _kCFSystemVersionProductVersionKey;
+ CF_EXPORT const CFStringRef _kCFSystemVersionProductVersionExtraKey;
+ CF_EXPORT const CFStringRef _kCFSystemVersionProductUserVisibleVersionKey;	// For loginwindow; see 2987512
+-CF_EXPORT const CFStringRef _kCFSystemVersionBuildVersionKey;		
++CF_EXPORT const CFStringRef _kCFSystemVersionBuildVersionKey;
+ CF_EXPORT const CFStringRef _kCFSystemVersionProductVersionStringKey;	// Localized string for the string "Version"
+ CF_EXPORT const CFStringRef _kCFSystemVersionBuildStringKey;		// Localized string for the string "Build"
+ 
+ 
+@@ -502,9 +510,9 @@ CF_INLINE bool CFCharacterSetInlineBufferIsLongCharacterMember(const CFCharacter
+         } else if (0 == (buffer->flags & kCFCharacterSetIsCompactBitmap)) {
+             if (buffer->bitmap[character >> 3] & (1UL << (character & 7))) isInverted = !isInverted;
+         } else {
+             uint8_t value = buffer->bitmap[character >> 8];
+-            
++
+             if (value == 0xFF) {
+                 isInverted = !isInverted;
+             } else if (value > 0) {
+                 const uint8_t *segment = buffer->bitmap + (256 + (32 * (value - 1)));
+@@ -607,9 +615,9 @@ CF_EXPORT bool _CFPropertyListCreateSingleValue(CFAllocatorRef allocator, CFData
+ 
+ // Returns a subset of the property list, only including the keyPaths in the CFSet. If the top level object is not a dictionary, you will get back an empty dictionary as the result.
+ CF_EXPORT bool _CFPropertyListCreateFiltered(CFAllocatorRef allocator, CFDataRef data, CFOptionFlags option, CFSetRef keyPaths, CFPropertyListRef *value, CFErrorRef *error) API_AVAILABLE(macos(10.8), ios(6.0), watchos(2.0), tvos(9.0));
+ 
+-// Returns a set of the keys of the top-level dictionary of a plist. Optimized for bplist (though it works with XML too).  Only supports string keys. 
++// Returns a set of the keys of the top-level dictionary of a plist. Optimized for bplist (though it works with XML too).  Only supports string keys.
+ CF_EXPORT CFSetRef _CFPropertyListCopyTopLevelKeys(CFAllocatorRef allocator, CFDataRef data, CFOptionFlags option, CFErrorRef *outError) API_AVAILABLE(macos(10.13), ios(11.0), watchos(4.0), tvos(11.0));
+ 
+ // Returns a subset of a bundle's Info.plist. The keyPaths follow the same rules as above CFPropertyList function. This function takes platform and product keys into account.
+ typedef CF_OPTIONS(CFOptionFlags, _CFBundleFilteredPlistOptions) {
+@@ -689,5 +697,4 @@ CF_EXPORT CFStringRef _CFXDGCreateRuntimeDirectoryPath(void) CF_RETURNS_RETAINED
+ 
+ CF_EXTERN_C_END
+ 
+ #endif /* ! __COREFOUNDATION_CFPRIV__ */
+-
+diff --git a/CoreFoundation/Base.subproj/CFUtilities.c b/CoreFoundation/Base.subproj/CFUtilities.c
+index 28fc98a..bc09d62 100755
+--- a/CoreFoundation/Base.subproj/CFUtilities.c
++++ b/CoreFoundation/Base.subproj/CFUtilities.c
+@@ -1,7 +1,7 @@
+ /*	CFUtilities.c
+ 	Copyright (c) 1998-2017, Apple Inc. and the Swift project authors
+- 
++
+ 	Portions Copyright (c) 2014-2017, Apple Inc. and the Swift project authors
+ 	Licensed under Apache License v2.0 with Runtime Library Exception
+ 	See http://swift.org/LICENSE.txt for license information
+ 	See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
+@@ -103,9 +103,9 @@ CF_PRIVATE os_log_t _CFOSLog(void) {
+    	* Not found *
+    } else {
+    	* Found *
+    }
+-   
++
+ */
+ CF_PRIVATE CFIndex CFBSearch(const void *element, CFIndex elementSize, const void *list, CFIndex count, CFComparatorFunction comparator, void *context) {
+     const char *ptr = (const char *)list;
+     while (0 < count) {
+@@ -233,13 +233,13 @@ static CFStringRef _CFCopyLocalizedVersionKey(CFBundleRef *bundlePtr, CFStringRe
+ #endif
+ 
+ static CFDictionaryRef _CFCopyVersionDictionary(CFStringRef path) {
+     CFPropertyListRef plist = NULL;
+-    
++
+ #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI
+     CFDataRef data;
+     CFURLRef url;
+-    
++
+     url = CFURLCreateWithFileSystemPath(kCFAllocatorSystemDefault, path, kCFURLPOSIXPathStyle, false);
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wdeprecated"
+     if (url && CFURLCreateDataAndPropertiesFromResource(kCFAllocatorSystemDefault, url, &data, NULL, NULL, NULL)) {
+@@ -274,9 +274,9 @@ static CFDictionaryRef _CFCopyVersionDictionary(CFStringRef path) {
+         if (vers && versExtra) vers = CFStringCreateWithFormat(kCFAllocatorSystemDefault, NULL, CFSTR("%@ %@"), vers, versExtra);
+         build = (CFStringRef)CFDictionaryGetValue((CFDictionaryRef)plist, _kCFSystemVersionBuildVersionKey);
+         fullVersion = CFStringCreateWithFormat(kCFAllocatorSystemDefault, NULL, fullVersionString, (vers ? vers : CFSTR("?")), build ? build : CFSTR("?"));
+         if (vers && versExtra) CFRelease(vers);
+-        
++
+ 	CFDictionarySetValue((CFMutableDictionaryRef)plist, _kCFSystemVersionProductVersionStringKey, versionString);
+ 	CFDictionarySetValue((CFMutableDictionaryRef)plist, _kCFSystemVersionBuildStringKey, buildString);
+ 	CFDictionarySetValue((CFMutableDictionaryRef)plist, CFSTR("FullVersionString"), fullVersion);
+  	CFRelease(versionString);
+@@ -291,19 +291,19 @@ static CFDictionaryRef _CFCopyVersionDictionary(CFStringRef path) {
+     BOOL result = GetVersionEx((OSVERSIONINFO *)&osvi);
+     if (!result) return NULL;
+ 
+     plist = CFDictionaryCreateMutable(kCFAllocatorSystemDefault, 10, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+-    
++
+     // e.g. 10.7
+     CFStringRef versionString = CFStringCreateWithFormat(kCFAllocatorSystemDefault, NULL, CFSTR("%ld.%ld(%ld,%ld)"), osvi.dwMajorVersion, osvi.dwMinorVersion, osvi.wServicePackMajor, osvi.wServicePackMinor);
+-    
++
+     // e.g. 11A508
+     CFStringRef buildString = CFStringCreateWithFormat(kCFAllocatorSystemDefault, NULL, CFSTR("%ld"), osvi.dwBuildNumber);
+-        
++
+     CFDictionarySetValue((CFMutableDictionaryRef)plist, _kCFSystemVersionProductVersionKey, versionString);
+-    CFDictionarySetValue((CFMutableDictionaryRef)plist, _kCFSystemVersionBuildVersionKey, buildString);    
++    CFDictionarySetValue((CFMutableDictionaryRef)plist, _kCFSystemVersionBuildVersionKey, buildString);
+     CFDictionarySetValue((CFMutableDictionaryRef)plist, _kCFSystemVersionProductNameKey, CFSTR("Windows")); // hard coded for now
+-    
++
+     CFRelease(versionString);
+     CFRelease(buildString);
+ #endif
+     return (CFDictionaryRef)plist;
+@@ -421,9 +421,9 @@ CF_PRIVATE CFIndex __CFActiveProcessorCount() {
+ #if CF_HAVE_HW_CONFIG_COMMPAGE
+     static const uintptr_t p = _COMM_PAGE_ACTIVE_CPUS;
+     return (CFIndex)(*(uint8_t*)p);
+ #else
+-    
++
+     int32_t pcnt;
+ #if DEPLOYMENT_TARGET_WINDOWS
+     SYSTEM_INFO sysInfo;
+     GetSystemInfo(&sysInfo);
+@@ -483,9 +483,9 @@ CF_PRIVATE uint64_t __CFMemorySize() {
+     memsize *= sysconf(_SC_PAGESIZE);
+ #endif
+     return memsize;
+ }
+-    
++
+ #if TARGET_OS_MAC
+ static uid_t _CFGetSVUID(BOOL *successful) {
+     uid_t uid = -1;
+     struct kinfo_proc kinfo;
+@@ -525,14 +525,14 @@ CF_INLINE BOOL _CFCanChangeEUIDs(void) {
+ #else
+     return true;
+ #endif
+ }
+-    
++
+ typedef struct _ugids {
+     uid_t _euid;
+     uid_t _egid;
+ } ugids;
+-    
++
+ CF_PRIVATE void __CFGetUGIDs(uid_t *euid, gid_t *egid) {
+     ugids(^lookup)() = ^{
+         ugids ids;
+ #if 1 && (DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI)
+@@ -543,11 +543,11 @@ CF_PRIVATE void __CFGetUGIDs(uid_t *euid, gid_t *egid) {
+             ids._egid = getegid();
+         }
+         return ids;
+     };
+-    
++
+     ugids ids;
+-    
++
+     if (_CFCanChangeEUIDs()) {
+         ids = lookup();
+     } else {
+         static ugids cachedUGIDs = { -1, -1 };
+@@ -556,17 +556,17 @@ CF_PRIVATE void __CFGetUGIDs(uid_t *euid, gid_t *egid) {
+             cachedUGIDs = lookup();
+         });
+         ids = cachedUGIDs;
+     }
+-    
++
+     if (euid) *euid = ids._euid;
+     if (egid) *egid = ids._egid;
+ }
+-    
++
+ CF_EXPORT void _CFGetUGIDs(uid_t *euid, gid_t *egid) {
+     __CFGetUGIDs(euid, egid);
+ }
+-    
++
+ CF_EXPORT uid_t _CFGetEUID(void) {
+     uid_t euid;
+     __CFGetUGIDs(&euid, NULL);
+     return euid;
+@@ -595,9 +595,9 @@ const char *_CFPrintForDebugger(const void *obj) {
+ 		}
+ 	} else {
+ 		str = (CFStringRef)CFRetain(CFSTR("(null)"));
+ 	}
+-	
++
+ 	if (str != NULL) {
+ 		CFStringGetBytes(str, CFRangeMake(0, CFStringGetLength(str)), kCFStringEncodingUTF8, 0, FALSE, NULL, 0, &cnt);
+ 	}
+ 	result = (char *) malloc(cnt + 2);	// 1 for '\0', 1 for an optional '\n'
+@@ -776,9 +776,9 @@ static void _populateBanner(char **banner, char **time, char **thread, int *bann
+ #elif DEPLOYMENT_TARGET_WINDOWS
+     bannerLen = asprintf(banner, "%04d-%02d-%02d %02d:%02d:%02d.%03d %s[%d:%x] ", year, month, day, hour, minute, second, ms, *_CFGetProgname(), getpid(), GetCurrentThreadId());
+     asprintf(thread, "%x", GetCurrentThreadId());
+ #else
+-    bannerLen = asprintf(banner, "%04d-%02d-%02d %02d:%02d:%02d.%03d %s[%d:%x] ", year, month, day, hour, minute, second, ms, *_CFGetProgname(), getpid(), (unsigned int)pthread_self());
++    *bannerLen = asprintf(banner, "%04d-%02d-%02d %02d:%02d:%02d.%03d %s[%d:%x] ", year, month, day, hour, minute, second, ms, *_CFGetProgname(), getpid(), (unsigned int)pthread_self());
+     asprintf(thread, "%lx", pthread_self());
+ #endif
+     asprintf(time, "%04d-%02d-%02d %02d:%02d:%02d.%03d", year, month, day, hour, minute, second, ms);
+ }
+@@ -802,9 +802,9 @@ static void _logToStderr(char *banner, const char *message, size_t length) {
+     char *buf = (char *)malloc(sizeof(char) * bufLen);
+     if (banner) {
+         // Copy the banner into the debug string
+         memmove_s(buf, bufLen, banner, bannerLen);
+-        
++
+         // Copy the message into the debug string
+         strcpy_s(buf + bannerLen, bufLen - bannerLen, message);
+     } else {
+         strcpy_s(buf, bufLen, message);
+@@ -820,9 +820,9 @@ static void _logToStderr(char *banner, const char *message, size_t length) {
+     char *buf = (char *)malloc(sizeof(char) * bufLen);
+     if (banner) {
+         // Copy the banner into the debug string
+         memmove(buf, banner, bannerLen);
+-        
++
+         // Copy the message into the debug string
+         strncpy(buf + bannerLen, message, bufLen - bannerLen);
+     } else {
+         strncpy(buf, message, bufLen);
+@@ -843,9 +843,9 @@ static void __CFLogCString(int32_t lev, const char *message, size_t length, char
+     // The banner path may use CF functions, but the rest of this function should not. It may be called at times when CF is not fully setup or torn down.
+     if (withBanner) {
+         _populateBanner(&banner, &time, &thread, &bannerLen);
+     }
+-    
++
+     _logToStderr(banner, message, length);
+ 
+     if (thread) free(thread);
+     if (time) free(time);
+@@ -858,14 +858,14 @@ static void __CFLogCStringLegacy(int32_t lev, const char *message, size_t length
+     char *uid = NULL;
+     char *thread = NULL;
+     int bannerLen;
+     bannerLen = 0;
+-    
++
+     // The banner path may use CF functions, but the rest of this function should not. It may be called at times when CF is not fully setup or torn down.
+     if (withBanner) {
+         _populateBanner(&banner, &time, &thread, &bannerLen);
+     }
+-    
++
+ #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_WINDOWS
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wdeprecated"
+     uid_t euid;
+@@ -883,13 +883,13 @@ static void __CFLogCStringLegacy(int32_t lev, const char *message, size_t length
+     asl_free(msg);
+     asl_close(asl);
+ #pragma GCC diagnostic pop
+ #endif // DEPLOYMENT_TARGET
+-    
++
+     if (also_do_stderr(_cf_logging_style_legacy)) {
+         _logToStderr(banner, message, length);
+     }
+-    
++
+     if (thread) free(thread);
+     if (time) free(time);
+     if (banner) free(banner);
+     if (uid) free(uid);
+@@ -926,16 +926,16 @@ static void _CFLogvEx2Predicate(CFLogFunc logit, CFStringRef (*copyDescFunc)(voi
+ #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI
+     _CFSetTSD(__CFTSDKeyIsInCFLog, (void *)val, NULL);
+ #endif
+ }
+-    
++
+ CF_EXPORT void _CFLogvEx2(CFLogFunc logit, CFStringRef (*copyDescFunc)(void *, const void *), CFStringRef (*contextDescFunc)(void *, const void *, const void *, bool, bool *), CFDictionaryRef formatOptions, int32_t lev, CFStringRef format, va_list args) {
+     _CFLogvEx2Predicate(logit, copyDescFunc, contextDescFunc, formatOptions, lev, format, args, _cf_logging_style_legacy);
+ }
+-    
++
+ CF_EXPORT void _CFLogvEx3(CFLogFunc logit, CFStringRef (*copyDescFunc)(void *, const void *), CFStringRef (*contextDescFunc)(void *, const void *, const void *, bool, bool *), CFDictionaryRef formatOptions, int32_t lev, CFStringRef format, va_list args, void *addr) {
+     _CFLogvEx2Predicate(logit, copyDescFunc, contextDescFunc, formatOptions, lev, format, args, _cf_logging_style_legacy);
+-    
++
+ }
+ 
+ CF_EXPORT void _CFLogvEx(CFLogFunc logit, CFStringRef (*copyDescFunc)(void *, const void *), CFDictionaryRef formatOptions, int32_t lev, CFStringRef format, va_list args) {
+     _CFLogvEx2(logit, copyDescFunc, NULL, formatOptions, lev, format, args);
+@@ -954,13 +954,13 @@ CF_PRIVATE void _CFLogSimple(int32_t lev, char *format, ...) {
+ }
+ 
+ void CFLog(int32_t lev, CFStringRef format, ...) {
+     va_list args;
+-    va_start(args, format); 
++    va_start(args, format);
+     _CFLogvEx3(NULL, NULL, NULL, NULL, lev, format, args, __builtin_return_address(0));
+     va_end(args);
+ }
+-    
++
+ #if DEPLOYMENT_RUNTIME_SWIFT
+ // Temporary as Swift cannot import varag C functions
+ void CFLog1(CFLogLevel lev, CFStringRef message) {
+ #if TARGET_OS_ANDROID
+@@ -974,37 +974,37 @@ void CFLog1(CFLogLevel lev, CFStringRef message) {
+         case kCFLogLevelNotice:    priority = ANDROID_LOG_WARN;  break;
+         case kCFLogLevelInfo:      priority = ANDROID_LOG_INFO;  break;
+         case kCFLogLevelDebug:     priority = ANDROID_LOG_DEBUG; break;
+     }
+-    
++
+     if (message == NULL) message = CFSTR("NULL");
+-    
++
+     char stack_buffer[1024] = { 0 };
+     char *buffer = &stack_buffer[0];
+     CFStringEncoding encoding = kCFStringEncodingUTF8;
+     CFIndex maxLength = CFStringGetMaximumSizeForEncoding(CFStringGetLength(message), encoding) + 1;
+     const char *tag = "Swift"; // process name not available from NDK
+-    
++
+     if (maxLength > sizeof(stack_buffer) / sizeof(stack_buffer[0])) {
+         buffer = calloc(sizeof(char), maxLength);
+         if (!buffer) {
+             maxLength = sizeof(stack_buffer) / sizeof(stack_buffer[0]);
+             buffer = &stack_buffer[0];
+             buffer[maxLength-1] = '\000';
+         }
+     }
+-    
++
+     if (maxLength == 1) {
+         // was crashing with zero length strings
+         // https://bugs.swift.org/browse/SR-2666
+         strcpy(buffer, " "); // log empty string
+     }
+     else
+         CFStringGetCString(message, buffer, maxLength, encoding);
+-    
++
+     __android_log_print(priority, tag, "%s", buffer);
+     fprintf(stderr, "%s\n", buffer);
+-    
++
+     if (buffer != &stack_buffer[0]) free(buffer);
+ #else
+     CFLog(lev, CFSTR("%@"), message);
+ #endif
+@@ -1120,9 +1120,9 @@ size_t _CFSuddenTerminationDisablingCount(void) {
+ 
+ #endif
+ 
+ #pragma mark File Reading
+-    
++
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ #include <errno.h>
+ #if DEPLOYMENT_TARGET_WINDOWS
+@@ -1134,15 +1134,15 @@ size_t _CFSuddenTerminationDisablingCount(void) {
+ #define open _NS_open
+ #define stat _NS_stat
+ #define fstat _fstat
+ #define statinfo _stat
+-    
++
+ #define mach_task_self() 0
+ 
+ #else
+ #define statinfo stat
+ #endif
+-    
++
+ static CFErrorRef _CFErrorWithFilePathCodeDomain(CFStringRef domain, CFIndex code, CFStringRef path) {
+     CFStringRef key = CFSTR("NSFilePath");
+     CFDictionaryRef userInfo = CFDictionaryCreate(kCFAllocatorSystemDefault, (const void **)&key, (const void **)&path, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+     CFErrorRef result = CFErrorCreate(kCFAllocatorSystemDefault, domain, code, userInfo);
+@@ -1168,9 +1168,9 @@ CF_PRIVATE Boolean _CFReadMappedFromFile(CFStringRef path, Boolean map, Boolean
+     if (fd < 0) {
+         if (errorPtr) *errorPtr = _CFErrorWithFilePathCodeDomain(kCFErrorDomainPOSIX, errno, path);
+         return false;
+     }
+-#if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI    
++#if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI
+     if (uncached) (void)fcntl(fd, F_NOCACHE, 1);  // Non-zero arg turns off caching; we ignore error as uncached is just a hint
+ #endif
+     if (fstat(fd, &statBuf) < 0) {
+         int32_t savederrno = errno;
+@@ -1218,9 +1218,9 @@ CF_PRIVATE Boolean _CFReadMappedFromFile(CFStringRef path, Boolean map, Boolean
+         }
+ 	size_t numBytesRemaining = (size_t)statBuf.st_size;
+ 	void *readLocation = bytes;
+ 	while (numBytesRemaining > 0) {
+-	    size_t numBytesRequested = (numBytesRemaining < (1LL << 31)) ? numBytesRemaining : ((1LL << 31) - 1);	// This loop is basically a workaround for 4870206 
++	    size_t numBytesRequested = (numBytesRemaining < (1LL << 31)) ? numBytesRemaining : ((1LL << 31) - 1);	// This loop is basically a workaround for 4870206
+ 	    ssize_t numBytesRead = read(fd, readLocation, numBytesRequested);
+ 	    if (numBytesRead <= 0) {
+ 		if (numBytesRead < 0) {
+ 		    int32_t savederrno = errno;
+@@ -1303,9 +1303,9 @@ CF_INLINE Boolean __IsInvalidExtensionCharacter(UniChar c)
+         UNICHAR_RIGHT_TO_LEFT_ISOLATE       = 0x2067,
+         UNICHAR_FIRST_STRONG_ISOLATE        = 0x2068,
+         UNICHAR_POP_DIRECTIONAL_ISOLATE     = 0x2069,
+     };
+-    
++
+     Boolean result;
+     switch ( c ) {
+         case (UniChar)' ':
+         case (UniChar)'/':
+@@ -1322,9 +1322,9 @@ CF_INLINE Boolean __IsInvalidExtensionCharacter(UniChar c)
+         case UNICHAR_FIRST_STRONG_ISOLATE:
+         case UNICHAR_POP_DIRECTIONAL_ISOLATE:
+             result = true;
+             break;
+-            
++
+         default:
+             result = false;
+             break;
+     }
+@@ -1335,9 +1335,9 @@ CF_INLINE Boolean __IsInvalidExtensionCharacter(UniChar c)
+  */
+ CF_INLINE void __GetPathExtensionRangesFromPathComponentBuffer(CFStringInlineBuffer *buffer, CFRange *outPrimaryExtRange, CFRange *outSecondaryExtRange) {
+     CFRange primaryExtRange = CFRangeMake(kCFNotFound, 0);
+     CFRange secondaryExtRange = CFRangeMake(kCFNotFound, 0);
+-    
++
+     if ( buffer && (outPrimaryExtRange || outSecondaryExtRange) ) {
+         //
+         // Look backwards for a period. The period may not be the first or last character of the path component,
+         // but otherwise the extension may be of any length and contain any characters
+@@ -1347,11 +1347,11 @@ CF_INLINE void __GetPathExtensionRangesFromPathComponentBuffer(CFStringInlineBuf
+         // the primary extension is hidden. Since this is a security concern, the
+         // rules for the secondary extension are looser. Leading and trailing spaces
+         // are ignored, since the user might think "foo.txt .app" is a text file if
+         // ".app" is hidden.
+-        
++
+         CFIndex nameLen = buffer->rangeToBuffer.length;
+-        
++
+         for ( CFIndex i = nameLen - 1; i > 0; i-- ) {
+             UniChar c = __CFStringGetCharacterFromInlineBufferQuickReverse(buffer, i);
+             if ( (UniChar)'.' == c ) {
+                 // Found a dot
+@@ -1359,52 +1359,52 @@ CF_INLINE void __GetPathExtensionRangesFromPathComponentBuffer(CFStringInlineBuf
+                 if ( i == (nameLen - 1) ) {
+                     // Last char disqualified
+                     break;
+                 }
+-                
++
+                 primaryExtRange = CFRangeMake(i + 1, nameLen - (i + 1));
+-                
++
+                 if ( outSecondaryExtRange == NULL ) {
+                     break;
+                 }
+-                
++
+                 // Look for an "apparent" secondary extension, using modified rules.
+                 CFIndex e2len = 0;
+-                
++
+                 // Skip trailing space (one-liner):
+                 for ( --i; (i > 0) && (__CFStringGetCharacterFromInlineBufferQuickReverse(buffer, i) == (UniChar)' '); i-- );
+-                
++
+                 // Scan apparent extension text
+                 for ( ; i > 0; i-- ) {
+                     c = __CFStringGetCharacterFromInlineBufferQuickReverse(buffer, i);
+                     if ( ((UniChar)'.' == c) || ((UniChar)' ' == c) ) {
+                         break;
+                     }
+                     e2len++;
+                 }
+-                
++
+                 e2i = i + 1;
+-                
++
+                 // Skip leading space (one-liner):
+                 for ( ; (i > 0) && (__CFStringGetCharacterFromInlineBufferQuickReverse(buffer, i) == (UniChar)' '); i-- );
+-                
++
+                 if ( (i > 0) && (__CFStringGetCharacterFromInlineBufferQuickReverse(buffer, i) == (UniChar)'.') && (e2len > 0) ) {
+                     secondaryExtRange = CFRangeMake( e2i, e2len );
+                 }
+-                
++
+                 break;
+             }
+             else if ( __IsInvalidExtensionCharacter(c) ) {
+                 // Found a space, a path separator, or a unicode directional control character -- terminate the loop
+                 break;
+             }
+         }
+     }
+-    
++
+     if ( outPrimaryExtRange ) {
+         *outPrimaryExtRange = primaryExtRange;
+     }
+-    
++
+     if ( outSecondaryExtRange ) {
+         *outSecondaryExtRange = secondaryExtRange;
+     }
+ }
+@@ -1412,9 +1412,9 @@ CF_INLINE void __GetPathExtensionRangesFromPathComponentBuffer(CFStringInlineBuf
+ /*  __ExtensionIsValidToAppend determines if the characters in extension are valid to be appended as an extension.
+  */
+ CF_INLINE Boolean __ExtensionIsValidToAppend(CFStringInlineBuffer *buffer) {
+     Boolean result;
+-    
++
+     if ( buffer && buffer->rangeToBuffer.length ) {
+         //
+         // Look backwards for a period. If a period is found, it must not be the
+         // last character and any characters after the period must be valid in an
+@@ -1423,13 +1423,13 @@ CF_INLINE Boolean __ExtensionIsValidToAppend(CFStringInlineBuffer *buffer) {
+         // "tar.gz" to be appended as an extension). The path separator
+         // character '/' isn't allowed anywhere in the extension. If there's no
+         // period, the entire string must be characters valid in an extension.
+         // The extension may be of any length.
+-        
++
+         CFIndex nameLen = buffer->rangeToBuffer.length;
+         if ( nameLen ) {
+             result = true;  // assume the best
+-            
++
+             for ( CFIndex i = nameLen - 1; i >= 0; i-- ) {
+                 UniChar c = __CFStringGetCharacterFromInlineBufferQuickReverse(buffer, i);
+                 if ( (UniChar)'.' == c ) {
+                     // Found a period. If it's  the last character, then return false; otherwise true
+@@ -1516,12 +1516,12 @@ CFDictionaryRef __CFGetEnvironment() {
+         envDict = CFDictionaryCreateMutable(kCFAllocatorSystemDefault, 0, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+         for (; *envp; ++envp) {
+             char *eqp = *envp;	// '=' pointer
+             while (*eqp && *eqp != '=') ++eqp;
+-            
++
+             char *endp = eqp;
+             while (*endp) ++endp;
+-            
++
+             if (endp == eqp) {	// oops, badly formed value
+                 continue;
+             }
+             CFStringRef key = CFStringCreateWithBytes(kCFAllocatorSystemDefault, (const uint8_t *)*envp, (eqp - *envp), kCFStringEncodingUTF8, false);
+diff --git a/CoreFoundation/Base.subproj/CFRuntime.c b/CoreFoundation/Base.subproj/CFRuntime.c
+index 72e20ac..3cefc34 100755
+--- a/CoreFoundation/Base.subproj/CFRuntime.c
++++ b/CoreFoundation/Base.subproj/CFRuntime.c
+@@ -1,7 +1,7 @@
+ /*	CFRuntime.c
+ 	Copyright (c) 1999-2017, Apple Inc. and the Swift project authors
+- 
++
+ 	Portions Copyright (c) 2014-2017, Apple Inc. and the Swift project authors
+ 	Licensed under Apache License v2.0 with Runtime Library Exception
+ 	See http://swift.org/LICENSE.txt for license information
+ 	See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
+@@ -318,22 +318,22 @@ void _CFEnableZombies(void) {
+ #endif /* DEBUG */
+ 
+ /*
+  Layout of CF info field
+- 
++
+   3      2       1
+   1      4       6        7      0
+   |      |       |        |      |
+   rrrrrrrrCDX?ttttttttttttaIIIIIII
+- 
++
+  r = retain count
+  C = custom RC
+  D = deallocating
+  X = deallocated
+  t = type ID (12 bits, although only 10 are used because the class table size is 1024)
+  a = if set, use system default allocator
+  I = type-specific info bits (6 bits available)
+- 
++
+  On 64 bit, also includes 32 bits more of retain count from 32-63
+  */
+ 
+ #if __CF_BIG_ENDIAN__
+@@ -376,9 +376,9 @@ CF_INLINE uint32_t __CFHighRCFromInfo(__CFInfoType info) {
+ #endif
+ 
+ CF_INLINE CFRuntimeBase *_cf_aligned_malloc(size_t align, CFIndex size, const char *className) {
+     CFRuntimeBase *memory;
+-    
++
+ #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED
+     memory = malloc_zone_memalign(malloc_default_zone(), align, size);
+ #elif DEPLOYMENT_TARGET_LINUX
+     int result = posix_memalign((void **)&memory, /*alignment*/ align, size);
+@@ -398,32 +398,32 @@ CF_INLINE CFRuntimeBase *_cf_aligned_malloc(size_t align, CFIndex size, const ch
+ #else
+     CFLog(kCFLogLevelWarning, CFSTR("*** _CFRuntimeCreateInstance() tried to allocate an instance of '%s', which requires %zu-byte alignment, but aligned memory is not supported on this platform"), className, align);
+     memory = NULL;
+ #endif
+-    
++
+     return memory;
+ }
+ 
+ CFTypeRef _CFRuntimeCreateInstance(CFAllocatorRef allocator, CFTypeID typeID, CFIndex extraBytes, unsigned char *category) {
+ #if DEPLOYMENT_RUNTIME_SWIFT
+     // Under the Swift runtime, all CFTypeRefs are _NSCFTypes or a toll-free bridged type
+-    
++
+     extern  void *swift_allocObject(uintptr_t metadata, size_t requiredSize, size_t requiredAlignmentMask);
+     uintptr_t isa = __CFRuntimeObjCClassTable[typeID];
+     CFIndex size = sizeof(CFRuntimeBase) + extraBytes;
+     CFRuntimeClass *cls = __CFRuntimeClassTable[typeID];
+     size_t align = (cls->version & _kCFRuntimeRequiresAlignment) ? cls->requiredAlignment : 16;
+-    
++
+     CFRuntimeBase *memory = (CFRuntimeBase *)swift_allocObject(isa, size, align - 1);
+-    
++
+     // Zero the rest of the memory, starting at cfinfo
+     memset(&memory->_cfinfoa, 0, size - (sizeof(memory->_cfisa) + sizeof(memory->_swift_rc)));
+-    
++
+     // Set up the cfinfo struct
+     uint32_t *cfinfop = (uint32_t *)&(memory->_cfinfoa);
+     // The 0x80 means we use the default allocator
+     *cfinfop = (uint32_t)(((uint32_t)typeID << 8) | (0x80));
+-    
++
+     return memory;
+ #else
+     if (__CFRuntimeClassTableSize <= typeID) HALT;
+     CFAssert1(typeID != _kCFRuntimeNotATypeID, __kCFLogAssertion, "%s(): Uninitialized type id", __PRETTY_FUNCTION__);
+@@ -470,9 +470,9 @@ CFTypeRef _CFRuntimeCreateInstance(CFAllocatorRef allocator, CFTypeID typeID, CF
+         // This means the allocator is 16 bytes before the result. See the line where we added 16 bytes above, when !usesSystemDefaultAllocator
+         *(CFAllocatorRef *)((char *)memory) = (CFAllocatorRef)CFRetain(realAllocator);
+         memory = (CFRuntimeBase *)((char *)memory + 16);
+     }
+-    
++
+     // No need for atomic operations here - memory is currently private to this thread
+     uint32_t typeIDMasked = (uint32_t)typeID << 8;
+     uint32_t usesDefaultAllocatorMasked = usesSystemDefaultAllocator ? 0x80 : 0x00;
+ #if __LP64__
+@@ -625,9 +625,9 @@ CF_EXPORT uintptr_t __CFDoExternRefOperation(uintptr_t op, id obj) {
+ 
+ CF_EXPORT CFTypeID CFNumberGetTypeID(void);
+ 
+ CF_INLINE CFTypeID __CFGenericTypeID_inline(const void *cf) {
+-    
++
+     return __CFTypeIDFromInfo(atomic_load(&(((CFRuntimeBase *)cf)->_cfinfoa)));
+ }
+ 
+ CFTypeID __CFGenericTypeID(const void *cf) {
+@@ -670,8 +670,9 @@ CF_INLINE Boolean CFTYPE_IS_SWIFT(const void *obj) {
+ #define CFTYPE_SWIFT_FUNCDISPATCH1(rettype, obj, fn, a1) do {} while (0)
+ 
+ #endif
+ 
++#if DEPLOYMENT_RUNTIME_OBJC
+ // _sjc_ Defined in NSBlock.m. Used to create class mapping to support blocks-as-objects.
+ void ___CFMakeNSBlockClasses(void);
+ 
+ // _sjc_ For fast ISA comparison, on the assumption that we will mostly be passed CF types
+@@ -699,16 +700,19 @@ extern const uintptr_t objc_debug_isa_class_mask;
+ #define CFTYPE_OBJC_FUNCDISPATCH0(rettype, obj, sel) \
+     { uintptr_t isa = CF_ISA(obj); if (CF_ISA_IS_OBJC(isa)) { return (rettype)objc_msgSend((id)obj, sel); }}
+ #define CFTYPE_OBJC_FUNCDISPATCH1(rettype, obj, sel, a1) \
+     { uintptr_t isa = CF_ISA(obj); if (CF_ISA_IS_OBJC(isa)) { return (rettype)objc_msgSend((id)obj, sel, a1); }}
++#endif
+ 
+ CFTypeID CFGetTypeID(CFTypeRef cf) {
+ #if defined(DEBUG)
+     if (NULL == cf) { CRSetCrashLogMessage("*** CFGetTypeID() called with NULL ***"); HALT; }
+ #endif
++#if DEPLOYMENT_RUNTIME_OBJC
+     CFTYPE_OBJC_FUNCDISPATCH0(CFTypeID, cf, sel___cfTypeID);
++#endif
+     CFTYPE_SWIFT_FUNCDISPATCH0(CFTypeID, cf, NSObject._cfTypeID);
+-    
++
+     __CFGenericAssertIsCF(cf);
+     return __CFGenericTypeID_inline(cf);
+ }
+ 
+@@ -727,9 +731,11 @@ CFTypeRef _CFNonObjCRetain(CFTypeRef cf) {
+ }
+ 
+ CFTypeRef CFRetain(CFTypeRef cf) {
+     if (NULL == cf) { CRSetCrashLogMessage("*** CFRetain() called with NULL ***"); HALT; }
++#if DEPLOYMENT_RUNTIME_OBJC
+     CFTYPE_OBJC_FUNCDISPATCH0(id, cf, sel__retain)
++#endif
+     if (cf) __CFGenericAssertIsCF(cf);
+     return _CFRetain(cf, false);
+ }
+ 
+@@ -746,9 +752,11 @@ void _CFNonObjCRelease(CFTypeRef cf) {
+ }
+ 
+ void CFRelease(CFTypeRef cf) {
+     if (NULL == cf) { CRSetCrashLogMessage("*** CFRelease() called with NULL ***"); HALT; }
++#if DEPLOYMENT_RUNTIME_OBJC
+     CFTYPE_OBJC_FUNCDISPATCH0(id, cf, sel__release)
++#endif
+     if (cf) __CFGenericAssertIsCF(cf);
+     _CFRelease(cf);
+ }
+ 
+@@ -832,9 +840,11 @@ CF_PRIVATE void __CFRuntimeSetRC(CFTypeRef cf, uint32_t rc) {
+ }
+ 
+ CFIndex CFGetRetainCount(CFTypeRef cf) {
+     if (NULL == cf) { CRSetCrashLogMessage("*** CFGetRetainCount() called with NULL ***"); HALT; }
++#if DEPLOYMENT_RUNTIME_OBJC
+     CFTYPE_OBJC_FUNCDISPATCH0(CFIndex, cf, sel__retainCount);
++#endif
+     __CFInfoType info = atomic_load(&(((CFRuntimeBase *)cf)->_cfinfoa));
+     if (info & RC_CUSTOM_RC_BIT) { // custom ref counting for object
+         CFTypeID typeID = __CFTypeIDFromInfo(info);
+         CFRuntimeClass *cfClass = __CFRuntimeClassTable[typeID];
+@@ -872,9 +882,11 @@ CFTypeRef CFMakeUncollectable(CFTypeRef cf) {
+ Boolean _CFNonObjCEqual(CFTypeRef cf1, CFTypeRef cf2) {
+     //cf1 is guaranteed to be non-NULL and non-ObjC, cf2 is unknown
+     if (cf1 == cf2) return true;
+     if (NULL == cf2) { CRSetCrashLogMessage("*** CFEqual() called with NULL second argument ***"); HALT; }
++#if DEPLOYMENT_RUNTIME_OBJC
+     CFTYPE_OBJC_FUNCDISPATCH1(Boolean, cf2, sel__isEqual, cf1);
++#endif
+     CFTYPE_SWIFT_FUNCDISPATCH1(Boolean, cf2, NSObject.isEqual, (CFSwiftRef)cf1);
+     __CFGenericAssertIsCF(cf1);
+     __CFGenericAssertIsCF(cf2);
+     if (__CFGenericTypeID_inline(cf1) != __CFGenericTypeID_inline(cf2)) return false;
+@@ -887,10 +899,12 @@ Boolean _CFNonObjCEqual(CFTypeRef cf1, CFTypeRef cf2) {
+ Boolean CFEqual(CFTypeRef cf1, CFTypeRef cf2) {
+     if (NULL == cf1) { CRSetCrashLogMessage("*** CFEqual() called with NULL first argument ***"); HALT; }
+     if (cf1 == cf2) return true;
+     if (NULL == cf2) { CRSetCrashLogMessage("*** CFEqual() called with NULL second argument ***"); HALT; }
++#if DEPLOYMENT_RUNTIME_OBJC
+     CFTYPE_OBJC_FUNCDISPATCH1(Boolean, cf1, sel__isEqual, cf2);
+     CFTYPE_OBJC_FUNCDISPATCH1(Boolean, cf2, sel__isEqual, cf1);
++#endif
+     CFTYPE_SWIFT_FUNCDISPATCH1(Boolean, cf1, NSObject.isEqual, (CFSwiftRef)cf2);
+     CFTYPE_SWIFT_FUNCDISPATCH1(Boolean, cf2, NSObject.isEqual, (CFSwiftRef)cf1);
+     __CFGenericAssertIsCF(cf1);
+     __CFGenericAssertIsCF(cf2);
+@@ -911,12 +925,14 @@ CFHashCode _CFNonObjCHash(CFTypeRef cf) {
+ }
+ 
+ CFHashCode CFHash(CFTypeRef cf) {
+     if (NULL == cf) { CRSetCrashLogMessage("*** CFHash() called with NULL ***"); HALT; }
++#if DEPLOYMENT_RUNTIME_OBJC
+     CFTYPE_OBJC_FUNCDISPATCH0(CFHashCode, cf, sel__hash);
++#endif
+     CFTYPE_SWIFT_FUNCDISPATCH0(CFHashCode, cf, NSObject.hash);
+     __CFGenericAssertIsCF(cf);
+-    CFHashCode (*hash)(CFTypeRef cf) = __CFRuntimeClassTable[__CFGenericTypeID_inline(cf)]->hash; 
++    CFHashCode (*hash)(CFTypeRef cf) = __CFRuntimeClassTable[__CFGenericTypeID_inline(cf)]->hash;
+     if (NULL != hash) {
+         return hash(cf);
+     }
+     return (CFHashCode)cf;
+@@ -924,9 +940,11 @@ CFHashCode CFHash(CFTypeRef cf) {
+ 
+ // definition: produces a normally non-NULL debugging description of the object
+ CFStringRef CFCopyDescription(CFTypeRef cf) {
+     if (NULL == cf) return NULL;
++#if DEPLOYMENT_RUNTIME_OBJC
+     CFTYPE_OBJC_FUNCDISPATCH0(CFStringRef, cf, sel__description);  // XXX returns 0 refcounted item under GC
++#endif
+     __CFGenericAssertIsCF(cf);
+     if (NULL != __CFRuntimeClassTable[__CFGenericTypeID_inline(cf)]->copyDebugDesc) {
+         CFStringRef result = __CFRuntimeClassTable[__CFGenericTypeID_inline(cf)]->copyDebugDesc(cf);
+         if (NULL != result) return result;
+@@ -1142,9 +1160,9 @@ void __CFInitialize(void) {
+ 
+         for (CFIndex idx = 0; idx < sizeof(__CFEnv) / sizeof(__CFEnv[0]); idx++) {
+             __CFEnv[idx].value = __CFEnv[idx].name ? getenv(__CFEnv[idx].name) : NULL;
+         }
+-        
++
+ #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI
+ 	UInt32 s, r;
+ 	__CFStringGetUserDefaultEncoding(&s, &r); // force the potential setenv to occur early
+ 	pthread_atfork(__01121__, NULL, __01123__);
+@@ -1156,20 +1174,22 @@ void __CFInitialize(void) {
+         memset(__CFRuntimeObjCClassList, 0, sizeof(__CFRuntimeObjCClassList));
+ 
+ #if DEPLOYMENT_RUNTIME_SWIFT
+         extern uintptr_t __CFSwiftGetBaseClass(void);
+-        
++
+         uintptr_t NSCFType = __CFSwiftGetBaseClass();
+         for (CFIndex idx = 1; idx < __CFRuntimeClassTableSize; idx++) {
+             __CFRuntimeObjCClassTable[idx] = NSCFType;
+         }
+ #endif
+-        
++
+         // We return this class from __CFISAForTypeID for any type which isn't assigned a bridged class
++#if __OBJC__
+         __NSCFType = objc_getClass("__NSCFType");
+         for (CFIndex idx = 1; idx < __CFRuntimeClassTableSize; idx++) {
+             __CFRuntimeObjCClassTable[idx] = __NSCFType;
+         }
++#endif
+ 
+         /* Here so that two runtime classes get indices 0, 1. */
+         __kCFNotATypeTypeID = _CFRuntimeRegisterClass(&__CFNotATypeClass);
+         __kCFTypeTypeID = _CFRuntimeRegisterClass(&__CFTypeClass);
+@@ -1208,9 +1228,9 @@ void __CFInitialize(void) {
+         /*** _CFRuntimeCreateInstance() can finally be called generally after this line. ***/
+ 
+         __CFRuntimeClassTableCount = 7;
+         __CFStringInitialize();		// CFString's TypeID must be 0x7, now and forever
+-    
++
+         __CFRuntimeClassTableCount = 16;
+         CFNullGetTypeID();		// See above for hard-coding of this position
+         CFSetGetTypeID();		// See above for hard-coding of this position
+         CFDictionaryGetTypeID();	// See above for hard-coding of this position
+@@ -1226,9 +1246,9 @@ void __CFInitialize(void) {
+         CFErrorGetTypeID();
+         CFTreeGetTypeID();
+         CFURLGetTypeID();
+         _CFURLComponentsGetTypeID();
+-        
++
+ #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_WINDOWS
+         CFBundleGetTypeID();
+         __CFPFactoryInitialize();
+ #endif
+@@ -1246,9 +1266,9 @@ void __CFInitialize(void) {
+         __CFStreamInitialize();
+ #if DEPLOYMENT_TARGET_WINDOWS
+         CFWindowsNamedPipeGetTypeID();
+ #endif
+-        
++
+         CFDateGetTypeID();
+         CFRunLoopGetTypeID();
+         CFRunLoopObserverGetTypeID();
+         CFRunLoopSourceGetTypeID();
+@@ -1260,21 +1280,22 @@ void __CFInitialize(void) {
+         CFTimeZoneGetTypeID();
+         CFCalendarGetTypeID();
+ #endif
+ #endif
+-        
++
+         // NSCFConstantString is only available if Foundation is loaded
++#if DEPLOYMENT_RUNTIME_OBJC
+         Class class = objc_getClass("__NSCFConstantString");
+         if (class) {
+             // The isa of constant strings point to __CFConstantStringClassReference
+             // By copying the Class info for NSCFConstantString into this structure we bridge the strings
+             memcpy(__CFConstantStringClassReference, class, sizeof(__CFConstantStringClassReference));
+             // Include constant strings in this table so actions on them take the CF code path
+             _CFRuntimeObjCClassTableInsert((uintptr_t)class);
+-            
++
+             // Maps blocks types to objective-c classes
+             ___CFMakeNSBlockClasses();
+-            
++
+             // Cache these selector because using @selector() would mean having to compile this file as obj-c
+             sel___cfTypeID = sel_getUid("_cfTypeID");
+             sel__retain = sel_getUid("retain");
+             sel__release = sel_getUid("release");
+@@ -1302,18 +1323,19 @@ void __CFInitialize(void) {
+             _CFRuntimeBridgeTypeToClass(CFStringGetTypeID(), objc_getClass("__NSCFString"));
+             _CFRuntimeBridgeTypeToClass(CFTimeZoneGetTypeID(), objc_getClass("__NSTimeZone"));
+             _CFRuntimeBridgeTypeToClass(CFURLGetTypeID(), objc_getClass("NSURL"));
+         }
+-        
++#endif
++
+         __CFFileDescriptorInitialize();
+         __CFNotificationCenterInitialize();
+-        
++
+ #if DEPLOYMENT_RUNTIME_SWIFT
+         extern void __CFInitializeSwift(void);
+         __CFInitializeSwift();
+         __CFNumberInitialize(); /* needs to happen after Swift bridge is initialized */
+ #endif
+-        
++
+         {
+             CFIndex idx, cnt = 0;
+             char **args = NULL;
+ #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI
+@@ -1354,9 +1376,9 @@ void __CFInitialize(void) {
+ 
+         _CFProcessPath();	// cache this early
+ 
+         __CFOAInitialize();
+-        
++
+ 
+         if (__CFRuntimeClassTableCount < 256) __CFRuntimeClassTableCount = 256;
+ 
+ 
+@@ -1494,19 +1516,19 @@ static CFTypeRef _CFRetain(CFTypeRef cf, Boolean tryR) {
+             if (__builtin_expect(tryR && (info & (RC_DEALLOCATING_BIT | RC_DEALLOCATED_BIT)), false)) {
+                 // This object is marked for deallocation
+                 return NULL;
+             }
+-            
++
+             if (__CFHighRCFromInfo(info) == 0) {
+                 // Constant CFTypeRef
+                 return cf;
+             }
+-            
++
+             if (__builtin_expect(__CFHighRCFromInfo(info) == ~0U, false)) {
+                 // Overflow will occur upon add. Turn into constant CFTypeRef (rc == 0). Retain will do nothing, but neither will release.
+                 __CFBitfield64SetValue(newInfo, HIGH_RC_END, HIGH_RC_START, 0);
+             }
+-            
++
+             // Increment the retain count and swap into place
+             newInfo = info + RC_INCREMENT;
+         } while (!atomic_compare_exchange_strong(&(((CFRuntimeBase *)cf)->_cfinfoa), &info, newInfo));
+ #else
+@@ -1637,9 +1659,9 @@ static void _CFRelease(CFTypeRef CF_RELEASES_ARGUMENT cf) {
+                         newInfo = (info | RC_DEALLOCATED_BIT) - RC_INCREMENT;
+                     } while (!atomic_compare_exchange_strong(&(((CFRuntimeBase *)cf)->_cfinfoa), &info, newInfo));
+                     goto really_free;
+                 }
+-                
++
+                 // drop the deallocating bit; racey, but this resurrection stuff isn't thread-safe anyway
+                 do {
+                     info = atomic_load(&(((CFRuntimeBase *)cf)->_cfinfoa));
+                     newInfo = info & ~RC_DEALLOCATING_BIT;
+@@ -1685,15 +1707,15 @@ static void _CFRelease(CFTypeRef CF_RELEASES_ARGUMENT cf) {
+                     success = atomic_compare_exchange_strong(&(((CFRuntimeBase *)cf)->_cfinfoa), &info, newInfo);
+                 }
+             }
+         } while (!success);
+-        
++
+         if (whack) {
+             CFRuntimeClass *cfClass = __CFRuntimeClassTable[typeID];
+             if ((cfClass->version & _kCFRuntimeResourcefulObject) && cfClass->reclaim != NULL) {
+                 cfClass->reclaim(cf);
+             }
+-            
++
+             if (isAllocator) {
+                 goto really_free;
+             } else {
+                 void (*func)(CFTypeRef) = __CFRuntimeClassTable[typeID]->finalize;
+@@ -1710,9 +1732,9 @@ static void _CFRelease(CFTypeRef CF_RELEASES_ARGUMENT cf) {
+                         newInfo = info | RC_DEALLOCATED_BIT;
+                     } while (!atomic_compare_exchange_strong(&(((CFRuntimeBase *)cf)->_cfinfoa), &info, newInfo));
+                     goto really_free;
+                 }
+-                
++
+                 // drop the deallocating bit; racey, but this resurrection stuff isn't thread-safe anyway
+                 do {
+                     newInfo = info & ~(RC_DEALLOCATING_BIT);
+                 } while (!atomic_compare_exchange_strong(&(((CFRuntimeBase *)cf)->_cfinfoa), &info, newInfo));
+@@ -1789,9 +1811,9 @@ const char *_NSPrintForDebugger(void *cf) {
+         const char *cheapResult = CFStringGetCStringPtr((CFTypeRef)cf, kCFStringEncodingUTF8);
+         if (cheapResult) {
+             return cheapResult;
+         }
+-        
++
+         CFIndex bufferSize = 0;
+         CFIndex numberConverted = CFStringGetBytes((CFStringRef)cf, CFRangeMake(0, CFStringGetLength((CFStringRef)cf)), kCFStringEncodingUTF8, 0, false, NULL, 0, &bufferSize);
+         const char *result = malloc(bufferSize);
+         if (!result) {
+@@ -1801,9 +1823,9 @@ const char *_NSPrintForDebugger(void *cf) {
+         // Yes, this leaks
+         return result;
+     }
+ }
+- 
++
+ CFHashCode __CFHashDouble(double d) {
+     return _CFHashDouble(d);
+ }
+ 
+@@ -1825,6 +1847,4 @@ void _CFSwiftRelease(void *_Nullable t) {
+ #endif
+ 
+ #undef __kCFAllocatorTypeID_CONST
+ #undef __CFGenericAssertIsCF
+-
+-
+diff --git a/CoreFoundation/Base.subproj/CoreFoundation_Prefix.h b/CoreFoundation/Base.subproj/CoreFoundation_Prefix.h
+index 59b7a70..fc88607 100755
+--- a/CoreFoundation/Base.subproj/CoreFoundation_Prefix.h
++++ b/CoreFoundation/Base.subproj/CoreFoundation_Prefix.h
+@@ -1,7 +1,7 @@
+ /*	CoreFoundation_Prefix.h
+ 	Copyright (c) 2005-2017, Apple Inc. and the Swift project authors
+- 
++
+ 	Portions Copyright (c) 2014-2017, Apple Inc. and the Swift project authors
+ 	Licensed under Apache License v2.0 with Runtime Library Exception
+ 	See http://swift.org/LICENSE.txt for license information
+ 	See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
+@@ -49,13 +49,13 @@ extern "C" {
+ #endif
+ 
+ #define SystemIntegrityCheck(A, B)	do {} while (0)
+ 
+-    
++
+ #if INCLUDE_OBJC
+ #include <objc/objc.h>
+ #else
+-typedef signed char	BOOL; 
++typedef signed char	BOOL;
+ typedef char * id;
+ typedef char * Class;
+ #ifndef YES
+ #define YES (BOOL)1
+@@ -75,18 +75,18 @@ typedef char * Class;
+ #import <libkern/OSAtomic.h>
+ #import <pthread.h>
+ #endif
+ 
+-    
++
+ /* This macro creates some helper functions which are useful in dealing with libdispatch:
+  *  __ PREFIX Queue -- manages and returns a singleton serial queue
+  *
+  * Use the macro like this:
+  *   DISPATCH_HELPER_FUNCTIONS(fh, NSFileHandle)
+  */
+ 
+ #if __HAS_DISPATCH__
+-    
++
+ #define DISPATCH_HELPER_FUNCTIONS(PREFIX, QNAME)			\
+ static dispatch_queue_t __ ## PREFIX ## Queue(void) {			\
+     static volatile dispatch_queue_t __ ## PREFIX ## dq = NULL;		\
+     if (!__ ## PREFIX ## dq) {						\
+@@ -101,27 +101,27 @@ static dispatch_queue_t __ ## PREFIX ## Queue(void) {			\
+ 
+ #else
+ 
+ #define DISPATCH_HELPER_FUNCTIONS(PREFIX, QNAME)
+-    
++
+ #endif
+-    
+-    
++
++
+ // hint to the analyzer that the caller is no longer responsable for the object and that it will be transfered to the reciver that is opaque to the caller
+ #if __clang_analyzer__
+ #define CF_TRANSFER_OWNERSHIP(obj) (__typeof(obj))[(id)obj autorelease]
+ #else
+ #define CF_TRANSFER_OWNERSHIP(obj) obj
+ #endif
+-    
++
+ // hint to the analyzer that the retain/releases are balanced in other locations; the string should be searchable to identify the coorisponding location for the retain/release. These macros should be used with great caution in that they distort the actual retain/release nature of what is happening to the analyzer. Reasonable locations would be in the cases where a value needs to be retained over the lifespan of an external event like a remote machine/process etc.
+ // NOTE: these seem like they may be backwards - however they are intended to be promises to the analyzer of what will come to pass
+ #if __clang_analyzer__
+ #define CF_RELEASE_BALANCED_ELSEWHERE(obj, identified_location) if (obj) CFRetain(obj)
+ #else
+ #define CF_RELEASE_BALANCED_ELSEWHERE(obj, identified_location) do { } while (0)
+ #endif
+-    
++
+ #if __clang_analyzer__
+ #define CF_RETAIN_BALANCED_ELSEWHERE(obj, identified_location) if (obj) CFRelease(obj)
+ #else
+ #define CF_RETAIN_BALANCED_ELSEWHERE(obj, identified_location) do { } while (0)
+@@ -134,16 +134,16 @@ typedef unsigned int	boolean_t;
+ #else
+ typedef int		boolean_t;
+ #endif
+ #endif
+-    
++
+ #if DEPLOYMENT_TARGET_FREEBSD
+ #include <string.h>
+ #include <sys/stat.h> // mode_t
+ #endif
+ 
+ #if DEPLOYMENT_TARGET_LINUX
+-    
++
+ #define CF_PRIVATE __attribute__((visibility("hidden")))
+ #define __weak
+ 
+ #define strtod_l(a,b,locale) strtod(a,b)
+@@ -158,10 +158,10 @@ typedef int		boolean_t;
+ 
+ #if TARGET_OS_ANDROID
+ typedef unsigned long fd_mask;
+ #endif
+-    
+-#if !TARGET_OS_ANDROID && !TARGET_OS_CYGWIN
++
++#if !TARGET_OS_ANDROID && !TARGET_OS_CYGWIN && !(_POSIX_C_SOURCE >= 200809L)
+ CF_INLINE size_t
+ strlcpy(char * dst, const char * src, size_t maxlen) {
+     const size_t srclen = strlen(src);
+     if (srclen < maxlen) {
+@@ -190,24 +190,24 @@ strlcat(char * dst, const char * src, size_t maxlen) {
+ 
+ #if !TARGET_OS_CYGWIN
+ #define issetugid() 0
+ #endif
+-    
+-// Implemented in CFPlatform.c 
++
++// Implemented in CFPlatform.c
+ bool OSAtomicCompareAndSwapPtr(void *oldp, void *newp, void *volatile *dst);
+ bool OSAtomicCompareAndSwapLong(long oldl, long newl, long volatile *dst);
+ bool OSAtomicCompareAndSwapPtrBarrier(void *oldp, void *newp, void *volatile *dst);
+ bool OSAtomicCompareAndSwap64Barrier( int64_t __oldValue, int64_t __newValue, volatile int64_t *__theValue );
+-    
++
+ int32_t OSAtomicDecrement32Barrier(volatile int32_t *dst);
+ int32_t OSAtomicIncrement32Barrier(volatile int32_t *dst);
+ int32_t OSAtomicIncrement32(volatile int32_t *theValue);
+ int32_t OSAtomicDecrement32(volatile int32_t *theValue);
+ 
+ int32_t OSAtomicAdd32( int32_t theAmount, volatile int32_t *theValue );
+ int32_t OSAtomicAdd32Barrier( int32_t theAmount, volatile int32_t *theValue );
+ bool OSAtomicCompareAndSwap32Barrier( int32_t oldValue, int32_t newValue, volatile int32_t *theValue );
+-    
++
+ void OSMemoryBarrier();
+ 
+ #if TARGET_OS_CYGWIN
+ #define HAVE_STRUCT_TIMESPEC 1
+@@ -228,9 +228,9 @@ CF_INLINE uint64_t mach_absolute_time() {
+     return (uint64_t)ts.tv_nsec + (uint64_t)ts.tv_sec * 1000000000UL;
+ }
+ 
+ #endif
+-    
++
+ #if DEPLOYMENT_TARGET_FREEBSD
+ #define HAVE_STRUCT_TIMESPEC 1
+ 
+ #define CF_PRIVATE __attribute__((visibility("hidden")))
+@@ -255,20 +255,20 @@ bool OSAtomicCompareAndSwap32Barrier( int32_t oldValue, int32_t newValue, volati
+ void OSMemoryBarrier();
+ 
+ #endif
+ 
+-#if DEPLOYMENT_TARGET_WINDOWS || DEPLOYMENT_TARGET_LINUX    
++#if DEPLOYMENT_TARGET_WINDOWS || DEPLOYMENT_TARGET_LINUX
+ #if !defined(MIN)
+ #define MIN(A,B)	((A) < (B) ? (A) : (B))
+ #endif
+-    
++
+ #if !defined(MAX)
+ #define MAX(A,B)	((A) > (B) ? (A) : (B))
+ #endif
+-    
++
+ #if !defined(ABS)
+ #define ABS(A)	((A) < 0 ? (-(A)) : (A))
+-#endif    
++#endif
+ #endif
+ 
+ #if DEPLOYMENT_TARGET_WINDOWS
+ 
+@@ -279,14 +279,14 @@ void OSMemoryBarrier();
+ // Defined for source compatibility
+ #define ino_t _ino_t
+ #define off_t _off_t
+ #define mode_t uint16_t
+-        
++
+ // This works because things aren't actually exported from the DLL unless they have a __declspec(dllexport) on them... so extern by itself is closest to __private_extern__ on Mac OS
+ #define CF_PRIVATE extern
+-    
++
+ #define __builtin_expect(P1,P2) P1
+-    
++
+ // These are replacements for POSIX calls on Windows, ensuring that the UTF8 parameters are converted to UTF16 before being passed to Windows
+ CF_EXPORT int _NS_stat(const char *name, struct _stat *st);
+ CF_EXPORT int _NS_mkdir(const char *name);
+ CF_EXPORT int _NS_rmdir(const char *name);
+@@ -306,9 +306,9 @@ CF_EXPORT int _NS_access(const char *name, int amode);
+ 
+ #ifndef WINVER
+ #define WINVER  0x0501
+ #endif
+-    
++
+ #ifndef _WIN32_WINNT
+ #define _WIN32_WINNT 0x0501
+ #endif
+ 
+@@ -353,9 +353,9 @@ typedef int gid_t;
+ 
+ // implemented in CFInternal.h
+ #define OSSpinLockLock(A) __CFLock(A)
+ #define OSSpinLockUnlock(A) __CFUnlock(A)
+-    
++
+ typedef int32_t OSSpinLock;
+ 
+ #define OS_SPINLOCK_INIT       0
+ 
+@@ -428,17 +428,17 @@ CF_EXPORT bool OSAtomicCompareAndSwapPtrBarrier(void *oldp, void *newp, void *vo
+ CF_EXPORT int32_t OSAtomicDecrement32Barrier(volatile int32_t *dst);
+ CF_EXPORT int32_t OSAtomicIncrement32Barrier(volatile int32_t *dst);
+ CF_EXPORT int32_t OSAtomicIncrement32(volatile int32_t *theValue);
+ CF_EXPORT int32_t OSAtomicDecrement32(volatile int32_t *theValue);
+-    
++
+ CF_EXPORT int32_t OSAtomicAdd32( int32_t theAmount, volatile int32_t *theValue );
+ CF_EXPORT int32_t OSAtomicAdd32Barrier( int32_t theAmount, volatile int32_t *theValue );
+ CF_EXPORT bool OSAtomicCompareAndSwap32Barrier( int32_t oldValue, int32_t newValue, volatile int32_t *theValue );
+ 
+ /*
+ CF_EXPORT bool OSAtomicCompareAndSwap64( int64_t __oldValue, int64_t __newValue, volatile int64_t *__theValue );
+ CF_EXPORT bool OSAtomicCompareAndSwap64Barrier( int64_t __oldValue, int64_t __newValue, volatile int64_t *__theValue );
+-    
++
+ CF_EXPORT int64_t OSAtomicAdd64( int64_t __theAmount, volatile int64_t *__theValue );
+ CF_EXPORT int64_t OSAtomicAdd64Barrier( int64_t __theAmount, volatile int64_t *__theValue );
+ */
+ 
+@@ -448,15 +448,15 @@ CF_EXPORT int64_t OSAtomicAdd64Barrier( int64_t __theAmount, volatile int64_t *_
+ 
+ #include <io.h>
+ #include <fcntl.h>
+ #include <errno.h>
+-    
++
+ #endif
+ 
+ #if !defined(CF_PRIVATE)
+ #define CF_PRIVATE __attribute__((__visibility__("hidden")))
+ #endif
+-    
++
+ #if !defined(CF_TEST_PRIVATE)
+ #ifdef UNIT_TEST
+ #define CF_TEST_PRIVATE
+ #else
+@@ -472,9 +472,9 @@ CF_INLINE int flsl( long mask ) {
+     int idx = 0;
+     while (mask != 0) mask = (unsigned long)mask >> 1, idx++;
+     return idx;
+ }
+-    
++
+ CF_INLINE int popcountll(long long x) {
+     int count = 0;
+     while (x) {
+         count++;
+diff --git a/CoreFoundation/Locale.subproj/CFLocaleKeys.c b/CoreFoundation/Locale.subproj/CFLocaleKeys.c
+index 2e6bd86..bfd9c1c 100755
+--- a/CoreFoundation/Locale.subproj/CFLocaleKeys.c
++++ b/CoreFoundation/Locale.subproj/CFLocaleKeys.c
+@@ -1,7 +1,7 @@
+ /*	CFLocaleKeys.c
+ 	Copyright (c) 2008-2017, Apple Inc. and the Swift project authors
+- 
++
+ 	Portions Copyright (c) 2014-2017, Apple Inc. and the Swift project authors
+ 	Licensed under Apache License v2.0 with Runtime Library Exception
+ 	See http://swift.org/LICENSE.txt for license information
+ 	See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
+@@ -169,9 +169,9 @@ CF_EXPORT const CFCalendarIdentifier kCFCalendarIdentifierEthiopicAmeteMihret CF
+ CF_EXPORT const CFCalendarIdentifier kCFCalendarIdentifierEthiopicAmeteAlem CF_AVAILABLE(10_10, 8_0);
+ */
+ 
+ // Aliases for Linux
+-#if DEPLOYMENT_TARGET_LINUX
++#if DEPLOYMENT_TARGET_LINUX && DEPLOYMENT_RUNTIME_SWIFT
+ 
+ CF_EXPORT CFStringRef const kCFBuddhistCalendar __attribute__((alias ("kCFCalendarIdentifierBuddhist")));
+ CF_EXPORT CFStringRef const kCFChineseCalendar __attribute__((alias ("kCFCalendarIdentifierChinese")));
+ CF_EXPORT CFStringRef const kCFGregorianCalendar __attribute__((alias ("kCFCalendarIdentifierGregorian")));
+diff --git a/CoreFoundation/Parsing.subproj/CFXMLInterface.c b/CoreFoundation/Parsing.subproj/CFXMLInterface.c
+index 0bac2ae..2a39162 100755
+--- a/CoreFoundation/Parsing.subproj/CFXMLInterface.c
++++ b/CoreFoundation/Parsing.subproj/CFXMLInterface.c
+@@ -22,8 +22,9 @@
+ #include <libxml/xpath.h>
+ #include <libxml/xpathInternals.h>
+ #include <libxml/dict.h>
+ #include "CFInternal.h"
++#include "CFXMLInterface.h"
+ 
+ /*
+  libxml2 does not have nullability annotations and does not import well into swift when given potentially differing versions of the library that might be installed on the host operating system. This is a simple C wrapper to simplify some of that interface layer to libxml2.
+  */
+@@ -112,12 +113,14 @@ typedef struct {
+ 
+ static xmlExternalEntityLoader __originalLoader = NULL;
+ 
+ static xmlParserInputPtr _xmlExternalEntityLoader(const char *urlStr, const char * ID, xmlParserCtxtPtr context) {
++#if DEPLOYMENT_RUNTIME_SWIFT
+     _CFXMLInterface parser = __CFSwiftBridge.NSXMLParser.currentParser();
+     if (parser != NULL) {
+         return __CFSwiftBridge.NSXMLParser._xmlExternalEntityWithURL(parser, urlStr, ID, context, __originalLoader);
+     }
++#endif
+     return __originalLoader(urlStr, ID, context);
+ }
+ 
+ void _CFSetupXMLInterface(void) {
+@@ -134,24 +137,27 @@ _CFXMLInterfaceParserInput _CFXMLInterfaceNoNetExternalEntityLoader(const char *
+     return xmlNoNetExternalEntityLoader(URL, ID, ctxt);
+ }
+ 
+ static void _errorCallback(void *ctx, const char *msg, ...) {
++#if DEPLOYMENT_RUNTIME_SWIFT
+     xmlParserCtxtPtr context = __CFSwiftBridge.NSXMLParser.getContext((_CFXMLInterface)ctx);
+     xmlErrorPtr error = xmlCtxtGetLastError(context);
+ // TODO: reporting
+ //    _reportError(error, (_CFXMLInterface)ctx);
++#endif
+ }
+ 
++#if DEPLOYMENT_RUNTIME_SWIFT
+ _CFXMLInterfaceSAXHandler _CFXMLInterfaceCreateSAXHandler() {
+     _CFXMLInterfaceSAXHandler saxHandler = (_CFXMLInterfaceSAXHandler)calloc(1, sizeof(struct _xmlSAXHandler));
+     saxHandler->internalSubset = (internalSubsetSAXFunc)__CFSwiftBridge.NSXMLParser.internalSubset;
+     saxHandler->isStandalone = (isStandaloneSAXFunc)__CFSwiftBridge.NSXMLParser.isStandalone;
+-    
++
+     saxHandler->hasInternalSubset = (hasInternalSubsetSAXFunc)__CFSwiftBridge.NSXMLParser.hasInternalSubset;
+     saxHandler->hasExternalSubset = (hasExternalSubsetSAXFunc)__CFSwiftBridge.NSXMLParser.hasExternalSubset;
+-    
++
+     saxHandler->getEntity = (getEntitySAXFunc)__CFSwiftBridge.NSXMLParser.getEntity;
+-    
++
+     saxHandler->notationDecl = (notationDeclSAXFunc)__CFSwiftBridge.NSXMLParser.notationDecl;
+     saxHandler->attributeDecl = (attributeDeclSAXFunc)__CFSwiftBridge.NSXMLParser.attributeDecl;
+     saxHandler->elementDecl = (elementDeclSAXFunc)__CFSwiftBridge.NSXMLParser.elementDecl;
+     saxHandler->unparsedEntityDecl = (unparsedEntityDeclSAXFunc)__CFSwiftBridge.NSXMLParser.unparsedEntityDecl;
+@@ -163,14 +169,15 @@ _CFXMLInterfaceSAXHandler _CFXMLInterfaceCreateSAXHandler() {
+     saxHandler->processingInstruction = (processingInstructionSAXFunc)__CFSwiftBridge.NSXMLParser.processingInstruction;
+     saxHandler->error = _errorCallback;
+     saxHandler->cdataBlock = (cdataBlockSAXFunc)__CFSwiftBridge.NSXMLParser.cdataBlock;
+     saxHandler->comment = (commentSAXFunc)__CFSwiftBridge.NSXMLParser.comment;
+-    
++
+     saxHandler->externalSubset = (externalSubsetSAXFunc)__CFSwiftBridge.NSXMLParser.externalSubset;
+-    
++
+     saxHandler->initialized = XML_SAX2_MAGIC; // make sure start/endElementNS are used
+     return saxHandler;
+ }
++#endif
+ 
+ void _CFXMLInterfaceDestroySAXHandler(_CFXMLInterfaceSAXHandler handler) {
+     free(handler);
+ }
+@@ -425,9 +432,9 @@ void _CFXMLNodeSetURI(_CFXMLNodePtr node, const unsigned char* URI) {
+ void _CFXMLNodeSetPrivateData(_CFXMLNodePtr node, void* data) {
+     if (!node) {
+         return;
+     }
+-    
++
+     ((xmlNodePtr)node)->_private = data;
+ }
+ 
+ void* _Nullable  _CFXMLNodeGetPrivateData(_CFXMLNodePtr node) {
+@@ -447,9 +454,9 @@ CFIndex _CFXMLNodeGetType(_CFXMLNodePtr node) {
+ 
+ static inline xmlChar* _getQName(xmlNodePtr node) {
+     const xmlChar* prefix = NULL;
+     const xmlChar* ncname = node->name;
+-    
++
+     switch (node->type) {
+         case XML_NOTATION_NODE:
+         case XML_DTD_NODE:
+         case XML_ELEMENT_DECL:
+@@ -458,23 +465,23 @@ static inline xmlChar* _getQName(xmlNodePtr node) {
+         case XML_NAMESPACE_DECL:
+         case XML_XINCLUDE_START:
+         case XML_XINCLUDE_END:
+             break;
+-            
++
+         default:
+             if (node->ns != NULL) {
+                 prefix = node->ns->prefix;
+             }
+     }
+-    
++
+     return xmlBuildQName(ncname, prefix, NULL, 0);
+ }
+ 
+ CFStringRef _Nullable _CFXMLNodeCopyName(_CFXMLNodePtr node) {
+     xmlNodePtr xmlNode = (xmlNodePtr)node;
+-    
++
+     xmlChar* qName = _getQName(xmlNode);
+-    
++
+     if (qName != NULL) {
+         CFStringRef result = CFStringCreateWithCString(NULL, (const char*)qName, kCFStringEncodingUTF8);
+         if (qName != xmlNode->name) {
+             xmlFree(qName);
+@@ -507,9 +514,9 @@ CFStringRef _CFXMLNodeCopyContent(_CFXMLNodePtr node) {
+                 return NULL;
+             }
+             CFStringRef result = CFStringCreateWithCString(NULL, (const char*)content, kCFStringEncodingUTF8);
+             xmlFree(content);
+-            
++
+             return result;
+         }
+     }
+ }
+@@ -578,11 +585,11 @@ _CFXMLDocPtr _CFXMLNodeGetDocument(_CFXMLNodePtr node) {
+ CFStringRef _CFXMLEncodeEntities(_CFXMLDocPtr doc, const unsigned char* string) {
+     if (!string) {
+         return NULL;
+     }
+-    
++
+     const xmlChar* stringResult = xmlEncodeEntitiesReentrant(doc, string);
+-    
++
+     CFStringRef result = CFStringCreateWithCString(NULL, (const char*)stringResult, kCFStringEncodingUTF8);
+ 
+     xmlFree((xmlChar*)stringResult);
+ 
+@@ -831,9 +838,9 @@ CFStringRef _CFXMLCopyStringWithOptions(_CFXMLNodePtr node, uint32_t options) {
+         CFStringAppend(result, CFSTR(" >"));
+ 
+         return result;
+     }
+-    
++
+     xmlBufferPtr buffer = xmlBufferCreate();
+ 
+     uint32_t xmlOptions = XML_SAVE_AS_XML;
+ 
+@@ -870,13 +877,13 @@ CFArrayRef _CFXMLNodesForXPath(_CFXMLNodePtr node, const unsigned char* xpath) {
+ 
+     if (((xmlNodePtr)node)->doc == NULL) {
+         return NULL;
+     }
+-    
++
+     if (((xmlNodePtr)node)->type == XML_DOCUMENT_NODE) {
+         node = ((xmlDocPtr)node)->children;
+     }
+-    
++
+     xmlXPathContextPtr context = xmlXPathNewContext(((xmlNodePtr)node)->doc);
+     xmlNsPtr ns = ((xmlNodePtr)node)->ns;
+     while (ns != NULL) {
+         xmlXPathRegisterNs(context, ns->prefix, ns->href);
+@@ -924,12 +931,12 @@ _CFXMLDocPtr _CFXMLDocPtrFromDataWithOptions(CFDataRef data, int options) {
+ 
+     if (options & _kCFXMLNodeLoadExternalEntitiesAlways) {
+         xmlOptions |= XML_PARSE_DTDLOAD;
+     }
+-    
++
+     xmlOptions |= XML_PARSE_RECOVER;
+     xmlOptions |= XML_PARSE_NSCLEAN;
+-    
++
+     return xmlReadMemory((const char*)CFDataGetBytePtr(data), CFDataGetLength(data), NULL, NULL, xmlOptions);
+ }
+ 
+ CFStringRef _CFXMLNodeCopyLocalName(_CFXMLNodePtr node) {
+@@ -937,9 +944,9 @@ CFStringRef _CFXMLNodeCopyLocalName(_CFXMLNodePtr node) {
+     const xmlChar* result = xmlSplitQName2(_getQName((xmlNodePtr)node), &prefix);
+     if (result == NULL) {
+         result = ((xmlNodePtr)node)->name;
+     }
+-    
++
+     return CFStringCreateWithCString(NULL, (const char*)result, kCFStringEncodingUTF8);
+ }
+ 
+ CFStringRef _CFXMLNodeCopyPrefix(_CFXMLNodePtr node) {
+@@ -975,9 +982,9 @@ bool _CFXMLDocValidate(_CFXMLDocPtr doc, CFErrorRef _Nullable * error) {
+     ctxt->error = &_CFXMLValidityErrorHandler;
+     ctxt->userData = errorMessage;
+ 
+     int result = xmlValidateDocument(ctxt, doc);
+-    
++
+     xmlFreeValidCtxt(ctxt);
+ 
+     if (result == 0 && error != NULL) {
+         CFMutableDictionaryRef userInfo = CFDictionaryCreateMutable(NULL, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+@@ -1004,9 +1011,9 @@ _CFXMLDTDNodePtr _CFXMLParseDTDNode(const unsigned char* xmlString) {
+ 
+     if (dtd == NULL) {
+         return NULL;
+     }
+-    
++
+     xmlNodePtr node = dtd->children;
+     xmlUnlinkNode(node);
+ 
+     return node;
+@@ -1105,9 +1112,9 @@ _CFXMLDTDNodePtr _Nullable _CFXMLDTDGetNotationDesc(_CFXMLDTDPtr dtd, const unsi
+     notationPtr->notation = notation;
+     notationPtr->parent = dtd;
+     notationPtr->doc = ((xmlDtdPtr)dtd)->doc;
+     notationPtr->name = notation->name;
+-    
++
+     return notationPtr;
+ }
+ 
+ _CFXMLDTDNodePtr _Nullable _CFXMLDTDGetEntityDesc(_CFXMLDTDPtr dtd, const unsigned char* name) {
+@@ -1124,9 +1131,9 @@ _CFXMLDTDNodePtr _Nullable _CFXMLDTDGetEntityDesc(_CFXMLDTDPtr dtd, const unsign
+ 
+     if (!node) {
+         node = xmlGetParameterEntity(doc, name);
+     }
+-    
++
+     if (createdDoc) {
+         doc->extSubset = NULL;
+         ((xmlDtdPtr)dtd)->doc = NULL;
+         xmlFreeDoc(doc);
+@@ -1196,12 +1203,12 @@ void _CFXMLDTDNodeSetSystemID(_CFXMLDTDNodePtr node, const unsigned char* system
+ CFStringRef _Nullable _CFXMLDTDNodeCopyPublicID(_CFXMLDTDNodePtr node) {
+     switch (((xmlNodePtr)node)->type) {
+         case XML_ENTITY_DECL:
+             return CFStringCreateWithCString(NULL, (const char*)((xmlEntityPtr)node)->ExternalID, kCFStringEncodingUTF8);
+-            
++
+         case XML_NOTATION_NODE:
+             return CFStringCreateWithCString(NULL, (const char*)((_cfxmlNotation*)node)->notation->PublicID, kCFStringEncodingUTF8);
+-            
++
+         default:
+             return NULL;
+     }
+ }
+@@ -1242,14 +1249,14 @@ _CFXMLNodePtr _Nonnull * _Nullable _CFXMLNamespaces(_CFXMLNodePtr node, CFIndex*
+     while (ns != NULL) {
+         (*count)++;
+         ns = ns->next;
+     }
+-    
++
+     _CFXMLNodePtr* result = calloc(*count, sizeof(_CFXMLNodePtr));
+     ns = ((xmlNode*)node)->ns;
+     for (int i = 0; i < *count; i++) {
+         xmlNode* temp = xmlNewNode(ns, (unsigned char *)"");
+-        
++
+         temp->type = _kCFXMLTypeNamespace;
+         result[i] = temp;
+         ns = ns->next;
+     }
+@@ -1266,13 +1273,13 @@ static inline void _removeAllNamespaces(xmlNodePtr node) {
+ }
+ 
+ void _CFXMLSetNamespaces(_CFXMLNodePtr node, _CFXMLNodePtr* _Nullable nodes, CFIndex count) {
+     _removeAllNamespaces(node);
+-    
++
+     if (nodes == NULL || count == 0) {
+         return;
+     }
+-    
++
+     xmlNodePtr nsNode = (xmlNodePtr)nodes[0];
+     ((xmlNodePtr)node)->ns = xmlCopyNamespace(nsNode->ns);
+     xmlNsPtr currNs = ((xmlNodePtr)node)->ns;
+     for (CFIndex i = 1; i < count; i++) {
+@@ -1282,13 +1289,13 @@ void _CFXMLSetNamespaces(_CFXMLNodePtr node, _CFXMLNodePtr* _Nullable nodes, CFI
+ }
+ 
+ CFStringRef _Nullable _CFXMLNamespaceCopyValue(_CFXMLNodePtr node) {
+     xmlNsPtr ns = ((xmlNode*)node)->ns;
+-    
++
+     if (ns->href == NULL) {
+         return NULL;
+     }
+-    
++
+     return CFStringCreateWithCString(NULL, (const char*)ns->href, kCFStringEncodingUTF8);
+ }
+ 
+ void _CFXMLNamespaceSetValue(_CFXMLNodePtr node, const char* value, int64_t length) {
+@@ -1297,46 +1304,46 @@ void _CFXMLNamespaceSetValue(_CFXMLNodePtr node, const char* value, int64_t leng
+ }
+ 
+ CFStringRef _Nullable _CFXMLNamespaceCopyPrefix(_CFXMLNodePtr node) {
+     xmlNsPtr ns = ((xmlNodePtr)node)->ns;
+-    
++
+     if (ns->prefix == NULL) {
+         return NULL;
+     }
+-    
++
+     return CFStringCreateWithCString(NULL, (const char*)ns->prefix, kCFStringEncodingUTF8);
+ }
+ 
+ void _CFXMLNamespaceSetPrefix(_CFXMLNodePtr node, const char* prefix, int64_t length) {
+     xmlNsPtr ns = ((xmlNodePtr)node)->ns;
+-    
++
+     ns->prefix = xmlStrndup((const xmlChar*)prefix, length);
+ }
+ 
+ _CFXMLNodePtr _CFXMLNewNamespace(const char* name, const char* stringValue) {
+     xmlNsPtr ns = xmlNewNs(NULL, (const xmlChar*)stringValue, (const xmlChar*)name);
+     xmlNodePtr node = xmlNewNode(ns, (const xmlChar*)"");
+-    
++
+     node->type = _kCFXMLTypeNamespace;
+-        
++
+     return node;
+ }
+ 
+ void _CFXMLAddNamespace(_CFXMLNodePtr node, _CFXMLNodePtr nsNode) {
+     xmlNodePtr nodePtr = (xmlNodePtr)node;
+     xmlNsPtr ns = xmlCopyNamespace(((xmlNodePtr)nsNode)->ns);
+     ns->context = nodePtr->doc;
+-    
++
+     xmlNsPtr currNs = nodePtr->ns;
+     if (currNs == NULL) {
+         nodePtr->ns = ns;
+         return;
+     }
+-    
++
+     while(currNs->next != NULL) {
+         currNs = currNs->next;
+     }
+-    
++
+     currNs->next = ns;
+ }
+ 
+ void _CFXMLRemoveNamespace(_CFXMLNodePtr node, const char* prefix) {
+@@ -1346,26 +1353,26 @@ void _CFXMLRemoveNamespace(_CFXMLNodePtr node, const char* prefix) {
+         nodePtr->ns = ns->next;
+         xmlFreeNs(ns);
+         return;
+     }
+-    
++
+     while (ns->next != NULL) {
+         if (xmlStrcmp(ns->next->prefix, (const xmlChar*)prefix) == 0) {
+             xmlNsPtr next = ns->next;
+             ns->next = ns->next->next;
+             xmlFreeNs(next);
+             return;
+         }
+-        
++
+         ns = ns->next;
+     }
+ }
+ 
+ void _CFXMLFreeNode(_CFXMLNodePtr node) {
+     if (!node) {
+         return;
+     }
+-    
++
+     switch (((xmlNodePtr)node)->type) {
+         case XML_ENTITY_DECL:
+             if (((xmlEntityPtr)node)->etype == XML_INTERNAL_PREDEFINED_ENTITY) {
+                 // predefined entity nodes are statically declared in libxml2 and can't be free'd
+diff --git a/CoreFoundation/PlugIn.subproj/CFBundle_InfoPlist.c b/CoreFoundation/PlugIn.subproj/CFBundle_InfoPlist.c
+index dd14abc..61e25a9 100755
+--- a/CoreFoundation/PlugIn.subproj/CFBundle_InfoPlist.c
++++ b/CoreFoundation/PlugIn.subproj/CFBundle_InfoPlist.c
+@@ -1,7 +1,7 @@
+ /*      CFBundle_InfoPlist.c
+ 	Copyright (c) 2012-2017, Apple Inc. and the Swift project authors
+- 
++
+ 	Portions Copyright (c) 2014-2017, Apple Inc. and the Swift project authors
+ 	Licensed under Apache License v2.0 with Runtime Library Exception
+ 	See http://swift.org/LICENSE.txt for license information
+ 	See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
+@@ -18,9 +18,9 @@
+ #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_LINUX || DEPLOYMENT_TARGET_EMBEDDED_MINI || DEPLOYMENT_TARGET_FREEBSD
+ #if TARGET_OS_CYGWIN
+ #else
+ #include <dirent.h>
+-#if !TARGET_OS_ANDROID
++#if !TARGET_OS_ANDROID && !TARGET_OS_LINUX
+ #include <sys/sysctl.h>
+ #endif
+ #include <sys/mman.h>
+ #endif
+@@ -43,11 +43,11 @@ static CFStringRef _CFBundleSupportediPhoneOSPlatformProducts[_CFBundleNumberOfi
+ static const char *_CFBundleSupportediPhoneOSPlatformProductStrings[_CFBundleNumberOfiPhoneOSPlatformProducts] = { "iphone", "ipod", "ipad" };
+ 
+ CF_PRIVATE void _CFBundleResourcesInitialize() {
+     for (unsigned int i = 0; i < _CFBundleNumberOfPlatforms; i++) _CFBundleSupportedPlatforms[i] = CFStringCreateWithCString(kCFAllocatorSystemDefault, _CFBundleSupportedPlatformStrings[i], kCFStringEncodingUTF8);
+-    
++
+     for (unsigned int i = 0; i < _CFBundleNumberOfProducts; i++) _CFBundleSupportedProducts[i] = CFStringCreateWithCString(kCFAllocatorSystemDefault, _CFBundleSupportedProductStrings[i], kCFStringEncodingUTF8);
+-    
++
+     for (unsigned int i = 0; i < _CFBundleNumberOfiPhoneOSPlatformProducts; i++) _CFBundleSupportediPhoneOSPlatformProducts[i] = CFStringCreateWithCString(kCFAllocatorSystemDefault, _CFBundleSupportediPhoneOSPlatformProductStrings[i], kCFStringEncodingUTF8);
+ }
+ 
+ #else
+@@ -82,9 +82,9 @@ CF_PRIVATE CFStringRef _CFBundleGetProductNameSuffix(void);
+ CF_EXPORT void _CFSetProductName(CFStringRef str) {
+     // TODO: This should be removed. The "CLASSIC" check below removes the need to set the product name manually.
+     if (str) CFRetain(str);
+     _cfBundlePlatform = str;
+-    
++
+ #if DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI
+     // Reset the suffix version too
+     _cfBundlePlatformSuffix = NULL;
+     (void)_CFBundleGetProductNameSuffix();
+@@ -178,9 +178,9 @@ CF_PRIVATE CFStringRef _CFBundleGetPlatformNameSuffix(void) {
+ }
+ 
+ // All new-style bundles will have these extensions.
+ CF_EXPORT CFStringRef _CFGetPlatformName(void) {
+-#if DEPLOYMENT_TARGET_MACOSX 
++#if DEPLOYMENT_TARGET_MACOSX
+     return _CFBundleMacOSXPlatformName;
+ #elif DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI
+     return _CFBundleiPhoneOSPlatformName;
+ #elif DEPLOYMENT_TARGET_WINDOWS
+@@ -285,9 +285,9 @@ static Boolean _isValidPlatformAndProductSuffixPair(CFStringRef platform, CFStri
+ static Boolean _isBlacklistedKey(CFStringRef keyName) {
+ #if __CONSTANT_STRINGS__
+ #define _CFBundleNumberOfBlacklistedInfoDictionaryKeys 2
+     static const CFStringRef _CFBundleBlacklistedInfoDictionaryKeys[_CFBundleNumberOfBlacklistedInfoDictionaryKeys] = { CFSTR("CFBundleExecutable"), CFSTR("CFBundleIdentifier") };
+-    
++
+     for (CFIndex idx = 0; idx < _CFBundleNumberOfBlacklistedInfoDictionaryKeys; idx++) {
+         if (CFEqual(keyName, _CFBundleBlacklistedInfoDictionaryKeys[idx])) return true;
+     }
+ #endif
+@@ -310,9 +310,9 @@ static Boolean _isOverrideKey(CFStringRef fullKey, CFStringRef *outBaseKey, CFSt
+     CFRange tildeRange = CFStringFind(fullKey, CFSTR("~"), kCFCompareBackwards);
+     if (minusRange.location == kCFNotFound && tildeRange.location == kCFNotFound) return false;
+     // minus must come before tilde if both are present
+     if (minusRange.location != kCFNotFound && tildeRange.location != kCFNotFound && tildeRange.location <= minusRange.location) return false;
+-    
++
+     CFIndex strLen = CFStringGetLength(fullKey);
+     CFRange baseKeyRange = (minusRange.location != kCFNotFound) ? CFRangeMake(0, minusRange.location) : CFRangeMake(0, tildeRange.location);
+     CFRange platformRange = CFRangeMake(kCFNotFound, 0);
+     CFRange productRange = CFRangeMake(kCFNotFound, 0);
+@@ -326,13 +326,13 @@ static Boolean _isOverrideKey(CFStringRef fullKey, CFStringRef *outBaseKey, CFSt
+     }
+     if (baseKeyRange.length < 1) return false;
+     if (platformRange.location != kCFNotFound && platformRange.length < 1) return false;
+     if (productRange.location != kCFNotFound && productRange.length < 1) return false;
+-    
++
+     CFStringRef platform = (platformRange.location != kCFNotFound) ? CFStringCreateWithSubstring(kCFAllocatorSystemDefault, fullKey, platformRange) : NULL;
+     CFStringRef product = (productRange.location != kCFNotFound) ? CFStringCreateWithSubstring(kCFAllocatorSystemDefault, fullKey, productRange) : NULL;
+     Boolean result = _isValidPlatformAndProductSuffixPair(platform, product);
+-    
++
+     if (result) {
+         if (outBaseKey) {
+             *outBaseKey = CFStringCreateWithSubstring(kCFAllocatorSystemDefault, fullKey, baseKeyRange);
+         }
+@@ -360,24 +360,24 @@ static Boolean _isCurrentPlatformAndProduct(CFStringRef platform, CFStringRef pr
+     }
+     if (!product) {
+         return CFEqual(_CFGetPlatformName(), platform);
+     }
+-    
++
+     return CFEqual(_CFGetProductName(), product) && CFEqual(_CFGetPlatformName(), platform);
+ }
+ 
+ static CFArrayRef _CopySortedOverridesForBaseKey(CFStringRef keyName, CFDictionaryRef dict) {
+     CFMutableArrayRef overrides = CFArrayCreateMutable(kCFAllocatorSystemDefault, 0, &kCFTypeArrayCallBacks);
+     CFStringRef keyNameWithBoth = CFStringCreateWithFormat(kCFAllocatorSystemDefault, NULL, CFSTR("%@-%@~%@"), keyName, _CFGetPlatformName(), _CFGetProductName());
+     CFStringRef keyNameWithProduct = CFStringCreateWithFormat(kCFAllocatorSystemDefault, NULL, CFSTR("%@~%@"), keyName, _CFGetProductName());
+     CFStringRef keyNameWithPlatform = CFStringCreateWithFormat(kCFAllocatorSystemDefault, NULL, CFSTR("%@-%@"), keyName, _CFGetPlatformName());
+-    
++
+     CFIndex count = CFDictionaryGetCount(dict);
+-    
++
+     if (count > 0) {
+         CFTypeRef *keys = (CFTypeRef *)CFAllocatorAllocate(kCFAllocatorSystemDefault, 2 * count * sizeof(CFTypeRef), 0);
+         CFTypeRef *values = &(keys[count]);
+-        
++
+         CFDictionaryGetKeysAndValues(dict, keys, values);
+         for (CFIndex idx = 0; idx < count; idx++) {
+             if (CFEqual(keys[idx], keyNameWithBoth)) {
+                 CFArrayAppendValue(overrides, keys[idx]);
+@@ -401,46 +401,46 @@ static CFArrayRef _CopySortedOverridesForBaseKey(CFStringRef keyName, CFDictiona
+                 CFArrayAppendValue(overrides, keys[idx]);
+                 break;
+             }
+         }
+-        
++
+         CFAllocatorDeallocate(kCFAllocatorSystemDefault, keys);
+     }
+-    
++
+     CFRelease(keyNameWithProduct);
+     CFRelease(keyNameWithPlatform);
+     CFRelease(keyNameWithBoth);
+-    
++
+     return overrides;
+ }
+ 
+ CF_PRIVATE void _CFBundleInfoPlistProcessInfoDictionary(CFMutableDictionaryRef dict) {
+     // Defensive programming
+     if (!dict) return;
+-    
++
+     CFIndex count = CFDictionaryGetCount(dict);
+-    
++
+     if (count > 0) {
+         CFTypeRef *keys = (CFTypeRef *)CFAllocatorAllocate(kCFAllocatorSystemDefault, 2 * count * sizeof(CFTypeRef), 0);
+         CFTypeRef *values = &(keys[count]);
+         CFMutableArrayRef guard = CFArrayCreateMutable(kCFAllocatorSystemDefault, 0, &kCFTypeArrayCallBacks);
+-        
++
+         CFDictionaryGetKeysAndValues(dict, keys, values);
+         for (CFIndex idx = 0; idx < count; idx++) {
+             CFStringRef keyPlatformSuffix, keyProductSuffix, keyName;
+             if (_isOverrideKey((CFStringRef)keys[idx], &keyName, &keyPlatformSuffix, &keyProductSuffix)) {
+                 CFArrayRef keysForBaseKey = NULL;
+                 if (_isCurrentPlatformAndProduct(keyPlatformSuffix, keyProductSuffix) && !_isBlacklistedKey(keyName) && CFDictionaryContainsKey(dict, keys[idx])) {
+                     keysForBaseKey = _CopySortedOverridesForBaseKey(keyName, dict);
+                     CFIndex keysForBaseKeyCount = CFArrayGetCount(keysForBaseKey);
+-                    
++
+                     //make sure the other keys for this base key don't get released out from under us until we're done
+-                    CFArrayAppendValue(guard, keysForBaseKey); 
+-                    
++                    CFArrayAppendValue(guard, keysForBaseKey);
++
+                     //the winner for this base key will be sorted to the front, do the override with it
+                     CFTypeRef highestPriorityKey = CFArrayGetValueAtIndex(keysForBaseKey, 0);
+                     CFDictionarySetValue(dict, keyName, CFDictionaryGetValue(dict, highestPriorityKey));
+-                    
++
+                     //remove everything except the now-overridden key; this will cause them to fail the CFDictionaryContainsKey(dict, keys[idx]) check in the enclosing if() and not be reprocessed
+                     for (CFIndex presentKeysIdx = 0; presentKeysIdx < keysForBaseKeyCount; presentKeysIdx++) {
+                         CFStringRef currentKey = (CFStringRef)CFArrayGetValueAtIndex(keysForBaseKey, presentKeysIdx);
+                         if (!CFEqual(currentKey, keyName))
+@@ -448,17 +448,17 @@ CF_PRIVATE void _CFBundleInfoPlistProcessInfoDictionary(CFMutableDictionaryRef d
+                     }
+                 } else {
+                     CFDictionaryRemoveValue(dict, keys[idx]);
+                 }
+-                
+-                
++
++
+                 if (keyPlatformSuffix) CFRelease(keyPlatformSuffix);
+                 if (keyProductSuffix) CFRelease(keyProductSuffix);
+                 CFRelease(keyName);
+                 if (keysForBaseKey) CFRelease(keysForBaseKey);
+             }
+         }
+-        
++
+         CFAllocatorDeallocate(kCFAllocatorSystemDefault, keys);
+         CFRelease(guard);
+     }
+ }
+@@ -482,16 +482,16 @@ static UInt32 _CFVersionNumberFromString(CFStringRef versStr) {
+     UniChar *chars = NULL;
+     CFIndex len;
+     UInt32 theVers;
+     Boolean digitsDone = false;
+-    
++
+     if (!versStr) return 0;
+     len = CFStringGetLength(versStr);
+     if (len <= 0 || len > MAX_VERS_LEN) return 0;
+-    
++
+     CFStringGetCharacters(versStr, CFRangeMake(0, len), versChars);
+     chars = versChars;
+-    
++
+     // Get major version number.
+     major1 = major2 = 0;
+     if (_isDigit(*chars)) {
+         major2 = *chars - (UniChar)'0';
+@@ -523,12 +523,12 @@ static UInt32 _CFVersionNumberFromString(CFStringRef versStr) {
+         len--;
+     } else {
+         digitsDone = true;
+     }
+-    
++
+     // Now major1 and major2 contain first and second digit of the major version number as ints.
+     // Now either len is 0 or chars points at the first char beyond the first decimal point.
+-    
++
+     // Get the first minor version number.
+     if (len > 0 && !digitsDone) {
+         if (_isDigit(*chars)) {
+             minor1 = *chars - (UniChar)'0';
+@@ -545,12 +545,12 @@ static UInt32 _CFVersionNumberFromString(CFStringRef versStr) {
+         } else {
+             digitsDone = true;
+         }
+     }
+-    
++
+     // Now minor1 contains the first minor version number as an int.
+     // Now either len is 0 or chars points at the first char beyond the second decimal point.
+-    
++
+     // Get the second minor version number.
+     if (len > 0 && !digitsDone) {
+         if (_isDigit(*chars)) {
+             minor2 = *chars - (UniChar)'0';
+@@ -559,12 +559,12 @@ static UInt32 _CFVersionNumberFromString(CFStringRef versStr) {
+         } else {
+             digitsDone = true;
+         }
+     }
+-    
++
+     // Now minor2 contains the second minor version number as an int.
+     // Now either len is 0 or chars points at the build stage letter.
+-    
++
+     // Get the build stage letter.  We must find 'd', 'a', 'b', or 'f' next, if there is anything next.
+     if (len > 0) {
+         if (*chars == (UniChar)'d') {
+             stage = DEVELOPMENT_STAGE;
+@@ -579,12 +579,12 @@ static UInt32 _CFVersionNumberFromString(CFStringRef versStr) {
+         }
+         chars++;
+         len--;
+     }
+-    
++
+     // Now stage contains the release stage.
+     // Now either len is 0 or chars points at the build number.
+-    
++
+     // Get the first digit of the build number.
+     if (len > 0) {
+         if (_isDigit(*chars)) {
+             build = *chars - (UniChar)'0';
+@@ -615,20 +615,20 @@ static UInt32 _CFVersionNumberFromString(CFStringRef versStr) {
+         } else {
+             return 0;
+         }
+     }
+-    
++
+     // Range check the build number and make sure we exhausted the string.
+     if (build > 0xFF || len > 0) return 0;
+-    
++
+     // Build the number
+     theVers = major1 << 28;
+     theVers += major2 << 24;
+     theVers += minor1 << 20;
+     theVers += minor2 << 16;
+     theVers += stage << 8;
+     theVers += build;
+-    
++
+     return theVers;
+ }
+ 
+ #pragma mark -
+@@ -637,17 +637,17 @@ static UInt32 _CFVersionNumberFromString(CFStringRef versStr) {
+ // If infoPlistUrl is passed as non-null it will return retained as the out parameter; callers are responsible for releasing.
+ static CFDictionaryRef _CFBundleCopyInfoDictionaryInDirectoryWithVersion(CFAllocatorRef alloc, CFURLRef url, CFURLRef * infoPlistUrl, uint8_t version) {
+     // We only return NULL for a bad URL, otherwise we create a dummy dictionary
+     if (!url) return NULL;
+-    
++
+     CFDictionaryRef result = NULL;
+-    
++
+     // We're going to search for two files here - Info.plist and Info-macos.plist (platform specific). The platform-specific one takes precedence.
+     // First, construct the URL to the directory we'll search by using the passed in URL as a base
+     CFStringRef platformInfoURLFromBase = _CFBundlePlatformInfoURLFromBase0;
+     CFStringRef infoURLFromBase = _CFBundleInfoURLFromBase0;
+     CFURLRef directoryURL = NULL;
+-    
++
+     if (0 == version) {
+         directoryURL = CFURLCreateWithString(kCFAllocatorSystemDefault, _CFBundleResourcesURLFromBase0, url);
+         platformInfoURLFromBase = _CFBundlePlatformInfoURLFromBase0;
+         infoURLFromBase = _CFBundleInfoURLFromBase0;
+@@ -670,22 +670,22 @@ static CFDictionaryRef _CFBundleCopyInfoDictionaryInDirectoryWithVersion(CFAlloc
+             }
+             CFRelease(path);
+         }
+     }
+-    
++
+     CFURLRef absoluteURL;
+     if (directoryURL) {
+         absoluteURL = CFURLCopyAbsoluteURL(directoryURL);
+         CFStringRef directoryPath = CFURLCopyFileSystemPath(absoluteURL, PLATFORM_PATH_STYLE);
+         CFRelease(absoluteURL);
+-        
++
+         __block CFURLRef localInfoPlistURL = NULL;
+         __block CFURLRef platformInfoPlistURL = NULL;
+-        
++
+         if (directoryPath) {
+             CFIndex infoPlistLength = CFStringGetLength(_CFBundleInfoPlistName);
+             CFIndex platformInfoPlistLength = CFStringGetLength(_CFBundlePlatformInfoPlistName);
+-            
++
+             // Look inside this directory for the platform-specific and global Info.plist
+             // For compatability reasons, we support case-insensitive versions of Info.plist. That means that we must do a search of all the file names in the directory so we can compare. Otherwise, perhaps a couple of stats would be more efficient than the readdir.
+             _CFIterateDirectory(directoryPath, false, NULL, ^Boolean(CFStringRef fileName, CFStringRef fileNameWithPrefix, uint8_t fileType) {
+                 // Only do the platform check on platforms where the string is different than the normal one
+@@ -694,29 +694,29 @@ static CFDictionaryRef _CFBundleCopyInfoDictionaryInDirectoryWithVersion(CFAlloc
+                         // Make a URL out of this file
+                         platformInfoPlistURL = CFURLCreateWithString(kCFAllocatorSystemDefault, platformInfoURLFromBase, url);
+                     }
+                 }
+-                
++
+                 if (!localInfoPlistURL && CFStringGetLength(fileName) == infoPlistLength && CFStringCompareWithOptions(fileName, _CFBundleInfoPlistName, CFRangeMake(0, infoPlistLength), kCFCompareCaseInsensitive | kCFCompareAnchored) == kCFCompareEqualTo) {
+                     // Make a URL out of this file
+                     localInfoPlistURL = CFURLCreateWithString(kCFAllocatorSystemDefault, infoURLFromBase, url);
+                 }
+-                
++
+                 // If by some chance we have both URLs, just bail early (or just the localInfoPlistURL on platforms that have no platform-specific name)
+                 if (_CFBundlePlatformInfoPlistName != _CFBundleInfoPlistName) {
+                     if (localInfoPlistURL && platformInfoPlistURL) return false;
+                 } else {
+                     if (localInfoPlistURL) return false;
+                 }
+-                
++
+                 return true;
+             });
+-            
++
+             CFRelease(directoryPath);
+         }
+-        
++
+         CFRelease(directoryURL);
+-        
++
+         // Attempt to read in the data from the Info.plist we found - first the platform-specific one.
+         CFDataRef infoData = NULL;
+         CFURLRef finalInfoPlistURL = NULL;
+         if (platformInfoPlistURL) {
+@@ -725,17 +725,17 @@ static CFDictionaryRef _CFBundleCopyInfoDictionaryInDirectoryWithVersion(CFAlloc
+             CFURLCreateDataAndPropertiesFromResource(kCFAllocatorSystemDefault, platformInfoPlistURL, &infoData, NULL, NULL, NULL);
+ #pragma GCC diagnostic pop
+             if (infoData) finalInfoPlistURL = platformInfoPlistURL;
+         }
+-        
++
+         if (!infoData && localInfoPlistURL) {
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wdeprecated"
+             CFURLCreateDataAndPropertiesFromResource(kCFAllocatorSystemDefault, localInfoPlistURL, &infoData, NULL, NULL, NULL);
+ #pragma GCC diagnostic pop
+             if (infoData) finalInfoPlistURL = localInfoPlistURL;
+         }
+-        
++
+         if (infoData) {
+             CFErrorRef error = NULL;
+             result = (CFDictionaryRef)CFPropertyListCreateWithData(alloc, infoData, kCFPropertyListMutableContainers, NULL, &error);
+             if (result) {
+@@ -749,46 +749,46 @@ static CFDictionaryRef _CFBundleCopyInfoDictionaryInDirectoryWithVersion(CFAlloc
+                 CFIndex code = CFErrorGetCode(error);
+                  CFLog(kCFLogLevelError, CFSTR("There was an error parsing the Info.plist for the bundle at URL <%p>: %@ - %ld"), localInfoPlistURL, domain, code);
+                 CFRelease(error);
+             }
+-            
++
+             if (!result) {
+                 result = CFDictionaryCreateMutable(alloc, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+             }
+-            
++
+             CFRelease(infoData);
+         }
+-        
++
+         if (infoPlistUrl && finalInfoPlistURL) {
+             CFRetain(finalInfoPlistURL);
+             *infoPlistUrl = finalInfoPlistURL;
+         }
+-        
++
+         if (platformInfoPlistURL) CFRelease(platformInfoPlistURL);
+         if (localInfoPlistURL) CFRelease(localInfoPlistURL);
+     }
+-    
++
+     if (!result) {
+         result = CFDictionaryCreateMutable(alloc, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+     }
+-    
++
+     // process ~ipad, ~iphone, etc.
+     _CFBundleInfoPlistProcessInfoDictionary((CFMutableDictionaryRef)result);
+-    
++
+     return result;
+ }
+ 
+ CF_PRIVATE CFDictionaryRef _CFBundleCopyInfoDictionaryInDirectory(CFAllocatorRef alloc, CFURLRef url, uint8_t *version) {
+     CFDictionaryRef dict = NULL;
+     unsigned char buff[CFMaxPathSize];
+     uint8_t localVersion = 0;
+-    
++
+     if (CFURLGetFileSystemRepresentation(url, true, buff, CFMaxPathSize)) {
+         CFURLRef newURL = CFURLCreateFromFileSystemRepresentation(kCFAllocatorSystemDefault, buff, strlen((char *)buff), true);
+         if (!newURL) newURL = (CFURLRef)CFRetain(url);
+-        
++
+         localVersion = _CFBundleGetBundleVersionForURL(newURL);
+-        
++
+         dict = _CFBundleCopyInfoDictionaryInDirectoryWithVersion(alloc, newURL, NULL, localVersion);
+         CFRelease(newURL);
+     }
+     if (version) *version = localVersion;
+@@ -811,9 +811,9 @@ CF_EXPORT CFDictionaryRef CFBundleCopyInfoDictionaryForURL(CFURLRef url) {
+ static Boolean _CFBundleGetPackageInfoInDirectoryWithInfoDictionary(CFAllocatorRef alloc, CFURLRef url, CFDictionaryRef infoDict, UInt32 *packageType, UInt32 *packageCreator) {
+     Boolean retVal = false, hasType = false, hasCreator = false, releaseInfoDict = false;
+     CFURLRef tempURL;
+     CFDataRef pkgInfoData = NULL;
+-    
++
+     // Check for a "real" new bundle
+     tempURL = CFURLCreateWithString(kCFAllocatorSystemDefault, _CFBundlePkgInfoURLFromBase2, url);
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wdeprecated"
+@@ -836,13 +836,13 @@ static Boolean _CFBundleGetPackageInfoInDirectoryWithInfoDictionary(CFAllocatorR
+         CFURLCreateDataAndPropertiesFromResource(kCFAllocatorSystemDefault, tempURL, &pkgInfoData, NULL, NULL, NULL);
+ #pragma GCC diagnostic pop
+         CFRelease(tempURL);
+     }
+-    
++
+     // Now, either we have a pkgInfoData or not.  If not, then is it because this is a new bundle without one (do we allow this?), or is it dbecause it is an old bundle.
+     // If we allow new bundles to not have a PkgInfo (because they already have the same data in the Info.plist), then we have to go read the info plist which makes failure expensive.
+     // drd: So we assume that a new bundle _must_ have a PkgInfo if they have this data at all, otherwise we manufacture it from the extension.
+-    
++
+     if (pkgInfoData && CFDataGetLength(pkgInfoData) >= (int)(sizeof(UInt32) * 2)) {
+         UInt32 *pkgInfo = (UInt32 *)CFDataGetBytePtr(pkgInfoData);
+         if (packageType) *packageType = CFSwapInt32BigToHost(pkgInfo[0]);
+         if (packageCreator) *packageCreator = CFSwapInt32BigToHost(pkgInfo[1]);
+@@ -877,13 +877,13 @@ static Boolean _CFBundleGetPackageInfoInDirectoryWithInfoDictionary(CFAllocatorR
+                 // Detect "app", "debug", "profile", or "framework" extensions
+                 CFURLRef absoluteURL = CFURLCopyAbsoluteURL(url);
+                 CFStringRef urlStr = CFURLCopyFileSystemPath(absoluteURL, PLATFORM_PATH_STYLE);
+                 CFRelease(absoluteURL);
+-                
++
+                 if (urlStr) {
+                     UniChar buff[CFMaxPathSize];
+                     CFIndex strLen, startOfExtension;
+-                    
++
+                     strLen = CFStringGetLength(urlStr);
+                     if (strLen > CFMaxPathSize) strLen = CFMaxPathSize;
+                     CFStringGetCharacters(urlStr, CFRangeMake(0, strLen), buff);
+                     CFRelease(urlStr);
+@@ -946,24 +946,24 @@ static void _CFBundleInfoPlistFixupInfoDictionary(CFBundleRef bundle, CFMutableD
+     // Version number
+     CFTypeRef unknownVersionValue = CFDictionaryGetValue(infoDict, _kCFBundleNumericVersionKey);
+     CFNumberRef versNum;
+     UInt32 vers = 0;
+-    
++
+     if (!unknownVersionValue) unknownVersionValue = CFDictionaryGetValue(infoDict, kCFBundleVersionKey);
+     if (unknownVersionValue) {
+         if (CFGetTypeID(unknownVersionValue) == CFStringGetTypeID()) {
+             // Convert a string version number into a numeric one.
+             vers = _CFVersionNumberFromString((CFStringRef)unknownVersionValue);
+-            
++
+             versNum = CFNumberCreate(CFGetAllocator(bundle), kCFNumberSInt32Type, &vers);
+             CFDictionarySetValue(infoDict, _kCFBundleNumericVersionKey, versNum);
+             CFRelease(versNum);
+         } else if (CFGetTypeID(unknownVersionValue) == CFNumberGetTypeID()) {
+             // Nothing to do here
+         } else {
+             CFDictionaryRemoveValue((CFMutableDictionaryRef)infoDict, _kCFBundleNumericVersionKey);
+         }
+-    }    
++    }
+ }
+ 
+ CFDictionaryRef CFBundleGetInfoDictionary(CFBundleRef bundle) {
+     __CFLock(&bundle->_lock);
+@@ -978,9 +978,9 @@ CFDictionaryRef CFBundleGetInfoDictionary(CFBundleRef bundle) {
+         // Add or fixup any keys that will be expected later
+         if (bundle->_infoDict) _CFBundleInfoPlistFixupInfoDictionary(bundle, (CFMutableDictionaryRef)bundle->_infoDict);
+     }
+     __CFUnlock(&bundle->_lock);
+-    
++
+     return bundle->_infoDict;
+ }
+ 
+ CFDictionaryRef _CFBundleGetLocalInfoDictionary(CFBundleRef bundle) {
+@@ -989,18 +989,18 @@ CFDictionaryRef _CFBundleGetLocalInfoDictionary(CFBundleRef bundle) {
+ 
+ CFDictionaryRef CFBundleGetLocalInfoDictionary(CFBundleRef bundle) {
+     CFDictionaryRef localInfoDict = NULL;
+     __CFLock(&bundle->_lock);
+-    localInfoDict = bundle->_localInfoDict;    
++    localInfoDict = bundle->_localInfoDict;
+     if (!localInfoDict) {
+         // To avoid keeping the spin lock for too long, let go of it here while we create a new dictionary. We'll relock later to set the value. If it turns out that we have already created another local info dictionary in the meantime, then we'll take care of it then.
+         __CFUnlock(&bundle->_lock);
+         CFURLRef url = CFBundleCopyResourceURL(bundle, _CFBundleLocalInfoName, _CFBundleStringTableType, NULL);
+         if (url) {
+             CFDataRef data;
+             SInt32 errCode;
+             CFStringRef errStr = NULL;
+-            
++
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wdeprecated"
+             if (CFURLCreateDataAndPropertiesFromResource(kCFAllocatorSystemDefault, url, &data, NULL, NULL, &errCode)) {
+                 localInfoDict = (CFDictionaryRef)CFPropertyListCreateFromXMLData(kCFAllocatorSystemDefault, data, kCFPropertyListMutableContainers, &errStr);
+@@ -1061,9 +1061,9 @@ static void __addPlatformAndProductNamesToKeys(const void *value, void *context)
+     CFMutableSetRef newKeys = (CFMutableSetRef)context;
+     CFStringRef key = (CFStringRef)value;
+     CFStringRef firstPartOfKey = NULL;
+     CFStringRef restOfKey = NULL;
+-    
++
+     // Find the first ':'
+     CFRange range;
+     Boolean success = CFStringFindWithOptions(key, CFSTR(":"), CFRangeMake(0, CFStringGetLength(key)), 0, &range);
+     if (success) {
+@@ -1071,19 +1071,19 @@ static void __addPlatformAndProductNamesToKeys(const void *value, void *context)
+         restOfKey = CFStringCreateWithSubstring(kCFAllocatorSystemDefault, key, CFRangeMake(range.location + 1, CFStringGetLength(key) - range.location - 1));
+     } else {
+         firstPartOfKey = (CFStringRef)CFRetain(key);
+     }
+-    
++
+     // only apply product and platform to top-level key
+     CFStringRef newKeyWithPlatform = CFStringCreateWithFormat(kCFAllocatorSystemDefault, NULL, CFSTR("%@-%@%@%@"), firstPartOfKey, _CFGetPlatformName(), restOfKey ? CFSTR(":") : CFSTR(""), restOfKey ? restOfKey : CFSTR(""));
+     CFStringRef newKeyWithProduct = CFStringCreateWithFormat(kCFAllocatorSystemDefault, NULL, CFSTR("%@~%@%@%@"), firstPartOfKey, _CFGetProductName(), restOfKey ? CFSTR(":") : CFSTR(""), restOfKey ? restOfKey : CFSTR(""));
+     CFStringRef newKeyWithProductAndPlatform = CFStringCreateWithFormat(kCFAllocatorSystemDefault, NULL, CFSTR("%@-%@~%@%@%@"), firstPartOfKey, _CFGetPlatformName(), _CFGetProductName(), restOfKey ? CFSTR(":") : CFSTR(""), restOfKey ? restOfKey : CFSTR(""));
+-    
++
+     CFSetAddValue(newKeys, key);
+     CFSetAddValue(newKeys, newKeyWithPlatform);
+     CFSetAddValue(newKeys, newKeyWithProduct);
+     CFSetAddValue(newKeys, newKeyWithProductAndPlatform);
+-    
++
+     if (firstPartOfKey) CFRelease(firstPartOfKey);
+     if (restOfKey) CFRelease(restOfKey);
+     CFRelease(newKeyWithPlatform);
+     CFRelease(newKeyWithProduct);
+@@ -1095,17 +1095,17 @@ CF_PRIVATE Boolean _CFReadMappedFromFile(CFStringRef path, Boolean map, Boolean
+ 
+ // implementation of below functions - takes URL as parameter
+ static CFPropertyListRef _CFBundleCreateFilteredInfoPlistWithURL(CFURLRef infoPlistURL, CFSetRef keyPaths, _CFBundleFilteredPlistOptions options) {
+     CFPropertyListRef result = NULL;
+-    
++
+     if (!infoPlistURL) return CFDictionaryCreate(kCFAllocatorSystemDefault, NULL, NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+-    
++
+     CFURLRef absoluteURL = CFURLCopyAbsoluteURL(infoPlistURL);
+     CFStringRef filePath = CFURLCopyFileSystemPath(absoluteURL, PLATFORM_PATH_STYLE);
+     CFRelease(absoluteURL);
+-    
++
+     if (!filePath) return CFDictionaryCreate(kCFAllocatorSystemDefault, NULL, NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+-    
++
+     void *bytes = NULL;
+     CFIndex length = 0;
+ #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI
+     Boolean mapped = options & _CFBundleFilteredPlistMemoryMapped ? true : false;
+@@ -1114,16 +1114,16 @@ static CFPropertyListRef _CFBundleCreateFilteredInfoPlistWithURL(CFURLRef infoPl
+ #endif
+     Boolean success = _CFReadMappedFromFile(filePath, mapped, false, &bytes, &length, NULL);
+     CFRelease(filePath);
+     if (!success) return CFDictionaryCreate(kCFAllocatorSystemDefault, NULL, NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+-    
++
+     CFDataRef infoPlistData = CFDataCreateWithBytesNoCopy(kCFAllocatorSystemDefault, (const UInt8 *)bytes, length, kCFAllocatorNull);
+     // We need to include all possible variants of the platform/product combo as possible keys.
+     CFMutableSetRef newKeyPaths = CFSetCreateMutable(kCFAllocatorSystemDefault, CFSetGetCount(keyPaths), &kCFTypeSetCallBacks);
+     CFSetApplyFunction(keyPaths, __addPlatformAndProductNamesToKeys, newKeyPaths);
+-    
++
+     success = _CFPropertyListCreateFiltered(kCFAllocatorSystemDefault, infoPlistData, kCFPropertyListMutableContainers, newKeyPaths, &result, NULL);
+-    
++
+     if (!success || !result) {
+         result = CFDictionaryCreate(kCFAllocatorSystemDefault, NULL, NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+     } else if (CFDictionaryGetTypeID() == CFGetTypeID(result)) {
+         _CFBundleInfoPlistProcessInfoDictionary((CFMutableDictionaryRef)result);
+@@ -1131,9 +1131,9 @@ static CFPropertyListRef _CFBundleCreateFilteredInfoPlistWithURL(CFURLRef infoPl
+         CFRelease(result);
+         CFLog(kCFLogLevelError, CFSTR("A filtered Info.plist result was not a dictionary at URL %@ (for key paths %@)"), infoPlistURL, keyPaths);
+         result = CFDictionaryCreate(kCFAllocatorSystemDefault, NULL, NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+     }
+-    
++
+     CFRelease(newKeyPaths);
+     CFRelease(infoPlistData);
+     if (mapped) {
+ #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI
+@@ -1141,9 +1141,9 @@ static CFPropertyListRef _CFBundleCreateFilteredInfoPlistWithURL(CFURLRef infoPl
+ #endif
+     } else {
+         free(bytes);
+     }
+-    
++
+     return result;
+ }
+ 
+ // Returns a subset of the bundle's property list, only including the keyPaths in the CFSet. If the top level object is not a dictionary, you will get back an empty dictionary as the result. If the Info.plist does not exist or could not be parsed, you will get back an empty dictionary.
+diff --git a/CoreFoundation/PlugIn.subproj/CFBundle_Resources.c b/CoreFoundation/PlugIn.subproj/CFBundle_Resources.c
+index 5f66674..223413c 100755
+--- a/CoreFoundation/PlugIn.subproj/CFBundle_Resources.c
++++ b/CoreFoundation/PlugIn.subproj/CFBundle_Resources.c
+@@ -1,7 +1,7 @@
+ /*      CFBundle_Resources.c
+ 	Copyright (c) 1999-2017, Apple Inc. and the Swift project authors
+- 
++
+ 	Portions Copyright (c) 2014-2017, Apple Inc. and the Swift project authors
+ 	Licensed under Apache License v2.0 with Runtime Library Exception
+ 	See http://swift.org/LICENSE.txt for license information
+ 	See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
+@@ -26,9 +26,9 @@
+ #include <sys/types.h>
+ 
+ #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI || DEPLOYMENT_TARGET_LINUX
+ #include <unistd.h>
+-#if !TARGET_OS_ANDROID
++#if !TARGET_OS_ANDROID && !TARGET_OS_LINUX
+ #include <sys/sysctl.h>
+ #endif
+ #include <sys/stat.h>
+ #include <dirent.h>
+@@ -82,16 +82,16 @@ static Boolean _CFIsResourceCommon(char *path, Boolean *isDir) {
+ 
+ CF_PRIVATE Boolean _CFIsResourceAtURL(CFURLRef url, Boolean *isDir) {
+     char path[CFMaxPathSize];
+     if (!CFURLGetFileSystemRepresentation(url, true, (uint8_t *)path, CFMaxPathLength)) return false;
+-    
++
+     return _CFIsResourceCommon(path, isDir);
+ }
+ 
+ CF_PRIVATE Boolean _CFIsResourceAtPath(CFStringRef path, Boolean *isDir) {
+     char pathBuf[CFMaxPathSize];
+     if (!CFStringGetFileSystemRepresentation(path, pathBuf, CFMaxPathSize)) return false;
+-    
++
+     return _CFIsResourceCommon(pathBuf, isDir);
+ }
+ 
+ 
+@@ -141,11 +141,11 @@ CF_EXPORT CFArrayRef CFBundleCopyResourceURLsOfTypeForLocalization(CFBundleRef b
+ CF_EXPORT CFURLRef CFBundleCopyResourceURLInDirectory(CFURLRef bundleURL, CFStringRef resourceName, CFStringRef resourceType, CFStringRef subDirName) {
+     CFURLRef result = NULL;
+     unsigned char buff[CFMaxPathSize];
+     CFURLRef newURL = NULL;
+-    
++
+     if (!CFURLGetFileSystemRepresentation(bundleURL, true, buff, CFMaxPathSize)) return NULL;
+-    
++
+     newURL = CFURLCreateFromFileSystemRepresentation(kCFAllocatorSystemDefault, buff, strlen((char *)buff), true);
+     if (!newURL) newURL = (CFURLRef)CFRetain(bundleURL);
+     if (_CFBundleCouldBeBundle(newURL)) {
+         result = (CFURLRef) _CFBundleCopyFindResources(NULL, bundleURL, NULL, resourceName, resourceType, subDirName, NULL, false, false, NULL);
+@@ -157,11 +157,11 @@ CF_EXPORT CFURLRef CFBundleCopyResourceURLInDirectory(CFURLRef bundleURL, CFStri
+ CF_EXPORT CFArrayRef CFBundleCopyResourceURLsOfTypeInDirectory(CFURLRef bundleURL, CFStringRef resourceType, CFStringRef subDirName) {
+     CFArrayRef array = NULL;
+     unsigned char buff[CFMaxPathSize];
+     CFURLRef newURL = NULL;
+-    
++
+     if (!CFURLGetFileSystemRepresentation(bundleURL, true, buff, CFMaxPathSize)) return NULL;
+-    
++
+     newURL = CFURLCreateFromFileSystemRepresentation(kCFAllocatorSystemDefault, buff, strlen((char *)buff), true);
+     if (!newURL) newURL = (CFURLRef)CFRetain(bundleURL);
+     if (_CFBundleCouldBeBundle(newURL)) {
+         array = (CFArrayRef) _CFBundleCopyFindResources(NULL, bundleURL, NULL, NULL, resourceType, subDirName, NULL, true, false, NULL);
+@@ -191,13 +191,13 @@ CF_PRIVATE uint8_t _CFBundleGetBundleVersionForURL(CFURLRef url) {
+     // version 1:  obsolete "Support Files" bundles
+     // version 2:  modern "Contents" bundles
+     // version 3:  none of the above (see below)
+     // version 4:  not a bundle (for main bundle only)
+-    
++
+     CFURLRef absoluteURL = CFURLCopyAbsoluteURL(url);
+     CFStringRef directoryPath = CFURLCopyFileSystemPath(absoluteURL, PLATFORM_PATH_STYLE);
+     CFRelease(absoluteURL);
+-    
++
+     Boolean hasFrameworkSuffix = CFStringHasSuffix(CFURLGetString(url), CFSTR(".framework/"));
+ #if DEPLOYMENT_TARGET_WINDOWS
+     hasFrameworkSuffix = hasFrameworkSuffix || CFStringHasSuffix(CFURLGetString(url), CFSTR(".framework\\"));
+ #endif
+@@ -212,14 +212,14 @@ CF_PRIVATE uint8_t _CFBundleGetBundleVersionForURL(CFURLRef url) {
+     __block uint8_t localVersion = 3;
+     CFIndex resourcesDirectoryLength = CFStringGetLength(_CFBundleResourcesDirectoryName);
+     CFIndex contentsDirectoryLength = CFStringGetLength(_CFBundleSupportFilesDirectoryName2);
+     CFIndex supportFilesDirectoryLength = CFStringGetLength(_CFBundleSupportFilesDirectoryName1);
+-    
++
+     __block Boolean foundResources = false;
+     __block Boolean foundSupportFiles2 = false;
+     __block Boolean foundSupportFiles1 = false;
+     __block Boolean foundUnknown = false;
+-    
++
+     _CFIterateDirectory(directoryPath, false, NULL, ^Boolean (CFStringRef fileName, CFStringRef fileNameWithPrefix, uint8_t fileType) {
+         // We're looking for a few different names, and also some info on if it's a directory or not.
+         // We don't stop looking once we find one of the names. Otherwise we could run into the situation where we have both "Contents" and "Resources" in a framework, and we see Contents first but Resources is more important.
+         if (fileType == DT_DIR || fileType == DT_LNK) {
+@@ -236,9 +236,9 @@ CF_PRIVATE uint8_t _CFBundleGetBundleVersionForURL(CFURLRef url) {
+             foundUnknown = true;
+         }
+         return true;
+     });
+-    
++
+     // The order of these if statements is important - the Resources directory presence takes precedence over Contents, and so forth.
+     if (hasFrameworkSuffix) {
+         if (foundResources) {
+             localVersion = 0;
+@@ -271,9 +271,9 @@ CF_PRIVATE uint8_t _CFBundleGetBundleVersionForURL(CFURLRef url) {
+             else if (_CFBundleURLHasSubDir(url, _CFBundleSupportFilesURLFromBase1)) localVersion = 1;
+         }
+     }
+ #endif
+-    
++
+     CFRelease(directoryPath);
+     return localVersion;
+ }
+ 
+@@ -379,9 +379,9 @@ static _CFBundleFileVersion _CFBundleCheckFileProductAndPlatform(CFStringRef fil
+     _CFBundleFileVersion version;
+     Boolean foundprod, foundplat;
+     foundplat = foundprod = NO;
+     Boolean wrong = false;
+-    
++
+     if (CFStringFindWithOptions(file, CFSTR("~"), searchRange, 0, NULL)) {
+         if (CFStringGetLength(product) != 1) {
+             // todo: really, search the same range again?
+             if (CFStringFindWithOptions(file, product, searchRange, 0, NULL)) {
+@@ -391,18 +391,18 @@ static _CFBundleFileVersion _CFBundleCheckFileProductAndPlatform(CFStringRef fil
+         if (!foundprod) {
+             wrong = _CFBundleSupportedProductName(file, searchRange);
+         }
+     }
+-    
++
+     if (!wrong && CFStringFindWithOptions(file, CFSTR("-"), searchRange, 0, NULL)) {
+         if (CFStringFindWithOptions(file, platform, searchRange, 0, NULL)) {
+             foundplat = YES;
+         }
+         if (!foundplat) {
+             wrong = _CFBundleSupportedPlatformName(file, searchRange);
+         }
+     }
+-    
++
+     if (wrong) {
+         version = _CFBundleFileVersionUnmatched;
+     } else if (foundplat && foundprod) {
+         version = _CFBundleFileVersionWithProductWithPlatform;
+@@ -422,9 +422,9 @@ static _CFBundleFileVersion _CFBundleVersionForFileName(CFStringRef fileName, CF
+     Boolean foundPlatform = false;
+     CFIndex fileNameLen = CFStringGetLength(fileName);
+     CFRange productRange;
+     CFRange platformRange;
+-    
++
+     CFIndex dotLocation = fileNameLen;
+     for (CFIndex i = fileNameLen - 1; i > 0; i--) {
+         UniChar c = CFStringGetCharacterAtIndex(fileName, i);
+         if (c == '.') {
+@@ -449,9 +449,9 @@ static _CFBundleFileVersion _CFBundleVersionForFileName(CFStringRef fileName, CF
+             if (foundPlatform && outPlatformRange) *outPlatformRange = platformRange;
+             break;
+         }
+     }
+-    
++
+     _CFBundleFileVersion version;
+     if (foundPlatform && foundProduct) {
+         version = _CFBundleFileVersionWithProductWithPlatform;
+     } else if (foundPlatform) {
+@@ -466,9 +466,9 @@ static _CFBundleFileVersion _CFBundleVersionForFileName(CFStringRef fileName, CF
+ 
+ // Splits up a string into its various parts. Note that the out-types must be released by the caller if they exist.
+ static void _CFBundleSplitFileName(CFStringRef fileName, CFStringRef *noProductOrPlatform, CFStringRef *endType, CFStringRef *startType, CFStringRef expectedProduct, CFStringRef expectedPlatform, _CFBundleFileVersion *version) {
+     CFIndex fileNameLen = CFStringGetLength(fileName);
+-    
++
+     if (endType || startType) {
+         // Search for the type from the end (type defined as everything after the last '.')
+         // e.g., a file name like foo.jpg has a type of 'jpg'
+         Boolean foundDot = false;
+@@ -479,13 +479,13 @@ static void _CFBundleSplitFileName(CFStringRef fileName, CFStringRef *noProductO
+                 dotLocation = i - 1;
+                 break;
+             }
+         }
+-        
++
+         if (foundDot && dotLocation != fileNameLen - 1) {
+             if (endType) *endType = CFStringCreateWithSubstring(kCFAllocatorSystemDefault, fileName, CFRangeMake(dotLocation + 1, CFStringGetLength(fileName) - dotLocation - 1));
+         }
+-        
++
+         // Search for the type from the beginning (type defined as everything after the first '.')
+         // e.g., a file name like foo.jpg.gz has a type of 'jpg.gz'
+         if (startType) {
+             for (CFIndex i = 0; i < fileNameLen; i++) {
+@@ -498,27 +498,27 @@ static void _CFBundleSplitFileName(CFStringRef fileName, CFStringRef *noProductO
+                 }
+             }
+         }
+     }
+-    
++
+     CFRange productRange, platformRange;
+     *version = _CFBundleVersionForFileName(fileName, expectedProduct, expectedPlatform, &productRange, &platformRange);
+-    
++
+     Boolean foundPlatform = (*version == _CFBundleFileVersionNoProductWithPlatform || *version == _CFBundleFileVersionWithProductWithPlatform);
+     Boolean foundProduct = (*version == _CFBundleFileVersionWithProductNoPlatform || *version == _CFBundleFileVersionWithProductWithPlatform);
+     // Create a string that excludes both platform and product name
+     // e.g., foo-iphone~iphoneos.jpg -> foo.jpg
+     if (foundPlatform || foundProduct) {
+         CFMutableStringRef fileNameScratch = CFStringCreateMutableCopy(kCFAllocatorSystemDefault, 0, fileName);
+         CFIndex start, length = 0;
+-        
++
+         // Because the platform always comes first and is immediately followed by product if it exists, we'll use the platform start location as the start of our range to delete.
+         if (foundPlatform) {
+             start = platformRange.location;
+         } else {
+             start = productRange.location;
+         }
+-        
++
+         if (foundPlatform && foundProduct) {
+             length = platformRange.length + productRange.length;
+         } else if (foundPlatform) {
+             length = platformRange.length;
+@@ -526,16 +526,16 @@ static void _CFBundleSplitFileName(CFStringRef fileName, CFStringRef *noProductO
+             length = productRange.length;
+         }
+         CFStringDelete(fileNameScratch, CFRangeMake(start, length));
+         *noProductOrPlatform = (CFStringRef)fileNameScratch;
+-    }    
++    }
+ }
+ 
+ static Boolean _CFBundleReadDirectory(CFStringRef pathOfDir, CFStringRef subdirectory, CFMutableArrayRef allFiles, Boolean hasFileAdded, CFMutableDictionaryRef queryTable, CFMutableDictionaryRef typeDir, CFMutableDictionaryRef addedTypes, Boolean firstLproj, CFStringRef lprojName) {
+-    
++
+     CFStringRef product = _CFBundleGetProductNameSuffix();
+     CFStringRef platform = _CFBundleGetPlatformNameSuffix();
+-    
++
+     CFArrayRef stuffToPrefix = NULL;
+     if (lprojName && subdirectory) {
+         CFTypeRef thingsInTheArray[2] = {lprojName, subdirectory};
+         stuffToPrefix = CFArrayCreate(kCFAllocatorSystemDefault, thingsInTheArray, 2, &kCFTypeArrayCallBacks);
+@@ -543,28 +543,28 @@ static Boolean _CFBundleReadDirectory(CFStringRef pathOfDir, CFStringRef subdire
+         stuffToPrefix = CFArrayCreate(kCFAllocatorSystemDefault, (const void **)&lprojName, 1, &kCFTypeArrayCallBacks);
+     } else if (subdirectory) {
+         stuffToPrefix = CFArrayCreate(kCFAllocatorSystemDefault, (const void **)&subdirectory, 1, &kCFTypeArrayCallBacks);
+     }
+-    
++
+     // If this file is a directory, the path needs to include a trailing slash so we can later create the right kind of CFURL object
+     _CFIterateDirectory(pathOfDir, true, stuffToPrefix, ^Boolean(CFStringRef fileName, CFStringRef pathToFile, uint8_t fileType) {
+         CFStringRef startType = NULL, endType = NULL, noProductOrPlatform = NULL;
+         _CFBundleFileVersion fileVersion;
+         _CFBundleSplitFileName(fileName, &noProductOrPlatform, &endType, &startType, product, platform, &fileVersion);
+-        
++
+         // put it into all file array
+         if (!hasFileAdded) {
+             CFArrayAppendValue(allFiles, pathToFile);
+         }
+-        
++
+         if (startType) {
+             _CFBundleAddValueForType(startType, queryTable, typeDir, pathToFile, addedTypes, firstLproj);
+         }
+-        
++
+         if (endType) {
+             _CFBundleAddValueForType(endType, queryTable, typeDir, pathToFile, addedTypes, firstLproj);
+         }
+-                
++
+         if (fileVersion == _CFBundleFileVersionNoProductNoPlatform || fileVersion == _CFBundleFileVersionUnmatched) {
+             // No product/no platform, or unmatched files get added directly to the query table.
+             CFStringRef prevPath = (CFStringRef)CFDictionaryGetValue(queryTable, fileName);
+             if (!prevPath) {
+@@ -575,9 +575,9 @@ static Boolean _CFBundleReadDirectory(CFStringRef pathOfDir, CFStringRef subdire
+             CFStringRef prevPath = (CFStringRef)CFDictionaryGetValue(queryTable, fileName);
+             if (!prevPath) {
+                 CFDictionarySetValue(queryTable, fileName, pathToFile);
+             }
+-            
++
+             // Then we add the more specific name as well, replacing the existing one if this is a more specific version.
+             if (noProductOrPlatform) {
+                 // add the path of the key into the query table
+                 prevPath = (CFStringRef) CFDictionaryGetValue(queryTable, noProductOrPlatform);
+@@ -611,53 +611,53 @@ static Boolean _CFBundleReadDirectory(CFStringRef pathOfDir, CFStringRef subdire
+                     }
+                 }
+             }
+         }
+-        
++
+         if (startType) CFRelease(startType);
+         if (endType) CFRelease(endType);
+         if (noProductOrPlatform) CFRelease(noProductOrPlatform);
+-        
++
+         return true;
+     });
+-    
++
+     if (stuffToPrefix) CFRelease(stuffToPrefix);
+-    
++
+     return true;
+ }
+ 
+ 
+ static CFDictionaryRef _createQueryTableAtPath(CFStringRef inPath, CFArrayRef languages, CFStringRef resourcesDirectory, CFStringRef subdirectory)
+ {
+-    
++
+     CFMutableDictionaryRef queryTable = CFDictionaryCreateMutable(kCFAllocatorSystemDefault, 0, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+     CFMutableArrayRef allFiles = CFArrayCreateMutable(kCFAllocatorSystemDefault, 0, &kCFTypeArrayCallBacks);
+     CFMutableDictionaryRef typeDir = CFDictionaryCreateMutable(kCFAllocatorSystemDefault, 0, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+-    
++
+     CFMutableStringRef path = CFStringCreateMutableCopy(kCFAllocatorSystemDefault, 0, inPath);
+-    
++
+     if (resourcesDirectory) {
+         _CFAppendPathComponent2(path, resourcesDirectory);
+     }
+-    
++
+     // Record the length of the base path, so we can strip off the stuff we'll be appending later
+     CFIndex basePathLen = CFStringGetLength(path);
+-    
++
+     if (subdirectory) {
+         _CFAppendPathComponent2(path, subdirectory);
+     }
+     // read the content in sub dir and put them into query table
+     _CFBundleReadDirectory(path, subdirectory, allFiles, false, queryTable, typeDir, NULL, false, NULL);
+     CFStringDelete(path, CFRangeMake(basePathLen, CFStringGetLength(path) - basePathLen));    // Strip the string back to the base path
+-    
++
+     CFIndex numOfAllFiles = CFArrayGetCount(allFiles);
+-    
++
+     CFIndex numLprojs = languages ? CFArrayGetCount(languages) : 0;
+     CFMutableDictionaryRef addedTypes = CFDictionaryCreateMutable(kCFAllocatorSystemDefault, 0, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+-    
++
+     Boolean hasFileAdded = false;
+     Boolean firstLproj = true;
+-    
++
+     // First, search lproj for user's chosen language
+     if (numLprojs >= 1) {
+         CFStringRef lprojTarget = (CFStringRef)CFArrayGetValueAtIndex(languages, 0);
+         CFMutableStringRef lprojTargetWithLproj = CFStringCreateMutableCopy(kCFAllocatorSystemDefault, CFStringGetLength(lprojTarget) + 5, lprojTarget);
+@@ -669,28 +669,28 @@ static CFDictionaryRef _createQueryTableAtPath(CFStringRef inPath, CFArrayRef la
+         }
+         _CFBundleReadDirectory(path, subdirectory, allFiles, hasFileAdded, queryTable, typeDir, addedTypes, firstLproj, lprojTargetWithLproj);
+         CFRelease(lprojTargetWithLproj);
+         CFStringDelete(path, CFRangeMake(basePathLen, CFStringGetLength(path) - basePathLen));         // Strip the string back to the base path
+-        
++
+         if (!hasFileAdded && numOfAllFiles < CFArrayGetCount(allFiles)) {
+             hasFileAdded = true;
+         }
+         firstLproj = false;
+     }
+-    
++
+     // Next, search Base.lproj folder
+     _CFAppendPathComponent2(path, _CFBundleBaseDirectory);
+     _CFAppendPathExtension2(path, _CFBundleLprojExtension);
+     if (subdirectory) {
+         _CFAppendPathComponent2(path, subdirectory);
+     }
+     _CFBundleReadDirectory(path, subdirectory, allFiles, hasFileAdded, queryTable, typeDir, addedTypes, YES, _CFBundleBaseDirectoryWithLproj);
+     CFStringDelete(path, CFRangeMake(basePathLen, CFStringGetLength(path) - basePathLen));    // Strip the string back to the base path
+-    
++
+     if (!hasFileAdded && numOfAllFiles < CFArrayGetCount(allFiles)) {
+         hasFileAdded = true;
+     }
+-    
++
+     // Finally, search remaining languages (development language first)
+     if (numLprojs >= 2) {
+         // for each lproj we are interested in, read the content and put them into query table
+         for (CFIndex i = 1; i < CFArrayGetCount(languages); i++) {
+@@ -710,56 +710,56 @@ static CFDictionaryRef _createQueryTableAtPath(CFStringRef inPath, CFArrayRef la
+                 hasFileAdded = true;
+             }
+         }
+     }
+-    
++
+     CFRelease(addedTypes);
+     CFRelease(path);
+-    
++
+     // put the array of all files in sub dir to the query table
+     if (CFArrayGetCount(allFiles) > 0) {
+         CFDictionarySetValue(queryTable, _CFBundleAllFiles, allFiles);
+     }
+-    
++
+     CFRelease(allFiles);
+     CFRelease(typeDir);
+-    
++
+     return queryTable;
+-}   
++}
+ 
+ // caller need to release the table
+ static CFDictionaryRef _copyQueryTable(CFBundleRef bundle, CFURLRef bundleURL, CFArrayRef languages, CFStringRef resourcesDirectory, CFStringRef subdirectory)
+ {
+     CFDictionaryRef subTable = NULL;
+-    
++
+     if (bundle && !languages) {
+         languages = _CFBundleCopyLanguageSearchListInBundle(bundle);
+     } else if (languages) {
+         CFRetain(languages);
+     }
+-    
++
+     if (bundle) {
+         CFMutableStringRef argDirStr = NULL;
+         if (subdirectory) {
+             argDirStr = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, resourcesDirectory);
+             _CFAppendPathComponent2(argDirStr, subdirectory);
+         } else {
+             argDirStr = (CFMutableStringRef)CFRetain(resourcesDirectory);
+         }
+-        
++
+         __CFLock(&bundle->_queryLock);
+-        
++
+         // Check if the query table for the given sub dir has been created. The query table itself is initialized lazily.
+         if (!bundle->_queryTable) {
+             bundle->_queryTable = CFDictionaryCreateMutable(kCFAllocatorSystemDefault, 0, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+         } else {
+             subTable = (CFDictionaryRef) CFDictionaryGetValue(bundle->_queryTable, argDirStr);
+         }
+-        
++
+         if (!subTable) {
+             // create the query table for the given sub dir
+             subTable = _createQueryTableAtPath(bundle->_bundleBasePath, languages, resourcesDirectory, subdirectory);
+-            
++
+             CFDictionarySetValue(bundle->_queryTable, argDirStr, subTable);
+         } else {
+             CFRetain(subTable);
+         }
+@@ -771,11 +771,11 @@ static CFDictionaryRef _copyQueryTable(CFBundleRef bundle, CFURLRef bundleURL, C
+         CFRelease(url);
+         subTable = _createQueryTableAtPath(bundlePath, languages, resourcesDirectory, subdirectory);
+         CFRelease(bundlePath);
+     }
+-    
++
+     if (languages) CFRelease(languages);
+-    
++
+     // Callers assume return value is non-null
+     if (!subTable) subTable = CFDictionaryCreate(kCFAllocatorSystemDefault, NULL, NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+     return subTable;
+ }
+@@ -816,9 +816,9 @@ static void _CFBundleFindResourcesWithPredicate(CFMutableArrayRef interResult, C
+         if (keys) free(keys);
+         if (values) free(values);
+         return;
+     }
+-    
++
+     CFDictionaryGetKeysAndValues(queryTable, keys, values);
+     for (CFIndex i = 0; i < dictSize; i++) {
+         if (predicate((CFStringRef)keys[i], stop)) {
+             if (CFGetTypeID(values[i]) == CFStringGetTypeID()) {
+@@ -826,25 +826,25 @@ static void _CFBundleFindResourcesWithPredicate(CFMutableArrayRef interResult, C
+             } else {
+                 CFArrayAppendArray(interResult, (CFArrayRef)values[i], CFRangeMake(0, CFArrayGetCount((CFArrayRef)values[i])));
+             }
+         }
+-        
++
+         if (*stop) break;
+     }
+-    
++
+     free(keys);
+     free(values);
+ }
+ 
+ static CFTypeRef _copyResourceURLsFromBundle(CFBundleRef bundle, CFURLRef bundleURL, CFArrayRef bundleURLLanguages, CFStringRef resourcesDirectory, CFStringRef subDir, CFStringRef key, CFStringRef lproj, Boolean returnArray, Boolean localized, uint8_t bundleVersion, Boolean (^predicate)(CFStringRef filename, Boolean *stop))
+ {
+     Boolean stop = false; // for predicate
+     CFMutableArrayRef interResult = CFArrayCreateMutable(kCFAllocatorSystemDefault, 0, &kCFTypeArrayCallBacks);
+-    
++
+     // Be sure that subTable lives as long as value does
+     CFTypeRef value = NULL;
+     CFDictionaryRef subTable = NULL;
+-    
++
+     CFMutableStringRef path = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, resourcesDirectory);
+     if (1 == bundleVersion) {
+         CFIndex savedPathLength = CFStringGetLength(path);
+         // add the non-localized resource dir
+@@ -856,9 +856,9 @@ static CFTypeRef _copyResourceURLsFromBundle(CFBundleRef bundle, CFURLRef bundle
+             value = CFDictionaryGetValue(subTable, key);
+         }
+         CFStringDelete(path, CFRangeMake(savedPathLength, CFStringGetLength(path) - savedPathLength));    // Strip the string back to the base path
+     }
+-    
++
+     if (!value && !stop) {
+         if (subTable) CFRelease(subTable);
+         subTable = _copyQueryTable(bundle, bundleURL, bundleURLLanguages, path, subDir);
+         if (predicate) {
+@@ -867,31 +867,31 @@ static CFTypeRef _copyResourceURLsFromBundle(CFBundleRef bundle, CFURLRef bundle
+             // get the path or paths for the given key
+             value = CFDictionaryGetValue(subTable, key);
+         }
+     }
+-    
++
+     Boolean checkSubDir = subDir && CFStringGetLength(subDir) > 0;
+     Boolean checkLproj = lproj && CFStringGetLength(lproj) > 0;
+-    
++
+     // if localization is needed, we filter out the paths for the localization and put the valid ones in the interResult
+     if (localized && value) {
+-        
++
+         if (CFGetTypeID(value) == CFStringGetTypeID()){
+             // We had one result, but since we are going to do a search in a different localization, we will convert the one result into an array of results.
+             value = CFArrayCreate(kCFAllocatorSystemDefault, (const void **)&value, 1, &kCFTypeArrayCallBacks);
+         } else {
+             CFRetain(value);
+         }
+-        
++
+         CFRange resultRange, searchRange;
+         CFIndex pathValueLen;
+         CFIndex limit = returnArray ? CFArrayGetCount((CFArrayRef)value) : 1;
+         searchRange.location = 0;
+         for (CFIndex i = 0; i < limit; i++) {
+             CFStringRef pathValue = (CFStringRef) CFArrayGetValueAtIndex((CFArrayRef)value, i);
+             pathValueLen = CFStringGetLength(pathValue);
+             searchRange.length = pathValueLen;
+-            
++
+             // if we have subdir, we find the subdir and see if it is after the base path (bundle path + res dir)
+             Boolean searchForLocalization = false;
+             if (checkSubDir) {
+                 // Does the subDir appear in the path, and if so, is it not at the start of the string
+@@ -902,25 +902,25 @@ static CFTypeRef _copyResourceURLsFromBundle(CFBundleRef bundle, CFURLRef bundle
+                 if (CFStringFindWithOptions(pathValue, _CFBundleLprojExtensionWithDot, searchRange, 0, &resultRange) && resultRange.location + 7 < pathValueLen) {
+                     searchForLocalization = true;
+                 }
+             }
+-            
++
+             if (searchForLocalization) {
+                 if (!(lproj && CFStringGetLength(lproj) > 0)) {
+                     break;
+                 }
+-                
++
+                 if (!(CFStringFindWithOptions(pathValue, lproj, searchRange, kCFCompareAnchored, &resultRange) && CFStringFindWithOptions(pathValue, CFSTR("."), CFRangeMake(resultRange.location + resultRange.length, 1), 0, &resultRange))) {
+                     break;
+                 }
+                 checkLproj = false;
+             }
+-            
++
+             CFArrayAppendValue(interResult, pathValue);
+         }
+-        
++
+         CFRelease(value);
+-        
++
+         if (!returnArray && CFArrayGetCount(interResult) != 0) {
+             checkLproj = false;
+         }
+     } else if (value) {
+@@ -929,12 +929,12 @@ static CFTypeRef _copyResourceURLsFromBundle(CFBundleRef bundle, CFURLRef bundle
+         } else {
+             CFArrayAppendValue(interResult, value);
+         }
+     }
+-    
++
+     value = NULL;
+     CFRelease(subTable);
+-    
++
+     // we fetch the result for a given lproj and join them with the nonlocalized result fetched above
+     if (checkLproj) {
+         CFMutableStringRef lprojSubdirName = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, lproj);
+         _CFAppendPathExtension2(lprojSubdirName, _CFBundleLprojExtension);
+@@ -943,20 +943,20 @@ static CFTypeRef _copyResourceURLsFromBundle(CFBundleRef bundle, CFURLRef bundle
+         }
+         subTable = _copyQueryTable(bundle, bundleURL, bundleURLLanguages, path, lprojSubdirName);
+         CFRelease(lprojSubdirName);
+         value = CFDictionaryGetValue(subTable, key);
+-        
++
+         if (value) {
+             if (CFGetTypeID(value) == CFStringGetTypeID()) {
+                 CFArrayAppendValue(interResult, value);
+             } else {
+                 CFArrayAppendArray(interResult, (CFArrayRef)value, CFRangeMake(0, CFArrayGetCount((CFArrayRef)value)));
+             }
+         }
+-        
++
+         CFRelease(subTable);
+     }
+-    
++
+     // after getting paths, we create urls from the paths
+     CFTypeRef result = NULL;
+     if (CFArrayGetCount(interResult) > 0) {
+         UniChar slash = _CFGetSlash();
+@@ -969,22 +969,22 @@ static CFTypeRef _copyResourceURLsFromBundle(CFBundleRef bundle, CFURLRef bundle
+             urlStr = CFStringCreateMutableCopy(kCFAllocatorSystemDefault, 0, bundlePath);
+             CFRelease(url);
+             CFRelease(bundlePath);
+         }
+-        
++
+         if (resourcesDirectory && CFStringGetLength(resourcesDirectory)) {
+             _CFAppendPathComponent2(urlStr, resourcesDirectory);
+         }
+ 
+         _CFAppendTrailingPathSlash2(urlStr);
+-        
++
+         if (!returnArray) {
+             Boolean isOnlyTypeOrAllFiles = CFStringHasPrefix(key, _CFBundleTypeIndicator);
+             isOnlyTypeOrAllFiles |= CFStringHasPrefix(key, _CFBundleAllFiles);
+-            
++
+             // Only one result was requested. Just take the first one (index 0).
+             CFStringRef resultPath = (CFStringRef)CFArrayGetValueAtIndex((CFArrayRef)interResult, 0);
+-            
++
+             if (!isOnlyTypeOrAllFiles) {
+                 CFStringAppend(urlStr, resultPath);
+                 if (CFStringGetCharacterAtIndex(resultPath, CFStringGetLength(resultPath)-1) == slash) {
+                     result = (CFURLRef)CFURLCreateWithFileSystemPath(kCFAllocatorSystemDefault, urlStr, PLATFORM_PATH_STYLE, true);
+@@ -1078,28 +1078,28 @@ CF_EXPORT CFTypeRef _CFBundleCopyFindResources(CFBundleRef bundle, CFURLRef bund
+         if (slashLocation > 0) {
+             // do not include the /
+             subPathFromResourceName = CFStringCreateWithSubstring(kCFAllocatorSystemDefault, resourceName, CFRangeMake(0, slashLocation));
+         }
+-        
++
+         if (slashLocation > 0 && CFStringGetLength(realResourceName) == 0 && slashLocation == CFStringGetLength(resourceName) - 1) {
+             // Did we have a name with just a single / at the end? Taking the lastPathComponent will end up with an empty resource name, which is probably not what was expected.
+             // Reset the name to be just the directory name.
+             CFRelease(realResourceName);
+             realResourceName = CFStringCreateCopy(kCFAllocatorSystemDefault, subPathFromResourceName);
+         }
+-        
++
+         // Normalize the resource name by converting it to file system representation. Otherwise when we look for the key in our tables, it will not match.
+         // TODO: remove this in some way to avoid the malloc?
+         char buff[CFMaxPathSize];
+         if (CFStringGetFileSystemRepresentation(realResourceName, buff, CFMaxPathSize)) {
+             CFRelease(realResourceName);
+             realResourceName = CFStringCreateWithFileSystemRepresentation(kCFAllocatorSystemDefault, buff);
+         }
+     }
+-        
++
+     CFMutableStringRef key = NULL;
+     const static UniChar extensionSep = '.';
+-    
++
+     if (realResourceName && CFStringGetLength(realResourceName) > 0 && resourceType && CFStringGetLength(resourceType) > 0) {
+         // Testing shows that using a mutable string here is significantly faster than using the format functions.
+         key = CFStringCreateMutableCopy(kCFAllocatorSystemDefault, 0, realResourceName);
+         // Don't re-append a . if the resource name already has one
+@@ -1114,14 +1114,14 @@ CF_EXPORT CFTypeRef _CFBundleCopyFindResources(CFBundleRef bundle, CFURLRef bund
+         CFStringAppend(key, resourceType);
+     } else {
+         key = (CFMutableStringRef)CFRetain(_CFBundleAllFiles);
+     }
+-    
++
+     CFStringRef realSubdirectory = NULL;
+-    
++
+     bool hasSubPath = subPath && CFStringGetLength(subPath);
+     bool hasSubPathFromResourceName = subPathFromResourceName && CFStringGetLength(subPathFromResourceName);
+-    
++
+     if (hasSubPath && !hasSubPathFromResourceName) {
+         realSubdirectory = (CFStringRef)CFRetain(subPath);
+     } else if (!hasSubPath && hasSubPathFromResourceName) {
+         realSubdirectory = (CFStringRef)CFRetain(subPathFromResourceName);
+@@ -1129,20 +1129,20 @@ CF_EXPORT CFTypeRef _CFBundleCopyFindResources(CFBundleRef bundle, CFURLRef bund
+         // Multiple sub paths - we'll have to concatenate
+         realSubdirectory = CFStringCreateMutableCopy(kCFAllocatorSystemDefault, 0, subPath);
+         _CFAppendPathComponent2((CFMutableStringRef)realSubdirectory, subPathFromResourceName);
+     }
+-    
++
+     uint8_t bundleVersion = bundle ? _CFBundleLayoutVersion(bundle) : 0;
+     CFArrayRef bundleURLLanguages = NULL;
+     if (bundleURL) {
+         bundleURLLanguages = _CFBundleCopyLanguageSearchListInDirectory(bundleURL, &bundleVersion);
+     }
+-    
++
+     CFStringRef resDir = _CFBundleGetResourceDirForVersion(bundleVersion);
+-    
++
+     // if returnArray is true then this function will always return a CFArrayRef, even if it's empty
+     returnValue = _copyResourceURLsFromBundle(bundle, bundleURL, bundleURLLanguages, resDir, realSubdirectory, key, lproj, returnArray, localized, bundleVersion, predicate);
+-    
++
+     if ((!returnValue || (CFGetTypeID(returnValue) == CFArrayGetTypeID() && CFArrayGetCount((CFArrayRef)returnValue) == 0)) && (0 == bundleVersion || 2 == bundleVersion)) {
+         CFStringRef bundlePath = NULL;
+         if (bundle) {
+             bundlePath = bundle->_bundleBasePath;
+@@ -1172,9 +1172,9 @@ CF_EXPORT CFTypeRef _CFBundleCopyFindResources(CFBundleRef bundle, CFURLRef bund
+             returnValue = _copyResourceURLsFromBundle(bundle, bundleURL, bundleURLLanguages, resDir, realSubdirectory, key, lproj, returnArray, localized, bundleVersion, predicate);
+         }
+         CFRelease(bundlePath);
+     }
+-    
++
+     // On-demand resource lookup
+     // Each bundle can have a list of other CFBundleRef objects that it will do resource lookup in. That means this function is invoked recursively. It should really only be the case that there is one level of recursion, but we do nothing to enforce that.
+     // We lock around the entire lookup.
+     if (bundle) {
+@@ -1188,9 +1188,9 @@ CF_EXPORT CFTypeRef _CFBundleCopyFindResources(CFBundleRef bundle, CFURLRef bund
+                 keys = malloc(count * sizeof(CFTypeRef));
+                 values = malloc(count * sizeof(CFTypeRef));
+                 CFDictionaryGetKeysAndValues(bundle->_additionalResourceBundles, keys, values);
+                 CFMutableArrayRef combinedResultFromOtherBundles = NULL;
+-                
++
+                 for (CFIndex i = 0; i < count; i++) {
+                     CFTypeRef returnValueFromOtherBundle = _CFBundleCopyFindResources((CFBundleRef)(values[i]), NULL, NULL, resourceName, resourceType, subPath, lproj, returnArray, localized, predicate);
+                     if (returnValueFromOtherBundle) {
+                         if (returnArray) {
+@@ -1198,9 +1198,9 @@ CF_EXPORT CFTypeRef _CFBundleCopyFindResources(CFBundleRef bundle, CFURLRef bund
+                             if (!combinedResultFromOtherBundles) {
+                                 // Create the new result by copying returnValue
+                                 combinedResultFromOtherBundles = CFArrayCreateMutableCopy(kCFAllocatorSystemDefault, 0, returnValue);
+                             }
+-                            
++
+                             CFArrayAppendArray(combinedResultFromOtherBundles, returnValueFromOtherBundle, CFRangeMake(0, CFArrayGetCount(returnValueFromOtherBundle)));
+                             CFRelease(returnValueFromOtherBundle);
+                         } else {
+                             // Set our return value and break out of loop - we only need one result. combinedResultFromOtherBundles should not be touched at this point.
+@@ -1209,43 +1209,43 @@ CF_EXPORT CFTypeRef _CFBundleCopyFindResources(CFBundleRef bundle, CFURLRef bund
+                             break;
+                         }
+                     }
+                 }
+-                
++
+                 // If we were building up a newResult array, replace the returnValue with it
+                 if (combinedResultFromOtherBundles) {
+                     if (returnValue) { CFRelease(returnValue); }
+                     returnValue = combinedResultFromOtherBundles;
+                 }
+-                
++
+                 free(keys);
+                 free(values);
+             }
+         }
+         __CFUnlock(&bundle->_additionalResourceLock);
+     }
+-    
++
+     if (realResourceName) CFRelease(realResourceName);
+     if (realSubdirectory) CFRelease(realSubdirectory);
+     if (subPathFromResourceName) CFRelease(subPathFromResourceName);
+     if (bundleURLLanguages) CFRelease(bundleURLLanguages);
+     CFRelease(key);
+-    
+-    
++
++
+     return returnValue;
+ }
+ 
+ // for foundation use only!
+ // Note: content must be on disk and pinned before invoking this method
+ CF_EXPORT Boolean _CFBundleAddResourceURL(CFBundleRef bundle, CFURLRef url) {
+     CFBundleRef resourceBundle = CFBundleCreate(kCFAllocatorSystemDefault, url);
+     if (!resourceBundle) return false;
+-    
++
+     if (resourceBundle == bundle) {
+         // this shouldn't happen
+         HALT;
+     }
+-    
++
+     __CFLock(&bundle->_additionalResourceLock);
+     if (!bundle->_additionalResourceBundles) {
+         bundle->_additionalResourceBundles = CFDictionaryCreateMutable(kCFAllocatorSystemDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+     }

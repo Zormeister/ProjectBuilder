@@ -3,6 +3,7 @@
 #ifndef __PROJECTBUILDER_PBARCHITECTURE__
 #define __PROJECTBUILDER_PBARCHITECTURE__
 
+#include <CoreFoundation/CFBase.h>
 #include <ProjectBuilder/PBBase.h>
 
 CF_EXTERN_C_BEGIN
@@ -15,7 +16,7 @@ PB_DECLARE_CLASS(PBArchitecture);
 typedef CF_ENUM(UInt32, PBArchitectureCPUType) {
     kPBArchitectureCPUTypeX86       = 0x7,
     kPBArchitectureCPUTypeX86_64    = 0x1000007,
-    
+
     kPBArchitectureCPUTypeARM       = 12,
     kPBArchitectureCPUTypeARM64     = 0x100000C,
     kPBArchitectureCPUTypeARM64_32  = 0x200000C,
@@ -28,13 +29,13 @@ typedef CF_ENUM(UInt32, PBArchitectureCPUType) {
 typedef CF_ENUM(UInt32, PBArchitectureCPUSubType) {
     kPBArchitectureX86_64SubTypeAll       = 0x3,
     kPBArchitectureX86_64SubTypeHaswell   = 0x8,
-    
+
     kPBArchitectureARMSubTypeV6           = 0x6,
     kPBArchitectureARMSubTypeV7           = 0x9,
     kPBArchitectureARMSubTypeV7F          = 0xA,
     kPBArchitectureARMSubTypeV7S          = 0xB,
     kPBArchitectureARMSubTypeV7K          = 0xC,
-    
+
     kPBArchitectureARM64SubTypeAll        = 0x0,
     kPBArchitectureARM64SubTypeV8         = 0x1,
     kPBArchitectureARM64SubTypeARM64E     = 0x2,
@@ -52,12 +53,19 @@ PBArchitectureRef PBArchitectureGetFromHost(void);
 //
 PBArchitectureRef PBArchitectureGetFromString(CFStringRef string);
 
+CFStringRef PBArchitectureGetName(PBArchitectureRef arch);
+
+PBArchitectureCPUType PBArchitectureGetCPUType(PBArchitectureRef arch);
+
+PBArchitectureCPUSubType PBArchitectureGetCPUSubType(PBArchitectureRef arch);
+
 //
 // This list consists of architectures native to Xcode.
 //
 const PBArchitectureRef kPBArchitectureARM64;
 const PBArchitectureRef kPBArchitectureARM64E;
 
+const PBArchitectureRef kPBArchitectureARMV6;
 const PBArchitectureRef kPBArchitectureARMV7;
 const PBArchitectureRef kPBArchitectureARMV7S;
 const PBArchitectureRef kPBArchitectureARMV7K;

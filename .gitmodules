@@ -1,3 +1,6 @@
-[submodule "External/CarbonHeaders"]
-	path = External/CarbonHeaders
-	url = https://github.com/Zormeister/CarbonHeaders
+[submodule "ThirdParty/CarbonHeaders"]
+	path = ThirdParty/CarbonHeaders
+	url = https://github.com/samuelfzormeister/CarbonHeaders
+[submodule "ThirdParty/CoreFoundation"]
+	path = ThirdParty/CoreFoundation
+	url = https://github.com/samuelfzormeister/CoreFoundation.git

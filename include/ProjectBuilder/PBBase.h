@@ -17,4 +17,12 @@
 
 #define PB_DECLARE_CLASS(class) typedef struct __##class * class##Ref
 
+CF_INLINE void PBCrashWithMessage(const char *msg)
+{
+    fprintf(stderr, "%s", msg);
+    abort();
+}
+
+#define PB_BUG_CRASH(...) PBCrashWithMessage("BUG IN ProjectBuilder: " __VA_ARGS__)
+
 #endif /* __PROJECTBUILDER_PBBASE__ */
